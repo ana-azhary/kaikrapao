@@ -356,1278 +356,1309 @@
 <footer class="text-center text-gray-400 text-xs py-6 border-t mt-8">&copy; 2025 Luggage Weight Sharing Platform</footer>
 
 <script>
-    // ============================================================
-    // 1. I18N — ไทย / มาเลย์ (สมบูรณ์)
-    // ============================================================
-    const LANG = {
-      th: {
-        appTitle: 'แบ่งปันน้ำหนักกระเป๋า',
-        login: 'เข้าสู่ระบบ',
-        logout: 'ออกจากระบบ',
-        search: 'ค้นหา',
-        post: 'ลงประกาศ',
-        tabFeed: 'ประกาศ',
-        tabProfile: 'โปรไฟล์',
-        tabSubscribe: 'แจ้งเตือน',
-        tabDashboard: 'แดชบอร์ด',
-        tabAdmin: 'Admin',
-        noReviews: 'ยังไม่มีรีวิว',
-        noPosts: 'ไม่มีประกาศ',
-        contactSeller: 'ติดต่อผู้ขาย',
-        viewDetails: 'ดูรายละเอียด',
-        editProfile: 'แก้ไขโปรไฟล์',
-        updateProfile: 'อัปเดตโปรไฟล์',
-        fromLabel: 'ต้นทาง',
-        toLabel: 'ปลายทาง',
-        dateLabel: 'วันที่เดินทาง',
-        priceRangeLabel: 'ช่วงราคา (ต่อ kg)',
-        weightRangeLabel: 'ช่วงน้ำหนัก (kg)',
-        sortLabel: 'เรียงลำดับ:',
-        sortDate: 'วันที่ใกล้สุด',
-        sortPriceAsc: 'ราคาต่ำ→สูง',
-        sortPriceDesc: 'ราคาสูง→ต่ำ',
-        sortTrust: 'ความน่าเชื่อถือ',
-        thSeller: 'ผู้ขาย',
-        thRoute: 'เส้นทาง',
-        thDate: 'วันที่',
-        thType: 'ประเภท',
-        thWeight: 'น้ำหนัก',
-        thPrice: 'ราคา',
-        thStatus: 'สถานะ',
-        thBadges: 'Badges',
-        thActions: 'ดำเนินการ',
-        currencyLabels: { THB: 'บาท', MYR: 'ริงกิต', IDR: 'รูปี', EGP: 'ปอนด์อียิปต์' },
-        countryNames: { th: 'ไทย', my: 'มาเลเซีย', id: 'อินโดนีเซีย', eg: 'อียิปต์', sa: 'ซาอุดีอาระเบีย', ae: 'ดูไบ', tr: 'ตุรกี', sg: 'สิงคโปร์', bn: 'บรูไน' },
-        chartPlaceholder: 'กราฟจะแสดงเมื่อมีข้อมูลเพียงพอ',
-        dashboardTitle: 'แดชบอร์ดส่วนตัว',
-        dashTotalPosts: 'โพสต์ทั้งหมด',
-        dashActivePosts: 'โพสต์ที่ใช้งาน',
-        dashTotalViews: 'ยอดเข้าชม',
-        dashTotalClicks: 'ยอดคลิกติดต่อ',
-        marketPriceChart: 'กราฟราคาตลาด (ต่อ kg)',
-        avgPrice: 'ราคาเฉลี่ย:',
-        minPrice: 'ต่ำสุด:',
-        maxPrice: 'สูงสุด:',
-        routeCount: 'เส้นทางยอดนิยม:',
-        adminTitle: 'แผงควบคุม Admin',
-        adminTotalPosts: 'โพสต์ทั้งหมด',
-        adminActivePosts: 'โพสต์ที่ใช้งาน',
-        adminTotalUsers: 'ผู้ใช้ทั้งหมด',
-        adminAvgRating: 'คะแนนเฉลี่ย',
-        adminPinTitle: 'จัดการปักหมุด (Sponsor)',
-        adminHideTitle: 'ซ่อน/แสดงโพสต์',
-        adminReportsTitle: 'รายงานปัญหา',
-        modalPostTitle: 'ลงประกาศขายพื้นที่',
-        editPostTitle: 'แก้ไขประกาศ',
-        updatePost: 'อัปเดตประกาศ',
-        publishBtn: 'เผยแพร่',
-        safetyTitle: '⚠️ คำเตือนความปลอดภัย',
-        safety1: 'โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน',
-        safety2: 'เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย',
-        safety3: 'กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ',
-        safetyConfirm: 'ฉันเข้าใจและยอมรับ',
-        baggageTypeLabel: 'ประเภทกระเป๋า',
-        meetingPointLabel: 'จุดนัดพบในสนามบิน',
-        tieredPriceLabel: 'ราคาต่อกิโลแบบขั้นบันได',
-        weightLabel: 'น้ำหนัก (kg)',
-        currencyLabel: 'สกุลเงิน',
-        calcPrice: 'คำนวณราคา',
-        ratingLabel: 'คะแนน',
-        postsLabel: 'โพสต์',
-        salesLabel: 'ขายสำเร็จ',
-        viewsLabel: 'ผู้เข้าชม',
-        clicksLabel: 'คลิกติดต่อ',
-        conversionLabel: 'อัตราขาย',
-        bookmarksLabel: 'บันทึกแล้ว',
-        reviewTitle: 'รีวิวจากผู้ซื้อ',
-        historyTitle: 'ประวัติธุรกรรม',
-        subTitle: 'สมัครรับแจ้งเตือน',
-        subDesc: 'รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ',
-        subBtn: 'สมัครรับแจ้งเตือน',
-        unsubBtn: 'ยกเลิกการรับแจ้งเตือน',
-        postListTitle: 'รายการประกาศ',
-        changeNameOnce: 'เปลี่ยนชื่อ (ครั้งเดียว)',
-        rateSeller: 'ให้คะแนนผู้ขาย',
-        submitReview: 'ส่งรีวิว',
-        edit: 'แก้ไข',
-        markSold: 'ขายสำเร็จ',
-        statusActive: 'ใช้งาน',
-        statusSold: 'ขายแล้ว',
-        statusExpired: 'หมดอายุ',
-        statusHidden: 'ซ่อนอยู่',
-        noTransactions: 'ไม่มีประวัติธุรกรรม',
-        editPost: 'แก้ไขประกาศ'
-      },
-      ms: {
-        appTitle: 'Kongsi Berat Bagasi',
-        login: 'Log Masuk',
-        logout: 'Log Keluar',
-        search: 'Cari',
-        post: 'Jual Bagasi',
-        tabFeed: 'Iklan',
-        tabProfile: 'Profil',
-        tabSubscribe: 'Notifikasi',
-        tabDashboard: 'Dashboard',
-        tabAdmin: 'Admin',
-        noReviews: 'Tiada ulasan',
-        noPosts: 'Tiada iklan',
-        contactSeller: 'Hubungi Penjual',
-        viewDetails: 'Lihat Butiran',
-        editProfile: 'Edit Profil',
-        updateProfile: 'Kemas Kini Profil',
-        fromLabel: 'Dari',
-        toLabel: 'Ke',
-        dateLabel: 'Tarikh Penerbangan',
-        priceRangeLabel: 'Julat Harga (per kg)',
-        weightRangeLabel: 'Julat Berat (kg)',
-        sortLabel: 'Susun:',
-        sortDate: 'Tarikh terdekat',
-        sortPriceAsc: 'Harga rendah→tinggi',
-        sortPriceDesc: 'Harga tinggi→rendah',
-        sortTrust: 'Kebolehpercayaan',
-        thSeller: 'Penjual',
-        thRoute: 'Laluan',
-        thDate: 'Tarikh',
-        thType: 'Jenis',
-        thWeight: 'Berat',
-        thPrice: 'Harga',
-        thStatus: 'Status',
-        thBadges: 'Lencana',
-        thActions: 'Tindakan',
-        currencyLabels: { THB: 'Baht', MYR: 'Ringgit', IDR: 'Rupiah', EGP: 'Paun Mesir' },
-        countryNames: { th: 'Thailand', my: 'Malaysia', id: 'Indonesia', eg: 'Mesir', sa: 'Arab Saudi', ae: 'Dubai', tr: 'Turki', sg: 'Singapura', bn: 'Brunei' },
-        chartPlaceholder: 'Graf akan dipaparkan apabila data mencukupi',
-        dashboardTitle: 'Dashboard Peribadi',
-        dashTotalPosts: 'Jumlah Iklan',
-        dashActivePosts: 'Iklan Aktif',
-        dashTotalViews: 'Jumlah Paparan',
-        dashTotalClicks: 'Jumlah Klik',
-        marketPriceChart: 'Graf Harga Pasaran (per kg)',
-        avgPrice: 'Harga purata:',
-        minPrice: 'Terendah:',
-        maxPrice: 'Tertinggi:',
-        routeCount: 'Laluan popular:',
-        adminTitle: 'Panel Admin',
-        adminTotalPosts: 'Jumlah Iklan',
-        adminActivePosts: 'Iklan Aktif',
-        adminTotalUsers: 'Jumlah Pengguna',
-        adminAvgRating: 'Purata Rating',
-        adminPinTitle: 'Urus Pin (Sponsor)',
-        adminHideTitle: 'Sembunyi/Tunjuk Iklan',
-        adminReportsTitle: 'Laporan Masalah',
-        modalPostTitle: 'Jual Ruang Bagasi',
-        editPostTitle: 'Edit Iklan',
-        updatePost: 'Kemas Kini Iklan',
-        publishBtn: 'Terbitkan',
-        safetyTitle: '⚠️ Amaran Keselamatan',
-        safety1: 'Sila semak senarai barang larangan mengikut peraturan syarikat penerbangan',
-        safety2: 'Laman web ini hanya sebagai perantara, kami tidak bertanggungjawab ke atas urus niaga',
-        safety3: 'Sila sahkan maklumat penjual dan barang sebelum membuat keputusan',
-        safetyConfirm: 'Saya faham dan terima',
-        baggageTypeLabel: 'Jenis Bagasi',
-        meetingPointLabel: 'Tempat Pertemuan di Lapangan Terbang',
-        tieredPriceLabel: 'Harga Berperingkat per kg',
-        weightLabel: 'Berat (kg)',
-        currencyLabel: 'Mata Wang',
-        calcPrice: 'Kira Harga',
-        ratingLabel: 'Rating',
-        postsLabel: 'Iklan',
-        salesLabel: 'Jualan Berjaya',
-        viewsLabel: 'Paparan',
-        clicksLabel: 'Klik',
-        conversionLabel: 'Kadar Jualan',
-        bookmarksLabel: 'Disimpan',
-        reviewTitle: 'Ulasan Pembeli',
-        historyTitle: 'Sejarah Transaksi',
-        subTitle: 'Langganan Notifikasi',
-        subDesc: 'Dapatkan e-mel apabila iklan baru sepadan dengan laluan anda',
-        subBtn: 'Langgan',
-        unsubBtn: 'Berhenti Langganan',
-        postListTitle: 'Senarai Iklan',
-        changeNameOnce: 'Tukar Nama (Sekali)',
-        rateSeller: 'Rating Penjual',
-        submitReview: 'Hantar Ulasan',
-        edit: 'Edit',
-        markSold: 'Jualan Berjaya',
-        statusActive: 'Aktif',
-        statusSold: 'Terjual',
-        statusExpired: 'Tamat',
-        statusHidden: 'Tersembunyi',
-        noTransactions: 'Tiada sejarah transaksi',
-        editPost: 'Edit Iklan'
-      }
+// ============================================================
+// 1. I18N — ไทย / มาเลย์ (สมบูรณ์)
+// ============================================================
+const LANG = {
+  th: {
+    appTitle: 'แบ่งปันน้ำหนักกระเป๋า',
+    login: 'เข้าสู่ระบบ',
+    logout: 'ออกจากระบบ',
+    search: 'ค้นหา',
+    post: 'ลงประกาศ',
+    tabFeed: 'ประกาศ',
+    tabProfile: 'โปรไฟล์',
+    tabSubscribe: 'แจ้งเตือน',
+    tabDashboard: 'แดชบอร์ด',
+    tabAdmin: 'Admin',
+    noReviews: 'ยังไม่มีรีวิว',
+    noPosts: 'ไม่มีประกาศ',
+    contactSeller: 'ติดต่อผู้ขาย',
+    viewDetails: 'ดูรายละเอียด',
+    editProfile: 'แก้ไขโปรไฟล์',
+    updateProfile: 'อัปเดตโปรไฟล์',
+    fromLabel: 'ต้นทาง',
+    toLabel: 'ปลายทาง',
+    dateLabel: 'วันที่เดินทาง',
+    priceRangeLabel: 'ช่วงราคา (ต่อ kg)',
+    weightRangeLabel: 'ช่วงน้ำหนัก (kg)',
+    sortLabel: 'เรียงลำดับ:',
+    sortDate: 'วันที่ใกล้สุด',
+    sortPriceAsc: 'ราคาต่ำ→สูง',
+    sortPriceDesc: 'ราคาสูง→ต่ำ',
+    sortTrust: 'ความน่าเชื่อถือ',
+    thSeller: 'ผู้ขาย',
+    thRoute: 'เส้นทาง',
+    thDate: 'วันที่',
+    thType: 'ประเภท',
+    thWeight: 'น้ำหนัก',
+    thPrice: 'ราคา',
+    thStatus: 'สถานะ',
+    thBadges: 'Badges',
+    thActions: 'ดำเนินการ',
+    currencyLabels: { THB: 'บาท', MYR: 'ริงกิต', IDR: 'รูปี', EGP: 'ปอนด์อียิปต์' },
+    countryNames: { th: 'ไทย', my: 'มาเลเซีย', id: 'อินโดนีเซีย', eg: 'อียิปต์', sa: 'ซาอุดีอาระเบีย', ae: 'ดูไบ', tr: 'ตุรกี', sg: 'สิงคโปร์', bn: 'บรูไน' },
+    chartPlaceholder: 'กราฟจะแสดงเมื่อมีข้อมูลเพียงพอ',
+    dashboardTitle: 'แดชบอร์ดส่วนตัว',
+    dashTotalPosts: 'โพสต์ทั้งหมด',
+    dashActivePosts: 'โพสต์ที่ใช้งาน',
+    dashTotalViews: 'ยอดเข้าชม',
+    dashTotalClicks: 'ยอดคลิกติดต่อ',
+    marketPriceChart: 'กราฟราคาตลาด (ต่อ kg)',
+    avgPrice: 'ราคาเฉลี่ย:',
+    minPrice: 'ต่ำสุด:',
+    maxPrice: 'สูงสุด:',
+    routeCount: 'เส้นทางยอดนิยม:',
+    adminTitle: 'แผงควบคุม Admin',
+    adminTotalPosts: 'โพสต์ทั้งหมด',
+    adminActivePosts: 'โพสต์ที่ใช้งาน',
+    adminTotalUsers: 'ผู้ใช้ทั้งหมด',
+    adminAvgRating: 'คะแนนเฉลี่ย',
+    adminPinTitle: 'จัดการปักหมุด (Sponsor)',
+    adminHideTitle: 'ซ่อน/แสดงโพสต์',
+    adminReportsTitle: 'รายงานปัญหา',
+    modalPostTitle: 'ลงประกาศขายพื้นที่',
+    editPostTitle: 'แก้ไขประกาศ',
+    updatePost: 'อัปเดตประกาศ',
+    publishBtn: 'เผยแพร่',
+    safetyTitle: '⚠️ คำเตือนความปลอดภัย',
+    safety1: 'โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน',
+    safety2: 'เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย',
+    safety3: 'กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ',
+    safetyConfirm: 'ฉันเข้าใจและยอมรับ',
+    baggageTypeLabel: 'ประเภทกระเป๋า',
+    meetingPointLabel: 'จุดนัดพบในสนามบิน',
+    tieredPriceLabel: 'ราคาต่อกิโลแบบขั้นบันได',
+    weightLabel: 'น้ำหนัก (kg)',
+    currencyLabel: 'สกุลเงิน',
+    calcPrice: 'คำนวณราคา',
+    ratingLabel: 'คะแนน',
+    postsLabel: 'โพสต์',
+    salesLabel: 'ขายสำเร็จ',
+    viewsLabel: 'ผู้เข้าชม',
+    clicksLabel: 'คลิกติดต่อ',
+    conversionLabel: 'อัตราขาย',
+    bookmarksLabel: 'บันทึกแล้ว',
+    reviewTitle: 'รีวิวจากผู้ซื้อ',
+    historyTitle: 'ประวัติธุรกรรม',
+    subTitle: 'สมัครรับแจ้งเตือน',
+    subDesc: 'รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ',
+    subBtn: 'สมัครรับแจ้งเตือน',
+    unsubBtn: 'ยกเลิกการรับแจ้งเตือน',
+    postListTitle: 'รายการประกาศ',
+    changeNameOnce: 'เปลี่ยนชื่อ (ครั้งเดียว)',
+    rateSeller: 'ให้คะแนนผู้ขาย',
+    submitReview: 'ส่งรีวิว',
+    edit: 'แก้ไข',
+    markSold: 'ขายสำเร็จ',
+    statusActive: 'ใช้งาน',
+    statusSold: 'ขายแล้ว',
+    statusExpired: 'หมดอายุ',
+    statusHidden: 'ซ่อนอยู่',
+    noTransactions: 'ไม่มีประวัติธุรกรรม',
+    editPost: 'แก้ไขประกาศ'
+  },
+  ms: {
+    appTitle: 'Kongsi Berat Bagasi',
+    login: 'Log Masuk',
+    logout: 'Log Keluar',
+    search: 'Cari',
+    post: 'Jual Bagasi',
+    tabFeed: 'Iklan',
+    tabProfile: 'Profil',
+    tabSubscribe: 'Notifikasi',
+    tabDashboard: 'Dashboard',
+    tabAdmin: 'Admin',
+    noReviews: 'Tiada ulasan',
+    noPosts: 'Tiada iklan',
+    contactSeller: 'Hubungi Penjual',
+    viewDetails: 'Lihat Butiran',
+    editProfile: 'Edit Profil',
+    updateProfile: 'Kemas Kini Profil',
+    fromLabel: 'Dari',
+    toLabel: 'Ke',
+    dateLabel: 'Tarikh Penerbangan',
+    priceRangeLabel: 'Julat Harga (per kg)',
+    weightRangeLabel: 'Julat Berat (kg)',
+    sortLabel: 'Susun:',
+    sortDate: 'Tarikh terdekat',
+    sortPriceAsc: 'Harga rendah→tinggi',
+    sortPriceDesc: 'Harga tinggi→rendah',
+    sortTrust: 'Kebolehpercayaan',
+    thSeller: 'Penjual',
+    thRoute: 'Laluan',
+    thDate: 'Tarikh',
+    thType: 'Jenis',
+    thWeight: 'Berat',
+    thPrice: 'Harga',
+    thStatus: 'Status',
+    thBadges: 'Lencana',
+    thActions: 'Tindakan',
+    currencyLabels: { THB: 'Baht', MYR: 'Ringgit', IDR: 'Rupiah', EGP: 'Paun Mesir' },
+    countryNames: { th: 'Thailand', my: 'Malaysia', id: 'Indonesia', eg: 'Mesir', sa: 'Arab Saudi', ae: 'Dubai', tr: 'Turki', sg: 'Singapura', bn: 'Brunei' },
+    chartPlaceholder: 'Graf akan dipaparkan apabila data mencukupi',
+    dashboardTitle: 'Dashboard Peribadi',
+    dashTotalPosts: 'Jumlah Iklan',
+    dashActivePosts: 'Iklan Aktif',
+    dashTotalViews: 'Jumlah Paparan',
+    dashTotalClicks: 'Jumlah Klik',
+    marketPriceChart: 'Graf Harga Pasaran (per kg)',
+    avgPrice: 'Harga purata:',
+    minPrice: 'Terendah:',
+    maxPrice: 'Tertinggi:',
+    routeCount: 'Laluan popular:',
+    adminTitle: 'Panel Admin',
+    adminTotalPosts: 'Jumlah Iklan',
+    adminActivePosts: 'Iklan Aktif',
+    adminTotalUsers: 'Jumlah Pengguna',
+    adminAvgRating: 'Purata Rating',
+    adminPinTitle: 'Urus Pin (Sponsor)',
+    adminHideTitle: 'Sembunyi/Tunjuk Iklan',
+    adminReportsTitle: 'Laporan Masalah',
+    modalPostTitle: 'Jual Ruang Bagasi',
+    editPostTitle: 'Edit Iklan',
+    updatePost: 'Kemas Kini Iklan',
+    publishBtn: 'Terbitkan',
+    safetyTitle: '⚠️ Amaran Keselamatan',
+    safety1: 'Sila semak senarai barang larangan mengikut peraturan syarikat penerbangan',
+    safety2: 'Laman web ini hanya sebagai perantara, kami tidak bertanggungjawab ke atas urus niaga',
+    safety3: 'Sila sahkan maklumat penjual dan barang sebelum membuat keputusan',
+    safetyConfirm: 'Saya faham dan terima',
+    baggageTypeLabel: 'Jenis Bagasi',
+    meetingPointLabel: 'Tempat Pertemuan di Lapangan Terbang',
+    tieredPriceLabel: 'Harga Berperingkat per kg',
+    weightLabel: 'Berat (kg)',
+    currencyLabel: 'Mata Wang',
+    calcPrice: 'Kira Harga',
+    ratingLabel: 'Rating',
+    postsLabel: 'Iklan',
+    salesLabel: 'Jualan Berjaya',
+    viewsLabel: 'Paparan',
+    clicksLabel: 'Klik',
+    conversionLabel: 'Kadar Jualan',
+    bookmarksLabel: 'Disimpan',
+    reviewTitle: 'Ulasan Pembeli',
+    historyTitle: 'Sejarah Transaksi',
+    subTitle: 'Langganan Notifikasi',
+    subDesc: 'Dapatkan e-mel apabila iklan baru sepadan dengan laluan anda',
+    subBtn: 'Langgan',
+    unsubBtn: 'Berhenti Langganan',
+    postListTitle: 'Senarai Iklan',
+    changeNameOnce: 'Tukar Nama (Sekali)',
+    rateSeller: 'Rating Penjual',
+    submitReview: 'Hantar Ulasan',
+    edit: 'Edit',
+    markSold: 'Jualan Berjaya',
+    statusActive: 'Aktif',
+    statusSold: 'Terjual',
+    statusExpired: 'Tamat',
+    statusHidden: 'Tersembunyi',
+    noTransactions: 'Tiada sejarah transaksi',
+    editPost: 'Edit Iklan'
+  }
+};
+
+// ============================================================
+// 2. CONFIG & STATE (ปรับปรุงความปลอดภัย)
+// ============================================================
+const COUNTRIES = [
+  { code:'th', name:'ไทย / Thailand', flag:'🇹🇭' },
+  { code:'my', name:'มาเลเซีย / Malaysia', flag:'🇲🇾' },
+  { code:'id', name:'อินโดนีเซีย / Indonesia', flag:'🇮🇩' },
+  { code:'eg', name:'อียิปต์ / Egypt', flag:'🇪🇬' },
+  { code:'sa', name:'ซาอุดีอาระเบีย / Saudi Arabia', flag:'🇸🇦' },
+  { code:'ae', name:'ดูไบ / Dubai', flag:'🇦🇪' },
+  { code:'tr', name:'ตุรกี / Turkey', flag:'🇹🇷' },
+  { code:'sg', name:'สิงคโปร์ / Singapore', flag:'🇸🇬' },
+  { code:'bn', name:'บรูไน / Brunei', flag:'🇧🇳' }
+];
+
+// ===== API_SECRET ใหม่ (ซับซ้อนขึ้น) =====
+const WORKER_URL = 'https://kaikrapao.hem5426.workers.dev';
+const API_SECRET = 'Luggage@2025#Secure!Admin$';  // ต้องตรงกับ Worker Environment
+const CLIENT_ID = '952813224851-5grn632tmj3r804622bdolae7mu0ibrr.apps.googleusercontent.com';
+
+let currentLang = 'th';
+let currentUser = null;
+let allPosts = [];
+let isAdmin = false;
+let currentSort = 'date';
+let currentPage = 1;
+const PER_PAGE = 10;
+let filteredPosts = [];
+let chartInstance = null;
+let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+let safetyCallback = null;
+let debugLogs = [];
+let reviewPostId = null;
+let reviewSellerEmail = null;
+
+const $ = id => document.getElementById(id);
+const lang = () => LANG[currentLang];
+
+// ============================================================
+// 3. DEBUG SYSTEM
+// ============================================================
+function debugLog(msg, type = 'info') {
+  const timestamp = new Date().toLocaleTimeString('th-TH', { hour12: false });
+  debugLogs.push({ time: timestamp, msg, type });
+  if (debugLogs.length > 200) debugLogs.shift();
+  renderDebug();
+  console.log(`[${timestamp}] [${type.toUpperCase()}] ${msg}`);
+}
+
+function renderDebug() {
+  const container = $('debugContent');
+  if (!container) return;
+  container.innerHTML = debugLogs.slice(-30).map(log => `
+    <div class="${log.type === 'error' ? 'error' : log.type === 'success' ? 'success' : log.type === 'warning' ? 'warn' : ''}">
+      <span class="text-gray-400">[${log.time}]</span> ${log.msg}
+    </div>
+  `).join('');
+}
+
+$('debugToggleBtn').addEventListener('click', () => {
+  $('debugPanel').classList.toggle('hidden');
+  debugLog('🔄 Debug panel toggled');
+});
+$('clearDebugBtn').addEventListener('click', () => { debugLogs = []; renderDebug(); });
+$('copyDebugBtn').addEventListener('click', () => {
+  const text = debugLogs.map(l => `[${l.time}] ${l.msg}`).join('\n');
+  navigator.clipboard.writeText(text).then(() => showToast('คัดลอก Debug Log แล้ว', 'success'))
+    .catch(() => alert(text));
+});
+
+// ============================================================
+// 4. API HELPER
+// ============================================================
+async function apiCall(endpoint, options = {}) {
+  const url = `${WORKER_URL}${endpoint}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-API-Secret': API_SECRET,
+    ...(options.headers || {})
+  };
+  debugLog(`📡 Calling: ${url}`, 'info');
+  try {
+    const resp = await fetch(url, { ...options, headers });
+    const data = await resp.json();
+    if (!data.success) throw new Error(data.error || 'API error');
+    debugLog(`✅ Success: ${endpoint}`, 'success');
+    return data;
+  } catch (err) {
+    debugLog(`❌ Error: ${err.message}`, 'error');
+    throw err;
+  }
+}
+
+// ============================================================
+// 5. LOAD POSTS (Real API Only)
+// ============================================================
+async function loadPosts() {
+  try {
+    const params = new URLSearchParams();
+    const from = $('filterFrom').value;
+    const to = $('filterTo').value;
+    const date = $('filterDate').value;
+    if (from) params.set('departure', from);
+    if (to) params.set('arrival', to);
+    if (date) params.set('date', date);
+
+    const data = await apiCall(`/posts?${params.toString()}`);
+    let posts = data.data || [];
+
+    const pMin = parseFloat($('filterPriceMin').value) || 0;
+    const pMax = parseFloat($('filterPriceMax').value) || Infinity;
+    const wMin = parseFloat($('filterWeightMin').value) || 0;
+    const wMax = parseFloat($('filterWeightMax').value) || Infinity;
+    posts = posts.filter(p => p.price_per_kg >= pMin && p.price_per_kg <= pMax && p.available_weight >= wMin && p.available_weight <= wMax);
+
+    const sortMap = {
+      date: (a,b) => (a.flight_date < b.flight_date ? -1 : 1),
+      price_asc: (a,b) => a.price_per_kg - b.price_per_kg,
+      price_desc: (a,b) => b.price_per_kg - a.price_per_kg,
+      trust: (a,b) => (b.trust_score||0) - (a.trust_score||0)
+    };
+    posts = posts.sort(sortMap[currentSort] || sortMap.date);
+
+    allPosts = posts;
+    filteredPosts = posts;
+    currentPage = 1;
+    renderPagination(posts);
+    renderPosts(posts);
+    renderSponsors(posts);
+    $('postCount').textContent = posts.length + ' รายการ';
+    updateMarketChart(posts);
+    debugLog(`✅ โหลดโพสต์สำเร็จ: ${posts.length} รายการ`, 'success');
+  } catch (e) {
+    showToast('โหลดประกาศล้มเหลว: ' + e.message, 'error');
+    debugLog(`❌ loadPosts error: ${e.message}`, 'error');
+    allPosts = [];
+    filteredPosts = [];
+    renderPosts([]);
+    renderSponsors([]);
+    $('postCount').textContent = '0 รายการ';
+  }
+}
+
+// ============================================================
+// 6. RENDER POSTS & SPONSORS
+// ============================================================
+function renderPosts(posts) {
+  const tbody = $('postTableBody');
+  const start = (currentPage-1)*PER_PAGE;
+  const pageItems = posts.slice(start, start+PER_PAGE);
+  const t = lang();
+  if (!pageItems.length) {
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-gray-400">${t.noPosts}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = pageItems.map(p => {
+    const badges = (p.trust_badges||'').split(',').filter(Boolean);
+    const badgeHtml = badges.map(b => {
+      const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
+      const icon = b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':b==='trusted_seller'?'fa-star':'fa-circle';
+      return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i> ${b.replace('_',' ')}</span>`;
+    }).join(' ');
+    const currencyLabel = t.currencyLabels[p.currency] || p.currency;
+    const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
+    const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
+    const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
+    const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
+    const isBookmarked = bookmarks.includes(p.post_id);
+    const isOwner = currentUser && p.seller_email === currentUser.email;
+    const isSold = p.status === 'sold';
+    const isActive = p.status === 'active';
+
+    const statusMap = {
+      'active': `<span class="status-badge active">${t.statusActive}</span>`,
+      'sold': `<span class="status-badge sold">${t.statusSold}</span>`,
+      'expired': `<span class="status-badge expired">${t.statusExpired}</span>`,
+      'hidden': `<span class="status-badge hidden">${t.statusHidden}</span>`
     };
 
-    // ============================================================
-    // 2. CONFIG & STATE
-    // ============================================================
-    const COUNTRIES = [
-      { code:'th', name:'ไทย / Thailand', flag:'🇹🇭' },
-      { code:'my', name:'มาเลเซีย / Malaysia', flag:'🇲🇾' },
-      { code:'id', name:'อินโดนีเซีย / Indonesia', flag:'🇮🇩' },
-      { code:'eg', name:'อียิปต์ / Egypt', flag:'🇪🇬' },
-      { code:'sa', name:'ซาอุดีอาระเบีย / Saudi Arabia', flag:'🇸🇦' },
-      { code:'ae', name:'ดูไบ / Dubai', flag:'🇦🇪' },
-      { code:'tr', name:'ตุรกี / Turkey', flag:'🇹🇷' },
-      { code:'sg', name:'สิงคโปร์ / Singapore', flag:'🇸🇬' },
-      { code:'bn', name:'บรูไน / Brunei', flag:'🇧🇳' }
-    ];
+    const hasPhone = p.seller_phone && p.seller_phone.length > 0;
+    const hasFB = p.seller_facebook && p.seller_facebook.length > 0;
+    const hasLine = p.seller_line && p.seller_line.length > 0;
+    const contactTitle = hasPhone ? 'WhatsApp' : hasFB ? 'Messenger' : hasLine ? 'LINE' : t.contactSeller;
 
-    const WORKER_URL = 'https://kaikrapao.hem5426.workers.dev';
-    const API_SECRET = 'Luggage@2025#Secure!Admin$';
-    const CLIENT_ID = '952813224851-5grn632tmj3r804622bdolae7mu0ibrr.apps.googleusercontent.com';
+    return `<tr class="hover:bg-gray-50 transition cursor-pointer" onclick="viewPost('${p.post_id}')">
+      <td class="font-medium">${p.seller_name}</td>
+      <td><span class="text-xs">${fromLabel}</span> → <span class="text-xs">${toLabel}</span></td>
+      <td class="hide-mobile text-sm">${p.flight_date||'-'}</td>
+      <td class="hide-mobile text-sm capitalize">${p.baggage_type||'-'}</td>
+      <td class="font-semibold">${p.available_weight||0} kg</td>
+      <td class="font-semibold text-blue-600">${p.price_per_kg||0} ${currencyLabel}/kg</td>
+      <td>${statusMap[p.status] || p.status}</td>
+      <td>${badgeHtml||'-'}</td>
+      <td class="text-center">
+        <div class="flex items-center justify-center gap-1 flex-wrap">
+          <button onclick="event.stopPropagation();contactSeller('${p.seller_phone}','${p.seller_facebook}','${p.seller_line}','${p.seller_name}')" class="text-green-600 hover:text-green-800 text-sm" title="${contactTitle}"><i class="fas fa-comment"></i></button>
+          ${isOwner && isActive ? `<button onclick="event.stopPropagation();markAsSold('${p.post_id}')" class="text-green-600 hover:text-green-800 text-sm" title="${t.markSold}"><i class="fas fa-check-circle"></i></button>` : ''}
+          ${isOwner ? `<button onclick="event.stopPropagation();editPost('${p.post_id}')" class="text-yellow-600 hover:text-yellow-800 text-sm" title="${t.edit}"><i class="fas fa-edit"></i></button>` : ''}
+          <button onclick="event.stopPropagation();sharePost('${p.post_id}','${p.seller_name}','${p.departure_airport}','${p.arrival_airport}')" class="text-purple-600 hover:text-purple-800 text-sm" title="แชร์"><i class="fas fa-share-alt"></i></button>
+          <button onclick="event.stopPropagation();toggleBookmark('${p.post_id}')" class="bookmark-btn ${isBookmarked?'active':''}" title="บันทึก"><i class="fas fa-bookmark"></i></button>
+          ${currentUser && currentUser.email !== p.seller_email && p.status === 'sold' ? `<button onclick="event.stopPropagation();openReviewModal('${p.seller_email}','${p.post_id}')" class="text-yellow-500 hover:text-yellow-700 text-sm" title="ให้คะแนน"><i class="fas fa-star"></i></button>` : ''}
+          <button onclick="event.stopPropagation();reportUser('${p.seller_email}','${p.post_id}')" class="text-red-400 hover:text-red-600 text-sm" title="แจ้งปัญหา"><i class="fas fa-flag"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
 
-    let currentLang = 'th';
-    let currentUser = null;
-    let allPosts = [];
-    let isAdmin = false;
-    let currentSort = 'date';
-    let currentPage = 1;
-    const PER_PAGE = 10;
-    let filteredPosts = [];
-    let chartInstance = null;
-    let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-    let safetyCallback = null;
-    let debugLogs = [];
-    let reviewPostId = null;
-    let reviewSellerEmail = null;
+function renderSponsors(posts) {
+  const container = $('sponsorSection');
+  const sponsors = posts.filter(p => p.is_pinned === 'TRUE')
+    .sort((a,b) => (parseInt(a.pin_order)||99) - (parseInt(b.pin_order)||99))
+    .slice(0,7);
+  if (!sponsors.length) {
+    container.innerHTML = `<div class="col-span-full text-center text-gray-400 text-sm py-4">ไม่มีผู้สนับสนุน</div>`;
+    return;
+  }
+  const t = lang();
+  container.innerHTML = sponsors.map(p => {
+    const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
+    const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
+    const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
+    const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
+    const currencyLabel = t.currencyLabels[p.currency] || p.currency;
+    const badges = (p.trust_badges||'').split(',').filter(Boolean);
+    const badgeHtml = badges.map(b => {
+      const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
+      const icon = b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':b==='trusted_seller'?'fa-star':'fa-circle';
+      return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i></span>`;
+    }).join(' ');
+    return `<div class="bg-white rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition">
+      <div class="flex items-center gap-2"><i class="fas fa-crown text-yellow-500"></i><span class="font-bold">${p.seller_name}</span></div>
+      <div class="text-sm text-gray-600">${fromLabel} → ${toLabel}</div>
+      <div class="text-sm">${p.flight_date||'-'}</div>
+      <div class="text-sm font-semibold text-blue-600">${p.price_per_kg} ${currencyLabel}/kg</div>
+      <div class="text-xs text-gray-400 flex items-center gap-1">${badgeHtml} ${p.available_weight} kg</div>
+    </div>`;
+  }).join('');
+}
 
-    const $ = id => document.getElementById(id);
-    const lang = () => LANG[currentLang];
+// ============================================================
+// 7. PAGINATION
+// ============================================================
+function renderPagination(posts) {
+  const total = posts.length;
+  const totalPages = Math.ceil(total / PER_PAGE) || 1;
+  $('pageInfo').textContent = `หน้า ${currentPage} / ${totalPages}`;
+  $('prevPage').disabled = currentPage <= 1;
+  $('nextPage').disabled = currentPage >= totalPages;
+}
+$('prevPage').addEventListener('click', ()=>{
+  if (currentPage > 1) { currentPage--; renderPosts(filteredPosts); renderPagination(filteredPosts); }
+});
+$('nextPage').addEventListener('click', ()=>{
+  const totalPages = Math.ceil(filteredPosts.length / PER_PAGE);
+  if (currentPage < totalPages) { currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); }
+});
 
-    // ============================================================
-    // 3. DEBUG SYSTEM
-    // ============================================================
-    function debugLog(msg, type = 'info') {
-      const timestamp = new Date().toLocaleTimeString('th-TH', { hour12: false });
-      debugLogs.push({ time: timestamp, msg, type });
-      if (debugLogs.length > 200) debugLogs.shift();
-      renderDebug();
-      console.log(`[${timestamp}] [${type.toUpperCase()}] ${msg}`);
+// ============================================================
+// 8. VIEW POST DETAIL
+// ============================================================
+async function viewPost(postId) {
+  try {
+    const data = await apiCall(`/posts/${postId}`);
+    const p = data.data;
+    const t = lang();
+    const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
+    const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
+    const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
+    const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
+    const currencyLabel = t.currencyLabels[p.currency] || p.currency;
+    alert(`📋 รายละเอียดประกาศ\nผู้ขาย: ${p.seller_name}\nเส้นทาง: ${fromLabel} → ${toLabel}\nวันที่: ${p.flight_date}\nประเภท: ${p.baggage_type}\nน้ำหนัก: ${p.available_weight} kg\nราคา: ${p.price_per_kg} ${currencyLabel}/kg\nรวม: ${p.total_price} ${currencyLabel}\nจุดนัดพบ: ${p.meeting_point||'-'}\nสถานะ: ${p.status}`);
+    loadPosts();
+  } catch(e) { showToast('ไม่สามารถโหลดรายละเอียด', 'error'); }
+}
+
+// ============================================================
+// 9. CONTACT, SHARE, BOOKMARK, REPORT
+// ============================================================
+function contactSeller(phone, facebook, line, name) {
+  safetyCallback = () => {
+    if (phone && phone.length > 0) {
+      window.open(`https://wa.me/${phone}`,'_blank');
+    } else if (facebook && facebook.length > 0) {
+      window.open(`https://m.me/${facebook}`,'_blank');
+    } else if (line && line.length > 0) {
+      window.open(`https://line.me/ti/p/~${line}`,'_blank');
+    } else {
+      showToast('ไม่พบข้อมูลการติดต่อ','error');
+    }
+  };
+  $('safetyModal').classList.add('active');
+}
+$('safetyConfirm').addEventListener('click', ()=>{
+  $('safetyModal').classList.remove('active');
+  if (safetyCallback) { safetyCallback(); safetyCallback = null; }
+});
+
+function sharePost(postId, name, from, to) {
+  const url = `${window.location.origin}?post=${postId}`;
+  if (navigator.share) navigator.share({ title:`แบ่งปันน้ำหนักกระเป๋า: ${name}`, text:`✈️ ${from} → ${to} โดย ${name}`, url }).catch(()=>{});
+  else navigator.clipboard.writeText(url).then(()=>showToast('คัดลอกลิงก์แล้ว!','success'))
+    .catch(()=>prompt('คัดลอกลิงก์:', url));
+}
+
+function toggleBookmark(postId) {
+  const idx = bookmarks.indexOf(postId);
+  if (idx>-1) { bookmarks.splice(idx,1); showToast('ลบที่บันทึกแล้ว','info'); }
+  else { bookmarks.push(postId); showToast('บันทึกประกาศแล้ว','success'); }
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  renderPosts(filteredPosts);
+}
+
+function reportUser(sellerEmail, postId) {
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  const reason = prompt('กรุณาระบุเหตุผลที่ต้องการแจ้งปัญหา:');
+  if (!reason) return;
+  const reports = JSON.parse(localStorage.getItem('reports')||'[]');
+  reports.push({ reporter: currentUser.email, seller: sellerEmail, post: postId, reason, date: new Date().toISOString() });
+  localStorage.setItem('reports', JSON.stringify(reports));
+  showToast('ส่งรายงานปัญหาเรียบร้อยแล้ว','success');
+  if (isAdmin) loadAdminReports();
+}
+
+// ============================================================
+// 10. MARK AS SOLD
+// ============================================================
+async function markAsSold(postId) {
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  if (!confirm('คุณต้องการเปลี่ยนสถานะเป็น "ขายสำเร็จ" ใช่หรือไม่?')) return;
+
+  try {
+    await apiCall(`/posts/${postId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ status: 'sold' })
+    });
+    showToast('✅ เปลี่ยนสถานะเป็น ขายสำเร็จ', 'success');
+
+    const post = allPosts.find(p => p.post_id === postId);
+    if (post) {
+      addTransactionHistory(currentUser.email, post.seller_email, postId, 'ขายสำเร็จ');
     }
 
-    function renderDebug() {
-      const container = $('debugContent');
-      if (!container) return;
-      container.innerHTML = debugLogs.slice(-30).map(log => `
-        <div class="${log.type === 'error' ? 'error' : log.type === 'success' ? 'success' : log.type === 'warning' ? 'warn' : ''}">
-          <span class="text-gray-400">[${log.time}]</span> ${log.msg}
+    loadPosts();
+    if (currentUser) loadProfile();
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
+  }
+}
+
+// ============================================================
+// 11. EDIT POST
+// ============================================================
+async function editPost(postId) {
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  const post = allPosts.find(p => p.post_id === postId);
+  if (!post) return showToast('ไม่พบโพสต์', 'error');
+
+  if (post.seller_email !== currentUser.email) {
+    return showToast('คุณไม่มีสิทธิ์แก้ไขโพสต์นี้', 'error');
+  }
+
+  $('editPostId').value = postId;
+  $('editBaggageType').value = post.baggage_type || 'check-in';
+  $('editDeparture').value = post.departure_airport || '';
+  $('editArrival').value = post.arrival_airport || '';
+  $('editFlightDate').value = post.flight_date || '';
+  $('editMeetingPoint').value = post.meeting_point || '';
+  $('editWeight').value = post.available_weight || 0;
+  $('editCurrency').value = post.currency || 'THB';
+
+  $('editPostModal').classList.add('active');
+}
+
+$('closeEditModal').addEventListener('click', () => {
+  $('editPostModal').classList.remove('active');
+});
+
+$('editSwapBtn').addEventListener('click', () => {
+  const dep = $('editDeparture');
+  const arr = $('editArrival');
+  [dep.value, arr.value] = [arr.value, dep.value];
+});
+
+$('editPostForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const postId = $('editPostId').value;
+  const body = {
+    baggage_type: $('editBaggageType').value,
+    departure_airport: $('editDeparture').value,
+    arrival_airport: $('editArrival').value,
+    flight_date: $('editFlightDate').value,
+    meeting_point: $('editMeetingPoint').value.trim(),
+    available_weight: parseFloat($('editWeight').value) || 0,
+    currency: $('editCurrency').value
+  };
+
+  try {
+    await apiCall(`/posts/${postId}`, {
+      method: 'PUT',
+      body: JSON.stringify(body)
+    });
+    showToast('✅ อัปเดตประกาศสำเร็จ', 'success');
+    $('editPostModal').classList.remove('active');
+    loadPosts();
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
+  }
+});
+
+// ============================================================
+// 12. REVIEW SYSTEM
+// ============================================================
+function openReviewModal(sellerEmail, postId) {
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ', 'error'); return; }
+  if (currentUser.email === sellerEmail) {
+    return showToast('คุณไม่สามารถให้คะแนนตัวเองได้', 'warning');
+  }
+
+  reviewPostId = postId;
+  reviewSellerEmail = sellerEmail;
+  $('selectedRating').value = 0;
+  document.getElementById('reviewComment').value = '';
+  document.querySelectorAll('#ratingStars span').forEach(el => {
+    el.textContent = '☆';
+    el.style.color = '#d1d5db';
+  });
+  $('ratingText').textContent = 'กรุณาเลือกคะแนน';
+  $('reviewModal').classList.add('active');
+}
+
+$('closeReviewModal').addEventListener('click', () => {
+  $('reviewModal').classList.remove('active');
+});
+
+document.querySelectorAll('#ratingStars span').forEach(el => {
+  el.addEventListener('click', function() {
+    const rating = parseInt(this.dataset.rating);
+    $('selectedRating').value = rating;
+    document.querySelectorAll('#ratingStars span').forEach((s, i) => {
+      if (i < rating) {
+        s.textContent = '★';
+        s.style.color = '#f59e0b';
+      } else {
+        s.textContent = '☆';
+        s.style.color = '#d1d5db';
+      }
+    });
+    const messages = ['', 'แย่มาก', 'แย่', 'ปานกลาง', 'ดี', 'ดีมาก'];
+    $('ratingText').textContent = messages[rating] || '';
+  });
+});
+
+$('submitReviewBtn').addEventListener('click', async () => {
+  const rating = parseInt($('selectedRating').value);
+  const comment = document.getElementById('reviewComment').value.trim();
+
+  if (rating === 0) return showToast('กรุณาเลือกคะแนน', 'warning');
+
+  try {
+    await apiCall('/reviews', {
+      method: 'POST',
+      body: JSON.stringify({
+        post_id: reviewPostId,
+        reviewer_email: currentUser.email,
+        seller_email: reviewSellerEmail,
+        rating: rating,
+        comment: comment
+      })
+    });
+    showToast('✅ ส่งรีวิวเรียบร้อย!', 'success');
+    $('reviewModal').classList.remove('active');
+    if (currentUser) loadProfile();
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
+  }
+});
+
+// ============================================================
+// 13. CHANGE NAME (ONCE)
+// ============================================================
+async function changeDisplayName() {
+  if (!currentUser) return showToast('กรุณาเข้าสู่ระบบ', 'error');
+
+  const nameChanged = localStorage.getItem('name_changed_' + currentUser.email);
+  if (nameChanged === 'true') {
+    return showToast('⚠️ คุณสามารถเปลี่ยนชื่อได้ครั้งเดียวเท่านั้น', 'warning');
+  }
+
+  const newName = prompt('กรุณากรอกชื่อที่ต้องการใช้ (สามารถเปลี่ยนได้ครั้งเดียว):', currentUser.name);
+  if (!newName || newName === currentUser.name) return;
+
+  try {
+    await apiCall('/profile', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: currentUser.email,
+        display_name: newName
+      })
+    });
+    localStorage.setItem('name_changed_' + currentUser.email, 'true');
+    currentUser.name = newName;
+    document.getElementById('userName').textContent = newName;
+    showToast('✅ เปลี่ยนชื่อสำเร็จ!', 'success');
+    loadProfile();
+    loadPosts();
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
+  }
+}
+
+// ============================================================
+// 14. TRANSACTION HISTORY
+// ============================================================
+function addTransactionHistory(userEmail, sellerEmail, postId, action) {
+  const key = 'transaction_history_' + sellerEmail;
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  history.push({
+    action: action,
+    post_id: postId,
+    buyer: userEmail,
+    date: new Date().toISOString()
+  });
+  localStorage.setItem(key, JSON.stringify(history));
+
+  if (userEmail !== sellerEmail) {
+    const buyerKey = 'transaction_history_' + userEmail;
+    const buyerHistory = JSON.parse(localStorage.getItem(buyerKey) || '[]');
+    buyerHistory.push({
+      action: 'ซื้อ: ' + action,
+      post_id: postId,
+      seller: sellerEmail,
+      date: new Date().toISOString()
+    });
+    localStorage.setItem(buyerKey, JSON.stringify(buyerHistory));
+  }
+}
+
+function loadTransactionHistory(email) {
+  const key = 'transaction_history_' + email;
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  const container = document.getElementById('historyList');
+  const t = lang();
+  if (!history.length) {
+    container.innerHTML = `<p class="text-gray-400 text-sm">${t.noTransactions}</p>`;
+    return;
+  }
+  container.innerHTML = history.slice(-10).reverse().map(h => `
+    <div class="flex justify-between text-sm border-b py-1">
+      <span>${h.action}</span>
+      <span class="text-gray-400">${h.date ? h.date.slice(0,10) : '-'}</span>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 15. CREATE POST
+// ============================================================
+$('fabPost').addEventListener('click', ()=>{
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; }
+  $('postModal').classList.add('active');
+});
+$('closeModal').addEventListener('click', ()=>$('postModal').classList.remove('active'));
+$('swapBtn').addEventListener('click', ()=>{
+  const dep = $('departure'), arr = $('arrival');
+  [dep.value, arr.value] = [arr.value, dep.value];
+});
+$('calcPriceBtn').addEventListener('click', ()=>{
+  const w = parseFloat($('weight').value)||0;
+  const t1 = parseFloat($('tier1').value)||0, t2=parseFloat($('tier2').value)||0, t3=parseFloat($('tier3').value)||0, t4=parseFloat($('tier4').value)||0;
+  let price=0;
+  if (w<=5) price=w*t1;
+  else if (w<=10) price=5*t1+(w-5)*t2;
+  else if (w<=20) price=5*t1+5*t2+(w-10)*t3;
+  else price=5*t1+5*t2+10*t3+(w-20)*t4;
+  $('totalPriceDisplay').textContent = `ราคารวม: ${price.toFixed(2)}`;
+});
+$('postForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  const body = {
+    seller_email: currentUser.email,
+    seller_name: currentUser.name,
+    seller_phone: $('phone').value.trim(),
+    seller_facebook: $('facebook').value.trim(),
+    seller_line: $('lineId').value.trim(),
+    departure_airport: $('departure').value,
+    arrival_airport: $('arrival').value,
+    flight_date: $('flightDate').value,
+    baggage_type: $('baggageType').value,
+    available_weight: parseFloat($('weight').value)||0,
+    price_per_kg: 0,
+    currency: $('currency').value,
+    meeting_point: $('meetingPoint').value.trim(),
+    tier1: parseFloat($('tier1').value)||0,
+    tier2: parseFloat($('tier2').value)||0,
+    tier3: parseFloat($('tier3').value)||0,
+    tier4: parseFloat($('tier4').value)||0,
+  };
+  const w=body.available_weight;
+  const t1=body.tier1,t2=body.tier2,t3=body.tier3,t4=body.tier4;
+  let total=0;
+  if (w<=5) total=w*t1;
+  else if (w<=10) total=5*t1+(w-5)*t2;
+  else if (w<=20) total=5*t1+5*t2+(w-10)*t3;
+  else total=5*t1+5*t2+10*t3+(w-20)*t4;
+  body.price_per_kg = w>0 ? total/w : 0;
+  body.total_price = total;
+  try {
+    await apiCall('/posts', { method:'POST', body:JSON.stringify(body) });
+    showToast('ประกาศสำเร็จ!','success');
+    $('postModal').classList.remove('active');
+    $('postForm').reset();
+    $('totalPriceDisplay').textContent = 'ราคารวม: 0.00';
+    loadPosts();
+  } catch(e) { showToast('เกิดข้อผิดพลาด: '+e.message,'error'); }
+});
+
+// ============================================================
+// 16. PROFILE
+// ============================================================
+async function loadProfile() {
+  if (!currentUser) return;
+  try {
+    const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
+    const { profile, reviews, badges } = data.data || {};
+    if (profile) {
+      $('profileName').textContent = profile.display_name || currentUser.name;
+      $('profileEmail').textContent = profile.email;
+      $('profilePhone').innerHTML = `<i class="fas fa-phone"></i> ${profile.phone||'-'}`;
+      $('profileFacebook').innerHTML = `<i class="fab fa-facebook"></i> ${profile.facebook||'-'}`;
+      $('profileLine').innerHTML = `<i class="fab fa-line"></i> ${profile.line||'-'}`;
+      $('profileRating').textContent = profile.avg_rating ? profile.avg_rating.toFixed(1) : '0.0';
+      $('profilePosts').textContent = profile.total_posts||0;
+      $('profileSales').textContent = profile.total_sales||0;
+      $('profileAvatar').src = currentUser.picture;
+      const bc = $('profileBadges');
+      bc.innerHTML = badges.map(b => {
+        const cls = b.id==='frequent_flyer'?'frequent':b.id==='verified_id'?'verified':b.id==='trusted_seller'?'trusted':'';
+        return `<span class="badge-trust ${cls}"><i class="fas ${b.icon}"></i> ${b.label}</span>`;
+      }).join('');
+      const rl = $('reviewsList');
+      if (!reviews||!reviews.length) rl.innerHTML = `<p class="text-gray-400 text-sm">${lang().noReviews}</p>`;
+      else rl.innerHTML = reviews.map(r => `
+        <div class="border-b py-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-medium text-sm">${r.reviewer_email}</span>
+            <span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+            <span class="text-xs text-gray-400">${r.created_at||''}</span>
+          </div>
+          <p class="text-sm text-gray-600">${r.comment||'-'}</p>
         </div>
       `).join('');
+      $('statViews').textContent = profile.total_views||0;
+      $('statClicks').textContent = profile.total_clicks||0;
+      const conv = profile.total_clicks>0 ? Math.round((profile.total_sales||0)/profile.total_clicks*100) : 0;
+      $('statConversion').textContent = conv+'%';
+      $('statBookmarks').textContent = bookmarks.length;
+      $('editPhone').value = profile.phone||'';
+      $('editFacebook').value = profile.facebook||'';
+      $('editLine').value = profile.line||'';
     }
+    loadTransactionHistory(currentUser.email);
+  } catch(e) { showToast('โหลดโปรไฟล์ล้มเหลว','error'); }
+}
+$('updateProfileBtn').addEventListener('click', async ()=>{
+  if (!currentUser) return;
+  const body = {
+    email: currentUser.email,
+    display_name: currentUser.name,
+    phone: $('editPhone').value.trim(),
+    facebook: $('editFacebook').value.trim(),
+    line: $('editLine').value.trim(),
+  };
+  try {
+    await apiCall('/profile', { method:'POST', body:JSON.stringify(body) });
+    showToast('อัปเดตโปรไฟล์สำเร็จ','success');
+    loadProfile();
+  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+});
 
-    $('debugToggleBtn').addEventListener('click', () => {
-      $('debugPanel').classList.toggle('hidden');
-      debugLog('🔄 Debug panel toggled');
+// ============================================================
+// 17. SUBSCRIPTION
+// ============================================================
+$('subscribeForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  const body = {
+    email: currentUser.email,
+    departure: $('subDeparture').value,
+    arrival: $('subArrival').value,
+    flight_date: $('subDate').value.trim()||'ANY',
+  };
+  try {
+    await apiCall('/subscribe', { method:'POST', body:JSON.stringify(body) });
+    showToast('สมัครรับแจ้งเตือนสำเร็จ','success');
+    $('subscribeForm').reset();
+  } catch(e) { showToast('สมัครล้มเหลว: '+e.message,'error'); }
+});
+$('unsubBtn').addEventListener('click', async ()=>{
+  if (!currentUser) return;
+  if (!confirm('ต้องการยกเลิกการรับแจ้งเตือนใช่หรือไม่?')) return;
+  try {
+    await apiCall(`/subscribe?email=${encodeURIComponent(currentUser.email)}`, { method:'DELETE' });
+    showToast('ยกเลิกสำเร็จ','success');
+  } catch(e) { showToast('ยกเลิกล้มเหลว: '+e.message,'error'); }
+});
+
+// ============================================================
+// 18. DASHBOARD & CHART
+// ============================================================
+async function loadDashboard() {
+  if (!currentUser) return;
+  try {
+    const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
+    const profile = data.data.profile || {};
+    const posts = allPosts.filter(p => p.seller_email === currentUser.email);
+    const active = posts.filter(p => p.status === 'active');
+    const views = posts.reduce((s,p) => s + (p.view_count||0), 0);
+    const clicks = posts.reduce((s,p) => s + (p.click_count||0), 0);
+    $('dashTotalPosts').textContent = posts.length;
+    $('dashActivePosts').textContent = active.length;
+    $('dashTotalViews').textContent = views;
+    $('dashTotalClicks').textContent = clicks;
+    const allPrices = allPosts.filter(p => p.price_per_kg > 0).map(p => p.price_per_kg);
+    if (allPrices.length) {
+      const avg = allPrices.reduce((s,v) => s+v, 0) / allPrices.length;
+      const min = Math.min(...allPrices);
+      const max = Math.max(...allPrices);
+      $('dashAvgPrice').textContent = avg.toFixed(2);
+      $('dashMinPrice').textContent = min.toFixed(2);
+      $('dashMaxPrice').textContent = max.toFixed(2);
+    } else {
+      $('dashAvgPrice').textContent = '-';
+      $('dashMinPrice').textContent = '-';
+      $('dashMaxPrice').textContent = '-';
+    }
+    const routeCount = {};
+    allPosts.forEach(p => {
+      const key = p.departure_airport + '→' + p.arrival_airport;
+      routeCount[key] = (routeCount[key]||0) + 1;
     });
-    $('clearDebugBtn').addEventListener('click', () => { debugLogs = []; renderDebug(); });
-    $('copyDebugBtn').addEventListener('click', () => {
-      const text = debugLogs.map(l => `[${l.time}] ${l.msg}`).join('\n');
-      navigator.clipboard.writeText(text).then(() => showToast('คัดลอก Debug Log แล้ว', 'success'))
-        .catch(() => alert(text));
-    });
-
-    // ============================================================
-    // 4. API HELPER
-    // ============================================================
-    async function apiCall(endpoint, options = {}) {
-      const url = `${WORKER_URL}${endpoint}`;
-      const headers = {
-        'Content-Type': 'application/json',
-        'X-API-Secret': API_SECRET,
-        ...(options.headers || {})
-      };
-      debugLog(`📡 Calling: ${url}`, 'info');
-      try {
-        const resp = await fetch(url, { ...options, headers });
-        const data = await resp.json();
-        if (!data.success) throw new Error(data.error || 'API error');
-        debugLog(`✅ Success: ${endpoint}`, 'success');
-        return data;
-      } catch (err) {
-        debugLog(`❌ Error: ${err.message}`, 'error');
-        throw err;
-      }
+    let topRoute='-', topCount=0;
+    for (const [route,count] of Object.entries(routeCount)) {
+      if (count > topCount) { topCount = count; topRoute = route; }
     }
+    $('dashTopRoute').textContent = topRoute;
+    updateMarketChart(allPosts);
+  } catch(e){}
+}
 
-    // ============================================================
-    // 5. LOAD POSTS (Real API Only)
-    // ============================================================
-    async function loadPosts() {
-      try {
-        const params = new URLSearchParams();
-        const from = $('filterFrom').value;
-        const to = $('filterTo').value;
-        const date = $('filterDate').value;
-        if (from) params.set('departure', from);
-        if (to) params.set('arrival', to);
-        if (date) params.set('date', date);
-
-        const data = await apiCall(`/posts?${params.toString()}`);
-        let posts = data.data || [];
-
-        const pMin = parseFloat($('filterPriceMin').value) || 0;
-        const pMax = parseFloat($('filterPriceMax').value) || Infinity;
-        const wMin = parseFloat($('filterWeightMin').value) || 0;
-        const wMax = parseFloat($('filterWeightMax').value) || Infinity;
-        posts = posts.filter(p => p.price_per_kg >= pMin && p.price_per_kg <= pMax && p.available_weight >= wMin && p.available_weight <= wMax);
-
-        const sortMap = {
-          date: (a,b) => (a.flight_date < b.flight_date ? -1 : 1),
-          price_asc: (a,b) => a.price_per_kg - b.price_per_kg,
-          price_desc: (a,b) => b.price_per_kg - a.price_per_kg,
-          trust: (a,b) => (b.trust_score||0) - (a.trust_score||0)
-        };
-        posts = posts.sort(sortMap[currentSort] || sortMap.date);
-
-        allPosts = posts;
-        filteredPosts = posts;
-        currentPage = 1;
-        renderPagination(posts);
-        renderPosts(posts);
-        renderSponsors(posts);
-        $('postCount').textContent = posts.length + ' รายการ';
-        updateMarketChart(posts);
-        debugLog(`✅ โหลดโพสต์สำเร็จ: ${posts.length} รายการ`, 'success');
-      } catch (e) {
-        showToast('โหลดประกาศล้มเหลว: ' + e.message, 'error');
-        debugLog(`❌ loadPosts error: ${e.message}`, 'error');
-        allPosts = [];
-        filteredPosts = [];
-        renderPosts([]);
-        renderSponsors([]);
-        $('postCount').textContent = '0 รายการ';
-      }
+function updateMarketChart(posts) {
+  const canvas = $('marketChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+  const groups = {};
+  posts.forEach(p => {
+    if (p.currency && p.price_per_kg > 0) {
+      if (!groups[p.currency]) groups[p.currency] = [];
+      groups[p.currency].push(p.price_per_kg);
     }
-
-    // ============================================================
-    // 6. RENDER POSTS & SPONSORS
-    // ============================================================
-    function renderPosts(posts) {
-      const tbody = $('postTableBody');
-      const start = (currentPage-1)*PER_PAGE;
-      const pageItems = posts.slice(start, start+PER_PAGE);
-      const t = lang();
-      if (!pageItems.length) {
-        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-gray-400">${t.noPosts}</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = pageItems.map(p => {
-        const badges = (p.trust_badges||'').split(',').filter(Boolean);
-        const badgeHtml = badges.map(b => {
-          const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
-          const icon = b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':b==='trusted_seller'?'fa-star':'fa-circle';
-          return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i> ${b.replace('_',' ')}</span>`;
-        }).join(' ');
-        const currencyLabel = t.currencyLabels[p.currency] || p.currency;
-        const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
-        const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
-        const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
-        const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
-        const isBookmarked = bookmarks.includes(p.post_id);
-        const isOwner = currentUser && p.seller_email === currentUser.email;
-        const isSold = p.status === 'sold';
-        const isActive = p.status === 'active';
-
-        const statusMap = {
-          'active': `<span class="status-badge active">${t.statusActive}</span>`,
-          'sold': `<span class="status-badge sold">${t.statusSold}</span>`,
-          'expired': `<span class="status-badge expired">${t.statusExpired}</span>`,
-          'hidden': `<span class="status-badge hidden">${t.statusHidden}</span>`
-        };
-
-        const hasPhone = p.seller_phone && p.seller_phone.length > 0;
-        const hasFB = p.seller_facebook && p.seller_facebook.length > 0;
-        const hasLine = p.seller_line && p.seller_line.length > 0;
-        const contactTitle = hasPhone ? 'WhatsApp' : hasFB ? 'Messenger' : hasLine ? 'LINE' : t.contactSeller;
-
-        return `<tr class="hover:bg-gray-50 transition cursor-pointer" onclick="viewPost('${p.post_id}')">
-          <td class="font-medium">${p.seller_name}</td>
-          <td><span class="text-xs">${fromLabel}</span> → <span class="text-xs">${toLabel}</span></td>
-          <td class="hide-mobile text-sm">${p.flight_date||'-'}</td>
-          <td class="hide-mobile text-sm capitalize">${p.baggage_type||'-'}</td>
-          <td class="font-semibold">${p.available_weight||0} kg</td>
-          <td class="font-semibold text-blue-600">${p.price_per_kg||0} ${currencyLabel}/kg</td>
-          <td>${statusMap[p.status] || p.status}</td>
-          <td>${badgeHtml||'-'}</td>
-          <td class="text-center">
-            <div class="flex items-center justify-center gap-1 flex-wrap">
-              <button onclick="event.stopPropagation();contactSeller('${p.seller_phone}','${p.seller_facebook}','${p.seller_line}','${p.seller_name}')" class="text-green-600 hover:text-green-800 text-sm" title="${contactTitle}"><i class="fas fa-comment"></i></button>
-              ${isOwner && isActive ? `<button onclick="event.stopPropagation();markAsSold('${p.post_id}')" class="text-green-600 hover:text-green-800 text-sm" title="${t.markSold}"><i class="fas fa-check-circle"></i></button>` : ''}
-              ${isOwner ? `<button onclick="event.stopPropagation();editPost('${p.post_id}')" class="text-yellow-600 hover:text-yellow-800 text-sm" title="${t.edit}"><i class="fas fa-edit"></i></button>` : ''}
-              <button onclick="event.stopPropagation();sharePost('${p.post_id}','${p.seller_name}','${p.departure_airport}','${p.arrival_airport}')" class="text-purple-600 hover:text-purple-800 text-sm" title="แชร์"><i class="fas fa-share-alt"></i></button>
-              <button onclick="event.stopPropagation();toggleBookmark('${p.post_id}')" class="bookmark-btn ${isBookmarked?'active':''}" title="บันทึก"><i class="fas fa-bookmark"></i></button>
-              ${currentUser && currentUser.email !== p.seller_email && p.status === 'sold' ? `<button onclick="event.stopPropagation();openReviewModal('${p.seller_email}','${p.post_id}')" class="text-yellow-500 hover:text-yellow-700 text-sm" title="ให้คะแนน"><i class="fas fa-star"></i></button>` : ''}
-              <button onclick="event.stopPropagation();reportUser('${p.seller_email}','${p.post_id}')" class="text-red-400 hover:text-red-600 text-sm" title="แจ้งปัญหา"><i class="fas fa-flag"></i></button>
-            </div>
-          </td>
-        </tr>`;
-      }).join('');
+  });
+  const labels = Object.keys(groups);
+  const avgPrices = labels.map(cur => {
+    const arr = groups[cur];
+    return arr.reduce((s,v) => s+v, 0) / arr.length;
+  });
+  if (labels.length === 0) {
+    $('marketChartContainer').innerHTML = `<div class="chart-placeholder">${lang().chartPlaceholder}</div>`;
+    return;
+  }
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'ราคาเฉลี่ย (ต่อ kg)', data: avgPrices, backgroundColor: '#3b82f6', borderRadius: 6 }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { callback: v => v.toFixed(0) } } }
     }
+  });
+  $('marketChartContainer').innerHTML = '';
+  $('marketChartContainer').appendChild(canvas);
+}
 
-    function renderSponsors(posts) {
-      const container = $('sponsorSection');
-      const sponsors = posts.filter(p => p.is_pinned === 'TRUE')
-        .sort((a,b) => (parseInt(a.pin_order)||99) - (parseInt(b.pin_order)||99))
-        .slice(0,7);
-      if (!sponsors.length) {
-        container.innerHTML = `<div class="col-span-full text-center text-gray-400 text-sm py-4">ไม่มีผู้สนับสนุน</div>`;
-        return;
-      }
-      const t = lang();
-      container.innerHTML = sponsors.map(p => {
-        const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
-        const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
-        const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
-        const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
-        const currencyLabel = t.currencyLabels[p.currency] || p.currency;
-        const badges = (p.trust_badges||'').split(',').filter(Boolean);
-        const badgeHtml = badges.map(b => {
-          const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
-          const icon = b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':b==='trusted_seller'?'fa-star':'fa-circle';
-          return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i></span>`;
-        }).join(' ');
-        return `<div class="bg-white rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition">
-          <div class="flex items-center gap-2"><i class="fas fa-crown text-yellow-500"></i><span class="font-bold">${p.seller_name}</span></div>
-          <div class="text-sm text-gray-600">${fromLabel} → ${toLabel}</div>
-          <div class="text-sm">${p.flight_date||'-'}</div>
-          <div class="text-sm font-semibold text-blue-600">${p.price_per_kg} ${currencyLabel}/kg</div>
-          <div class="text-xs text-gray-400 flex items-center gap-1">${badgeHtml} ${p.available_weight} kg</div>
-        </div>`;
-      }).join('');
-    }
+// ============================================================
+// 19. ADMIN FUNCTIONS (ปรับปรุงความปลอดภัย)
+// ============================================================
+async function loadAdminStats() {
+  if (!isAdmin || !currentUser) return;
+  try {
+    const data = await apiCall(`/admin/stats?email=${encodeURIComponent(currentUser.email)}`);
+    const stats = data.data || {};
+    $('adminTotalPosts').textContent = stats.total_posts||0;
+    $('adminActivePosts').textContent = stats.active_posts||0;
+    $('adminTotalUsers').textContent = stats.total_users||0;
+    $('adminAvgRating').textContent = stats.avg_rating||'0.0';
+  } catch(e){}
+}
 
-    // ============================================================
-    // 7. PAGINATION
-    // ============================================================
-    function renderPagination(posts) {
-      const total = posts.length;
-      const totalPages = Math.ceil(total / PER_PAGE) || 1;
-      $('pageInfo').textContent = `หน้า ${currentPage} / ${totalPages}`;
-      $('prevPage').disabled = currentPage <= 1;
-      $('nextPage').disabled = currentPage >= totalPages;
-    }
-    $('prevPage').addEventListener('click', ()=>{
-      if (currentPage > 1) { currentPage--; renderPosts(filteredPosts); renderPagination(filteredPosts); }
-    });
-    $('nextPage').addEventListener('click', ()=>{
-      const totalPages = Math.ceil(filteredPosts.length / PER_PAGE);
-      if (currentPage < totalPages) { currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); }
-    });
-
-    // ============================================================
-    // 8. VIEW POST DETAIL
-    // ============================================================
-    async function viewPost(postId) {
-      try {
-        const data = await apiCall(`/posts/${postId}`);
-        const p = data.data;
-        const t = lang();
-        const fromC = COUNTRIES.find(c=>c.code===p.departure_airport);
-        const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
-        const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
-        const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
-        const currencyLabel = t.currencyLabels[p.currency] || p.currency;
-        alert(`📋 รายละเอียดประกาศ\nผู้ขาย: ${p.seller_name}\nเส้นทาง: ${fromLabel} → ${toLabel}\nวันที่: ${p.flight_date}\nประเภท: ${p.baggage_type}\nน้ำหนัก: ${p.available_weight} kg\nราคา: ${p.price_per_kg} ${currencyLabel}/kg\nรวม: ${p.total_price} ${currencyLabel}\nจุดนัดพบ: ${p.meeting_point||'-'}\nสถานะ: ${p.status}`);
-        loadPosts();
-      } catch(e) { showToast('ไม่สามารถโหลดรายละเอียด', 'error'); }
-    }
-
-    // ============================================================
-    // 9. CONTACT, SHARE, BOOKMARK, REPORT
-    // ============================================================
-    function contactSeller(phone, facebook, line, name) {
-      safetyCallback = () => {
-        if (phone && phone.length > 0) {
-          window.open(`https://wa.me/${phone}`,'_blank');
-        } else if (facebook && facebook.length > 0) {
-          window.open(`https://m.me/${facebook}`,'_blank');
-        } else if (line && line.length > 0) {
-          window.open(`https://line.me/ti/p/~${line}`,'_blank');
-        } else {
-          showToast('ไม่พบข้อมูลการติดต่อ','error');
-        }
-      };
-      $('safetyModal').classList.add('active');
-    }
-    $('safetyConfirm').addEventListener('click', ()=>{
-      $('safetyModal').classList.remove('active');
-      if (safetyCallback) { safetyCallback(); safetyCallback = null; }
-    });
-
-    function sharePost(postId, name, from, to) {
-      const url = `${window.location.origin}?post=${postId}`;
-      if (navigator.share) navigator.share({ title:`แบ่งปันน้ำหนักกระเป๋า: ${name}`, text:`✈️ ${from} → ${to} โดย ${name}`, url }).catch(()=>{});
-      else navigator.clipboard.writeText(url).then(()=>showToast('คัดลอกลิงก์แล้ว!','success'))
-        .catch(()=>prompt('คัดลอกลิงก์:', url));
-    }
-
-    function toggleBookmark(postId) {
-      const idx = bookmarks.indexOf(postId);
-      if (idx>-1) { bookmarks.splice(idx,1); showToast('ลบที่บันทึกแล้ว','info'); }
-      else { bookmarks.push(postId); showToast('บันทึกประกาศแล้ว','success'); }
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-      renderPosts(filteredPosts);
-    }
-
-    function reportUser(sellerEmail, postId) {
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-      const reason = prompt('กรุณาระบุเหตุผลที่ต้องการแจ้งปัญหา:');
-      if (!reason) return;
-      const reports = JSON.parse(localStorage.getItem('reports')||'[]');
-      reports.push({ reporter: currentUser.email, seller: sellerEmail, post: postId, reason, date: new Date().toISOString() });
-      localStorage.setItem('reports', JSON.stringify(reports));
-      showToast('ส่งรายงานปัญหาเรียบร้อยแล้ว','success');
-      if (isAdmin) loadAdminReports();
-    }
-
-    // ============================================================
-    // 10. MARK AS SOLD
-    // ============================================================
-    async function markAsSold(postId) {
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-      if (!confirm('คุณต้องการเปลี่ยนสถานะเป็น "ขายสำเร็จ" ใช่หรือไม่?')) return;
-
-      try {
-        await apiCall(`/posts/${postId}`, {
-          method: 'PUT',
-          body: JSON.stringify({ status: 'sold' })
-        });
-        showToast('✅ เปลี่ยนสถานะเป็น ขายสำเร็จ', 'success');
-
-        const post = allPosts.find(p => p.post_id === postId);
-        if (post) {
-          addTransactionHistory(currentUser.email, post.seller_email, postId, 'ขายสำเร็จ');
-        }
-
-        loadPosts();
-        if (currentUser) loadProfile();
-      } catch (e) {
-        showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
-      }
-    }
-
-    // ============================================================
-    // 11. EDIT POST
-    // ============================================================
-    async function editPost(postId) {
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-      const post = allPosts.find(p => p.post_id === postId);
-      if (!post) return showToast('ไม่พบโพสต์', 'error');
-
-      if (post.seller_email !== currentUser.email) {
-        return showToast('คุณไม่มีสิทธิ์แก้ไขโพสต์นี้', 'error');
-      }
-
-      $('editPostId').value = postId;
-      $('editBaggageType').value = post.baggage_type || 'check-in';
-      $('editDeparture').value = post.departure_airport || '';
-      $('editArrival').value = post.arrival_airport || '';
-      $('editFlightDate').value = post.flight_date || '';
-      $('editMeetingPoint').value = post.meeting_point || '';
-      $('editWeight').value = post.available_weight || 0;
-      $('editCurrency').value = post.currency || 'THB';
-
-      $('editPostModal').classList.add('active');
-    }
-
-    $('closeEditModal').addEventListener('click', () => {
-      $('editPostModal').classList.remove('active');
-    });
-
-    $('editSwapBtn').addEventListener('click', () => {
-      const dep = $('editDeparture');
-      const arr = $('editArrival');
-      [dep.value, arr.value] = [arr.value, dep.value];
-    });
-
-    $('editPostForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const postId = $('editPostId').value;
-      const body = {
-        baggage_type: $('editBaggageType').value,
-        departure_airport: $('editDeparture').value,
-        arrival_airport: $('editArrival').value,
-        flight_date: $('editFlightDate').value,
-        meeting_point: $('editMeetingPoint').value.trim(),
-        available_weight: parseFloat($('editWeight').value) || 0,
-        currency: $('editCurrency').value
-      };
-
-      try {
-        await apiCall(`/posts/${postId}`, {
-          method: 'PUT',
-          body: JSON.stringify(body)
-        });
-        showToast('✅ อัปเดตประกาศสำเร็จ', 'success');
-        $('editPostModal').classList.remove('active');
-        loadPosts();
-      } catch (e) {
-        showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
-      }
-    });
-
-    // ============================================================
-    // 12. REVIEW SYSTEM
-    // ============================================================
-    function openReviewModal(sellerEmail, postId) {
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ', 'error'); return; }
-      if (currentUser.email === sellerEmail) {
-        return showToast('คุณไม่สามารถให้คะแนนตัวเองได้', 'warning');
-      }
-
-      reviewPostId = postId;
-      reviewSellerEmail = sellerEmail;
-      $('selectedRating').value = 0;
-      document.getElementById('reviewComment').value = '';
-      document.querySelectorAll('#ratingStars span').forEach(el => {
-        el.textContent = '☆';
-        el.style.color = '#d1d5db';
-      });
-      $('ratingText').textContent = 'กรุณาเลือกคะแนน';
-      $('reviewModal').classList.add('active');
-    }
-
-    $('closeReviewModal').addEventListener('click', () => {
-      $('reviewModal').classList.remove('active');
-    });
-
-    document.querySelectorAll('#ratingStars span').forEach(el => {
-      el.addEventListener('click', function() {
-        const rating = parseInt(this.dataset.rating);
-        $('selectedRating').value = rating;
-        document.querySelectorAll('#ratingStars span').forEach((s, i) => {
-          if (i < rating) {
-            s.textContent = '★';
-            s.style.color = '#f59e0b';
-          } else {
-            s.textContent = '☆';
-            s.style.color = '#d1d5db';
-          }
-        });
-        const messages = ['', 'แย่มาก', 'แย่', 'ปานกลาง', 'ดี', 'ดีมาก'];
-        $('ratingText').textContent = messages[rating] || '';
-      });
-    });
-
-    $('submitReviewBtn').addEventListener('click', async () => {
-      const rating = parseInt($('selectedRating').value);
-      const comment = document.getElementById('reviewComment').value.trim();
-
-      if (rating === 0) return showToast('กรุณาเลือกคะแนน', 'warning');
-
-      try {
-        await apiCall('/reviews', {
-          method: 'POST',
-          body: JSON.stringify({
-            post_id: reviewPostId,
-            reviewer_email: currentUser.email,
-            seller_email: reviewSellerEmail,
-            rating: rating,
-            comment: comment
-          })
-        });
-        showToast('✅ ส่งรีวิวเรียบร้อย!', 'success');
-        $('reviewModal').classList.remove('active');
-        if (currentUser) loadProfile();
-      } catch (e) {
-        showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
-      }
-    });
-
-    // ============================================================
-    // 13. CHANGE NAME (ONCE)
-    // ============================================================
-    async function changeDisplayName() {
-      if (!currentUser) return showToast('กรุณาเข้าสู่ระบบ', 'error');
-
-      const nameChanged = localStorage.getItem('name_changed_' + currentUser.email);
-      if (nameChanged === 'true') {
-        return showToast('⚠️ คุณสามารถเปลี่ยนชื่อได้ครั้งเดียวเท่านั้น', 'warning');
-      }
-
-      const newName = prompt('กรุณากรอกชื่อที่ต้องการใช้ (สามารถเปลี่ยนได้ครั้งเดียว):', currentUser.name);
-      if (!newName || newName === currentUser.name) return;
-
-      try {
-        await apiCall('/profile', {
-          method: 'POST',
-          body: JSON.stringify({
-            email: currentUser.email,
-            display_name: newName
-          })
-        });
-        localStorage.setItem('name_changed_' + currentUser.email, 'true');
-        currentUser.name = newName;
-        document.getElementById('userName').textContent = newName;
-        showToast('✅ เปลี่ยนชื่อสำเร็จ!', 'success');
-        loadProfile();
-        loadPosts();
-      } catch (e) {
-        showToast('เกิดข้อผิดพลาด: ' + e.message, 'error');
-      }
-    }
-
-    // ============================================================
-    // 14. TRANSACTION HISTORY
-    // ============================================================
-    function addTransactionHistory(userEmail, sellerEmail, postId, action) {
-      const key = 'transaction_history_' + sellerEmail;
-      const history = JSON.parse(localStorage.getItem(key) || '[]');
-      history.push({
-        action: action,
-        post_id: postId,
-        buyer: userEmail,
-        date: new Date().toISOString()
-      });
-      localStorage.setItem(key, JSON.stringify(history));
-
-      if (userEmail !== sellerEmail) {
-        const buyerKey = 'transaction_history_' + userEmail;
-        const buyerHistory = JSON.parse(localStorage.getItem(buyerKey) || '[]');
-        buyerHistory.push({
-          action: 'ซื้อ: ' + action,
-          post_id: postId,
-          seller: sellerEmail,
-          date: new Date().toISOString()
-        });
-        localStorage.setItem(buyerKey, JSON.stringify(buyerHistory));
-      }
-    }
-
-    function loadTransactionHistory(email) {
-      const key = 'transaction_history_' + email;
-      const history = JSON.parse(localStorage.getItem(key) || '[]');
-      const container = document.getElementById('historyList');
-      const t = lang();
-      if (!history.length) {
-        container.innerHTML = `<p class="text-gray-400 text-sm">${t.noTransactions}</p>`;
-        return;
-      }
-      container.innerHTML = history.slice(-10).reverse().map(h => `
-        <div class="flex justify-between text-sm border-b py-1">
-          <span>${h.action}</span>
-          <span class="text-gray-400">${h.date ? h.date.slice(0,10) : '-'}</span>
+async function loadAdminPins() {
+  if (!isAdmin || !currentUser) return;
+  try {
+    const data = await apiCall('/posts');
+    const posts = data.data || [];
+    const pinned = posts.filter(p => p.is_pinned === 'TRUE');
+    const list = $('adminPinList');
+    if (!pinned.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีโพสต์ที่ปักหมุด</p>'; return; }
+    list.innerHTML = pinned.map(p => `
+      <div class="flex items-center justify-between bg-gray-50 p-2 rounded-lg flex-wrap gap-2">
+        <span class="text-sm">${p.seller_name} — ${p.departure_airport}→${p.arrival_airport}</span>
+        <div class="flex items-center gap-2">
+          <input type="number" class="w-16 border rounded px-2 py-1 text-sm" value="${p.pin_order||0}" data-postid="${p.post_id}">
+          <button onclick="updatePin('${p.post_id}', this)" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">อัปเดต</button>
+          <button onclick="togglePinStatus('${p.post_id}', this)" class="${p.is_pinned==='TRUE'?'bg-red-500':'bg-green-500'} text-white px-2 py-1 rounded text-sm">${p.is_pinned==='TRUE'?'ยกเลิก':'ปักหมุด'}</button>
         </div>
-      `).join('');
-    }
+      </div>
+    `).join('');
+  } catch(e){}
+}
 
-    // ============================================================
-    // 15. CREATE POST
-    // ============================================================
-    $('fabPost').addEventListener('click', ()=>{
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; }
-      $('postModal').classList.add('active');
+window.updatePin = async function(postId, btn) {
+  if (!currentUser) return;
+  const input = btn.parentElement.querySelector('input');
+  const pinOrder = parseInt(input.value)||0;
+  try {
+    await apiCall('/admin/set-pin', { 
+      method: 'POST', 
+      body: JSON.stringify({ 
+        post_id: postId, 
+        pin_order: pinOrder,
+        admin_email: currentUser.email
+      }) 
     });
-    $('closeModal').addEventListener('click', ()=>$('postModal').classList.remove('active'));
-    $('swapBtn').addEventListener('click', ()=>{
-      const dep = $('departure'), arr = $('arrival');
-      [dep.value, arr.value] = [arr.value, dep.value];
+    showToast('อัปเดตปักหมุดสำเร็จ','success');
+    loadAdminPins(); loadPosts();
+  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+};
+
+window.togglePinStatus = async function(postId, btn) {
+  if (!currentUser) return;
+  const current = btn.textContent === 'ยกเลิก' ? 'TRUE' : 'FALSE';
+  const newStatus = current === 'TRUE' ? 'FALSE' : 'TRUE';
+  try {
+    await apiCall('/admin/set-pin', { 
+      method: 'POST', 
+      body: JSON.stringify({ 
+        post_id: postId, 
+        is_pinned: newStatus==='TRUE',
+        admin_email: currentUser.email
+      }) 
     });
-    $('calcPriceBtn').addEventListener('click', ()=>{
-      const w = parseFloat($('weight').value)||0;
-      const t1 = parseFloat($('tier1').value)||0, t2=parseFloat($('tier2').value)||0, t3=parseFloat($('tier3').value)||0, t4=parseFloat($('tier4').value)||0;
-      let price=0;
-      if (w<=5) price=w*t1;
-      else if (w<=10) price=5*t1+(w-5)*t2;
-      else if (w<=20) price=5*t1+5*t2+(w-10)*t3;
-      else price=5*t1+5*t2+10*t3+(w-20)*t4;
-      $('totalPriceDisplay').textContent = `ราคารวม: ${price.toFixed(2)}`;
+    showToast(newStatus==='TRUE' ? 'ปักหมุดแล้ว' : 'ยกเลิกปักหมุดแล้ว','success');
+    loadAdminPins(); loadPosts();
+  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+};
+
+async function loadAdminPosts() {
+  if (!isAdmin || !currentUser) return;
+  try {
+    const data = await apiCall('/posts');
+    const posts = data.data || [];
+    const list = $('adminPostList');
+    list.innerHTML = posts.map(p => `
+      <div class="flex items-center justify-between bg-gray-50 p-2 rounded-lg flex-wrap gap-2">
+        <span class="text-sm">${p.seller_name} — ${p.departure_airport}→${p.arrival_airport} <span class="text-xs text-gray-400">(${p.status})</span></span>
+        <button onclick="toggleHidePost('${p.post_id}','${p.status}')" class="${p.status==='hidden'?'bg-green-600':'bg-red-500'} text-white px-3 py-1 rounded text-sm hover:opacity-80 transition">${p.status==='hidden'?'แสดง':'ซ่อน'}</button>
+      </div>
+    `).join('');
+  } catch(e){}
+}
+
+window.toggleHidePost = async function(postId, currentStatus) {
+  if (!currentUser) return;
+  const hide = currentStatus !== 'hidden';
+  try {
+    await apiCall('/admin/hide-post', { 
+      method: 'POST', 
+      body: JSON.stringify({ 
+        post_id: postId, 
+        hide: hide,
+        admin_email: currentUser.email
+      }) 
     });
-    $('postForm').addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-      const body = {
-        seller_email: currentUser.email,
-        seller_name: currentUser.name,
-        seller_phone: $('phone').value.trim(),
-        seller_facebook: $('facebook').value.trim(),
-        seller_line: $('lineId').value.trim(),
-        departure_airport: $('departure').value,
-        arrival_airport: $('arrival').value,
-        flight_date: $('flightDate').value,
-        baggage_type: $('baggageType').value,
-        available_weight: parseFloat($('weight').value)||0,
-        price_per_kg: 0,
-        currency: $('currency').value,
-        meeting_point: $('meetingPoint').value.trim(),
-        tier1: parseFloat($('tier1').value)||0,
-        tier2: parseFloat($('tier2').value)||0,
-        tier3: parseFloat($('tier3').value)||0,
-        tier4: parseFloat($('tier4').value)||0,
-      };
-      const w=body.available_weight;
-      const t1=body.tier1,t2=body.tier2,t3=body.tier3,t4=body.tier4;
-      let total=0;
-      if (w<=5) total=w*t1;
-      else if (w<=10) total=5*t1+(w-5)*t2;
-      else if (w<=20) total=5*t1+5*t2+(w-10)*t3;
-      else total=5*t1+5*t2+10*t3+(w-20)*t4;
-      body.price_per_kg = w>0 ? total/w : 0;
-      body.total_price = total;
-      try {
-        await apiCall('/posts', { method:'POST', body:JSON.stringify(body) });
-        showToast('ประกาศสำเร็จ!','success');
-        $('postModal').classList.remove('active');
-        $('postForm').reset();
-        $('totalPriceDisplay').textContent = 'ราคารวม: 0.00';
-        loadPosts();
-      } catch(e) { showToast('เกิดข้อผิดพลาด: '+e.message,'error'); }
+    showToast(hide ? 'ซ่อนโพสต์แล้ว' : 'แสดงโพสต์แล้ว','success');
+    loadAdminPosts(); loadPosts();
+  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+};
+
+function loadAdminReports() {
+  const reports = JSON.parse(localStorage.getItem('reports')||'[]');
+  const list = $('adminReportsList');
+  if (!reports.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีรายงานปัญหา</p>'; return; }
+  list.innerHTML = reports.slice(-10).reverse().map(r => `
+    <div class="border-b py-1 text-sm flex justify-between"><span><strong>${r.seller}</strong> — ${r.reason}</span><span class="text-gray-400 text-xs">${r.date.slice(0,10)}</span></div>
+  `).join('');
+}
+
+// ============================================================
+// 20. FILTER & SORT EVENTS
+// ============================================================
+$('searchBtn').addEventListener('click', loadPosts);
+['filterFrom','filterTo','filterDate','filterPriceMin','filterPriceMax','filterWeightMin','filterWeightMax'].forEach(id => {
+  $(id).addEventListener('change', loadPosts);
+  $(id).addEventListener('keyup', e => { if (e.key==='Enter') loadPosts(); });
+});
+document.querySelectorAll('[data-sort]').forEach(btn => {
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    loadPosts();
+  });
+});
+$('refreshPostsBtn').addEventListener('click', loadPosts);
+
+// ============================================================
+// 21. TABS
+// ============================================================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active','text-blue-600','border-b-2','border-blue-600');
+      b.classList.add('text-gray-500');
     });
+    btn.classList.add('active','text-blue-600','border-b-2','border-blue-600');
+    btn.classList.remove('text-gray-500');
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    const target = $(`tab-${tab}`);
+    if (target) target.classList.remove('hidden');
+    if (tab === 'profile') loadProfile();
+    if (tab === 'dashboard') loadDashboard();
+    if (tab === 'admin') { loadAdminStats(); loadAdminPins(); loadAdminPosts(); loadAdminReports(); }
+    if (tab === 'feed') loadPosts();
+  });
+});
 
-    // ============================================================
-    // 16. PROFILE
-    // ============================================================
-    async function loadProfile() {
-      if (!currentUser) return;
-      try {
-        const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
-        const { profile, reviews, badges } = data.data || {};
-        if (profile) {
-          $('profileName').textContent = profile.display_name || currentUser.name;
-          $('profileEmail').textContent = profile.email;
-          $('profilePhone').innerHTML = `<i class="fas fa-phone"></i> ${profile.phone||'-'}`;
-          $('profileFacebook').innerHTML = `<i class="fab fa-facebook"></i> ${profile.facebook||'-'}`;
-          $('profileLine').innerHTML = `<i class="fab fa-line"></i> ${profile.line||'-'}`;
-          $('profileRating').textContent = profile.avg_rating ? profile.avg_rating.toFixed(1) : '0.0';
-          $('profilePosts').textContent = profile.total_posts||0;
-          $('profileSales').textContent = profile.total_sales||0;
-          $('profileAvatar').src = currentUser.picture;
-          const bc = $('profileBadges');
-          bc.innerHTML = badges.map(b => {
-            const cls = b.id==='frequent_flyer'?'frequent':b.id==='verified_id'?'verified':b.id==='trusted_seller'?'trusted':'';
-            return `<span class="badge-trust ${cls}"><i class="fas ${b.icon}"></i> ${b.label}</span>`;
-          }).join('');
-          const rl = $('reviewsList');
-          if (!reviews||!reviews.length) rl.innerHTML = `<p class="text-gray-400 text-sm">${lang().noReviews}</p>`;
-          else rl.innerHTML = reviews.map(r => `
-            <div class="border-b py-2">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-medium text-sm">${r.reviewer_email}</span>
-                <span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
-                <span class="text-xs text-gray-400">${r.created_at||''}</span>
-              </div>
-              <p class="text-sm text-gray-600">${r.comment||'-'}</p>
-            </div>
-          `).join('');
-          $('statViews').textContent = profile.total_views||0;
-          $('statClicks').textContent = profile.total_clicks||0;
-          const conv = profile.total_clicks>0 ? Math.round((profile.total_sales||0)/profile.total_clicks*100) : 0;
-          $('statConversion').textContent = conv+'%';
-          $('statBookmarks').textContent = bookmarks.length;
-          $('editPhone').value = profile.phone||'';
-          $('editFacebook').value = profile.facebook||'';
-          $('editLine').value = profile.line||'';
-        }
-        loadTransactionHistory(currentUser.email);
-      } catch(e) { showToast('โหลดโปรไฟล์ล้มเหลว','error'); }
-    }
-    $('updateProfileBtn').addEventListener('click', async ()=>{
-      if (!currentUser) return;
-      const body = {
-        email: currentUser.email,
-        display_name: currentUser.name,
-        phone: $('editPhone').value.trim(),
-        facebook: $('editFacebook').value.trim(),
-        line: $('editLine').value.trim(),
-      };
-      try {
-        await apiCall('/profile', { method:'POST', body:JSON.stringify(body) });
-        showToast('อัปเดตโปรไฟล์สำเร็จ','success');
-        loadProfile();
-      } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+// ============================================================
+// 22. LANGUAGE & COUNTRY DROPDOWNS
+// ============================================================
+function setLanguage(code) {
+  currentLang = code;
+  const t = LANG[code];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  $('appTitle').textContent = t.appTitle;
+  $('loginText').textContent = t.login;
+  $('logoutBtn').textContent = t.logout;
+  populateCountryDropdowns();
+  renderPosts(filteredPosts.length ? filteredPosts : allPosts);
+  renderSponsors(allPosts);
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+}
+$('langTh').addEventListener('click',()=>setLanguage('th'));
+$('langMs').addEventListener('click',()=>setLanguage('ms'));
+
+function populateCountryDropdowns() {
+  const ids = ['filterFrom','filterTo','departure','arrival','subDeparture','subArrival','editDeparture','editArrival'];
+  const t = lang();
+  ids.forEach(id => {
+    const sel = $(id); if(!sel) return;
+    const val = sel.value;
+    sel.innerHTML = `<option value="">— ${id.includes('filter')||id.includes('sub') ? 'ทั้งหมด' : 'เลือก'} —</option>`;
+    COUNTRIES.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = `${c.flag} ${t.countryNames[c.code] || c.name}`;
+      if (val === c.code) opt.selected = true;
+      sel.appendChild(opt);
     });
+  });
+}
 
-    // ============================================================
-    // 17. SUBSCRIPTION
-    // ============================================================
-    $('subscribeForm').addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-      const body = {
-        email: currentUser.email,
-        departure: $('subDeparture').value,
-        arrival: $('subArrival').value,
-        flight_date: $('subDate').value.trim()||'ANY',
-      };
-      try {
-        await apiCall('/subscribe', { method:'POST', body:JSON.stringify(body) });
-        showToast('สมัครรับแจ้งเตือนสำเร็จ','success');
-        $('subscribeForm').reset();
-      } catch(e) { showToast('สมัครล้มเหลว: '+e.message,'error'); }
-    });
-    $('unsubBtn').addEventListener('click', async ()=>{
-      if (!currentUser) return;
-      if (!confirm('ต้องการยกเลิกการรับแจ้งเตือนใช่หรือไม่?')) return;
-      try {
-        await apiCall(`/subscribe?email=${encodeURIComponent(currentUser.email)}`, { method:'DELETE' });
-        showToast('ยกเลิกสำเร็จ','success');
-      } catch(e) { showToast('ยกเลิกล้มเหลว: '+e.message,'error'); }
-    });
+// ============================================================
+// 23. GOOGLE OAUTH
+// ============================================================
+function initOAuth() {
+  if (typeof google === 'undefined') {
+    const s = document.createElement('script');
+    s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true;
+    s.onload = initOAuth;
+    document.head.appendChild(s);
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: CLIENT_ID,
+    callback: handleCredentialResponse,
+    auto_select: false,
+    cancel_on_tap_outside: false,
+  });
+  google.accounts.id.renderButton($('loginBtn'), { theme:'outline', size:'medium', text:'continue_with', shape:'pill' });
+}
 
-    // ============================================================
-    // 18. DASHBOARD & CHART
-    // ============================================================
-    async function loadDashboard() {
-      if (!currentUser) return;
-      try {
-        const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
-        const profile = data.data.profile || {};
-        const posts = allPosts.filter(p => p.seller_email === currentUser.email);
-        const active = posts.filter(p => p.status === 'active');
-        const views = posts.reduce((s,p) => s + (p.view_count||0), 0);
-        const clicks = posts.reduce((s,p) => s + (p.click_count||0), 0);
-        $('dashTotalPosts').textContent = posts.length;
-        $('dashActivePosts').textContent = active.length;
-        $('dashTotalViews').textContent = views;
-        $('dashTotalClicks').textContent = clicks;
-        const allPrices = allPosts.filter(p => p.price_per_kg > 0).map(p => p.price_per_kg);
-        if (allPrices.length) {
-          const avg = allPrices.reduce((s,v) => s+v, 0) / allPrices.length;
-          const min = Math.min(...allPrices);
-          const max = Math.max(...allPrices);
-          $('dashAvgPrice').textContent = avg.toFixed(2);
-          $('dashMinPrice').textContent = min.toFixed(2);
-          $('dashMaxPrice').textContent = max.toFixed(2);
-        } else {
-          $('dashAvgPrice').textContent = '-';
-          $('dashMinPrice').textContent = '-';
-          $('dashMaxPrice').textContent = '-';
-        }
-        const routeCount = {};
-        allPosts.forEach(p => {
-          const key = p.departure_airport + '→' + p.arrival_airport;
-          routeCount[key] = (routeCount[key]||0) + 1;
-        });
-        let topRoute='-', topCount=0;
-        for (const [route,count] of Object.entries(routeCount)) {
-          if (count > topCount) { topCount = count; topRoute = route; }
-        }
-        $('dashTopRoute').textContent = topRoute;
-        updateMarketChart(allPosts);
-      } catch(e){}
+function handleCredentialResponse(response) {
+  const payload = JSON.parse(atob(response.credential.split('.')[1]));
+  currentUser = { email: payload.email, name: payload.name, picture: payload.picture };
+  localStorage.setItem('luggage_user', JSON.stringify(currentUser));
+  $('userDisplay').classList.remove('hidden');
+  $('userName').textContent = currentUser.name;
+  $('userAvatar').src = currentUser.picture;
+  $('loginBtn').classList.add('hidden');
+  $('logoutBtn').classList.remove('hidden');
+  checkAdminStatus();
+  loadPosts();
+  loadProfile();
+  loadDashboard();
+  loadAdminStats();
+  showToast('เข้าสู่ระบบสำเร็จ', 'success');
+}
+$('logoutBtn').addEventListener('click', ()=>{
+  currentUser = null; isAdmin = false;
+  localStorage.removeItem('luggage_user');
+  $('userDisplay').classList.add('hidden');
+  $('loginBtn').classList.remove('hidden');
+  $('logoutBtn').classList.add('hidden');
+  $('adminTab').classList.add('hidden');
+  location.reload();
+});
+
+// ============================================================
+// 24. SHOW TOAST
+// ============================================================
+function showToast(msg, type='info') {
+  const c = $('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast-item ${type}`;
+  const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', warning:'fa-triangle-exclamation', info:'fa-info-circle' };
+  el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i> ${msg}`;
+  c.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
+}
+
+// ============================================================
+// 25. CHECK ADMIN
+// ============================================================
+async function checkAdminStatus() {
+  if (!currentUser) return;
+  try {
+    const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
+    if (data.data?.profile?.is_admin) {
+      isAdmin = true;
+      $('adminTab').classList.remove('hidden');
+      loadAdminStats(); loadAdminPins(); loadAdminPosts(); loadAdminReports();
     }
+  } catch(e){}
+}
 
-    function updateMarketChart(posts) {
-      const canvas = $('marketChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
-      const groups = {};
-      posts.forEach(p => {
-        if (p.currency && p.price_per_kg > 0) {
-          if (!groups[p.currency]) groups[p.currency] = [];
-          groups[p.currency].push(p.price_per_kg);
-        }
-      });
-      const labels = Object.keys(groups);
-      const avgPrices = labels.map(cur => {
-        const arr = groups[cur];
-        return arr.reduce((s,v) => s+v, 0) / arr.length;
-      });
-      if (labels.length === 0) {
-        $('marketChartContainer').innerHTML = `<div class="chart-placeholder">${lang().chartPlaceholder}</div>`;
-        return;
-      }
-      chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: { labels, datasets: [{ label: 'ราคาเฉลี่ย (ต่อ kg)', data: avgPrices, backgroundColor: '#3b82f6', borderRadius: 6 }] },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true, ticks: { callback: v => v.toFixed(0) } } }
-        }
-      });
-      $('marketChartContainer').innerHTML = '';
-      $('marketChartContainer').appendChild(canvas);
-    }
+// ============================================================
+// 26. INIT
+// ============================================================
+window.onload = function() {
+  populateCountryDropdowns();
+  initOAuth();
+  setLanguage('th');
+  loadPosts();
+  debugLog('🚀 Platform loaded', 'success');
+  debugLog(`🔑 Worker URL: ${WORKER_URL}`, 'info');
+  debugLog(`🔐 API_SECRET: ${API_SECRET ? '✓ Set' : '✗ Missing'}`, API_SECRET ? 'success' : 'error');
+  debugLog(`📊 Countries: ${COUNTRIES.length} countries loaded`, 'info');
 
-    // ============================================================
-    // 19. ADMIN FUNCTIONS
-    // ============================================================
-    async function loadAdminStats() {
-      if (!isAdmin) return;
-      try {
-        const data = await apiCall('/admin/stats');
-        const stats = data.data || {};
-        $('adminTotalPosts').textContent = stats.total_posts||0;
-        $('adminActivePosts').textContent = stats.active_posts||0;
-        $('adminTotalUsers').textContent = stats.total_users||0;
-        $('adminAvgRating').textContent = stats.avg_rating||'0.0';
-      } catch(e){}
-    }
-    async function loadAdminPins() {
-      if (!isAdmin) return;
-      try {
-        const data = await apiCall('/posts');
-        const posts = data.data || [];
-        const pinned = posts.filter(p => p.is_pinned === 'TRUE');
-        const list = $('adminPinList');
-        if (!pinned.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีโพสต์ที่ปักหมุด</p>'; return; }
-        list.innerHTML = pinned.map(p => `
-          <div class="flex items-center justify-between bg-gray-50 p-2 rounded-lg flex-wrap gap-2">
-            <span class="text-sm">${p.seller_name} — ${p.departure_airport}→${p.arrival_airport}</span>
-            <div class="flex items-center gap-2">
-              <input type="number" class="w-16 border rounded px-2 py-1 text-sm" value="${p.pin_order||0}" data-postid="${p.post_id}">
-              <button onclick="updatePin('${p.post_id}', this)" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">อัปเดต</button>
-              <button onclick="togglePinStatus('${p.post_id}', this)" class="${p.is_pinned==='TRUE'?'bg-red-500':'bg-green-500'} text-white px-2 py-1 rounded text-sm">${p.is_pinned==='TRUE'?'ยกเลิก':'ปักหมุด'}</button>
-            </div>
-          </div>
-        `).join('');
-      } catch(e){}
-    }
-    window.updatePin = async function(postId, btn) {
-      const input = btn.parentElement.querySelector('input');
-      const pinOrder = parseInt(input.value)||0;
-      try {
-        await apiCall('/admin/set-pin', { method:'POST', body: JSON.stringify({ post_id: postId, pin_order: pinOrder }) });
-        showToast('อัปเดตปักหมุดสำเร็จ','success');
-        loadAdminPins(); loadPosts();
-      } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
-    };
-    window.togglePinStatus = async function(postId, btn) {
-      const current = btn.textContent === 'ยกเลิก' ? 'TRUE' : 'FALSE';
-      const newStatus = current === 'TRUE' ? 'FALSE' : 'TRUE';
-      try {
-        await apiCall('/admin/set-pin', { method:'POST', body: JSON.stringify({ post_id: postId, is_pinned: newStatus==='TRUE' }) });
-        showToast(newStatus==='TRUE' ? 'ปักหมุดแล้ว' : 'ยกเลิกปักหมุดแล้ว','success');
-        loadAdminPins(); loadPosts();
-      } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
-    };
-    async function loadAdminPosts() {
-      if (!isAdmin) return;
-      try {
-        const data = await apiCall('/posts');
-        const posts = data.data || [];
-        const list = $('adminPostList');
-        list.innerHTML = posts.map(p => `
-          <div class="flex items-center justify-between bg-gray-50 p-2 rounded-lg flex-wrap gap-2">
-            <span class="text-sm">${p.seller_name} — ${p.departure_airport}→${p.arrival_airport} <span class="text-xs text-gray-400">(${p.status})</span></span>
-            <button onclick="toggleHidePost('${p.post_id}','${p.status}')" class="${p.status==='hidden'?'bg-green-600':'bg-red-500'} text-white px-3 py-1 rounded text-sm hover:opacity-80 transition">${p.status==='hidden'?'แสดง':'ซ่อน'}</button>
-          </div>
-        `).join('');
-      } catch(e){}
-    }
-    window.toggleHidePost = async function(postId, currentStatus) {
-      const hide = currentStatus !== 'hidden';
-      try {
-        await apiCall('/admin/hide-post', { method:'POST', body: JSON.stringify({ post_id: postId, hide }) });
-        showToast(hide ? 'ซ่อนโพสต์แล้ว' : 'แสดงโพสต์แล้ว','success');
-        loadAdminPosts(); loadPosts();
-      } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
-    };
-    function loadAdminReports() {
-      const reports = JSON.parse(localStorage.getItem('reports')||'[]');
-      const list = $('adminReportsList');
-      if (!reports.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีรายงานปัญหา</p>'; return; }
-      list.innerHTML = reports.slice(-10).reverse().map(r => `
-        <div class="border-b py-1 text-sm flex justify-between"><span><strong>${r.seller}</strong> — ${r.reason}</span><span class="text-gray-400 text-xs">${r.date.slice(0,10)}</span></div>
-      `).join('');
-    }
-
-    // ============================================================
-    // 20. FILTER & SORT EVENTS
-    // ============================================================
-    $('searchBtn').addEventListener('click', loadPosts);
-    ['filterFrom','filterTo','filterDate','filterPriceMin','filterPriceMax','filterWeightMin','filterWeightMax'].forEach(id => {
-      $(id).addEventListener('change', loadPosts);
-      $(id).addEventListener('keyup', e => { if (e.key==='Enter') loadPosts(); });
-    });
-    document.querySelectorAll('[data-sort]').forEach(btn => {
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentSort = btn.dataset.sort;
-        loadPosts();
-      });
-    });
-    $('refreshPostsBtn').addEventListener('click', loadPosts);
-
-    // ============================================================
-    // 21. TABS
-    // ============================================================
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('.tab-btn').forEach(b => {
-          b.classList.remove('active','text-blue-600','border-b-2','border-blue-600');
-          b.classList.add('text-gray-500');
-        });
-        btn.classList.add('active','text-blue-600','border-b-2','border-blue-600');
-        btn.classList.remove('text-gray-500');
-        const tab = btn.dataset.tab;
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-        const target = $(`tab-${tab}`);
-        if (target) target.classList.remove('hidden');
-        if (tab === 'profile') loadProfile();
-        if (tab === 'dashboard') loadDashboard();
-        if (tab === 'admin') { loadAdminStats(); loadAdminPins(); loadAdminPosts(); loadAdminReports(); }
-        if (tab === 'feed') loadPosts();
-      });
-    });
-
-    // ============================================================
-    // 22. LANGUAGE & COUNTRY DROPDOWNS
-    // ============================================================
-    function setLanguage(code) {
-      currentLang = code;
-      const t = LANG[code];
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (t[key] !== undefined) el.textContent = t[key];
-      });
-      $('appTitle').textContent = t.appTitle;
-      $('loginText').textContent = t.login;
-      $('logoutBtn').textContent = t.logout;
-      populateCountryDropdowns();
-      renderPosts(filteredPosts.length ? filteredPosts : allPosts);
-      renderSponsors(allPosts);
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.dataset.i18nPlaceholder;
-        if (t[key] !== undefined) el.placeholder = t[key];
-      });
-    }
-    $('langTh').addEventListener('click',()=>setLanguage('th'));
-    $('langMs').addEventListener('click',()=>setLanguage('ms'));
-
-    function populateCountryDropdowns() {
-      const ids = ['filterFrom','filterTo','departure','arrival','subDeparture','subArrival','editDeparture','editArrival'];
-      const t = lang();
-      ids.forEach(id => {
-        const sel = $(id); if(!sel) return;
-        const val = sel.value;
-        sel.innerHTML = `<option value="">— ${id.includes('filter')||id.includes('sub') ? 'ทั้งหมด' : 'เลือก'} —</option>`;
-        COUNTRIES.forEach(c => {
-          const opt = document.createElement('option');
-          opt.value = c.code;
-          opt.textContent = `${c.flag} ${t.countryNames[c.code] || c.name}`;
-          if (val === c.code) opt.selected = true;
-          sel.appendChild(opt);
-        });
-      });
-    }
-
-    // ============================================================
-    // 23. GOOGLE OAUTH
-    // ============================================================
-    function initOAuth() {
-      if (typeof google === 'undefined') {
-        const s = document.createElement('script');
-        s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.defer = true;
-        s.onload = initOAuth;
-        document.head.appendChild(s);
-        return;
-      }
-      google.accounts.id.initialize({
-        client_id: CLIENT_ID,
-        callback: handleCredentialResponse,
-        auto_select: false,
-        cancel_on_tap_outside: false,
-      });
-      google.accounts.id.renderButton($('loginBtn'), { theme:'outline', size:'medium', text:'continue_with', shape:'pill' });
-    }
-
-    function handleCredentialResponse(response) {
-      const payload = JSON.parse(atob(response.credential.split('.')[1]));
-      currentUser = { email: payload.email, name: payload.name, picture: payload.picture };
-      localStorage.setItem('luggage_user', JSON.stringify(currentUser));
+  const savedUser = localStorage.getItem('luggage_user');
+  if (savedUser) {
+    try {
+      currentUser = JSON.parse(savedUser);
       $('userDisplay').classList.remove('hidden');
       $('userName').textContent = currentUser.name;
       $('userAvatar').src = currentUser.picture;
       $('loginBtn').classList.add('hidden');
       $('logoutBtn').classList.remove('hidden');
       checkAdminStatus();
-      loadPosts();
       loadProfile();
       loadDashboard();
-      loadAdminStats();
-      showToast('เข้าสู่ระบบสำเร็จ', 'success');
-    }
-    $('logoutBtn').addEventListener('click', ()=>{
-      currentUser = null; isAdmin = false;
-      localStorage.removeItem('luggage_user');
-      $('userDisplay').classList.add('hidden');
-      $('loginBtn').classList.remove('hidden');
-      $('logoutBtn').classList.add('hidden');
-      $('adminTab').classList.add('hidden');
-      location.reload();
-    });
+      debugLog(`👤 User restored: ${currentUser.email}`, 'success');
+    } catch(e){ debugLog(`❌ Restore user error: ${e.message}`, 'error'); }
+  }
 
-    // ============================================================
-    // 24. SHOW TOAST
-    // ============================================================
-    function showToast(msg, type='info') {
-      const c = $('toastContainer');
-      const el = document.createElement('div');
-      el.className = `toast-item ${type}`;
-      const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', warning:'fa-triangle-exclamation', info:'fa-info-circle' };
-      el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i> ${msg}`;
-      c.appendChild(el);
-      setTimeout(()=>el.remove(), 3500);
-    }
+  document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', (e) => { if (e.target===m) m.classList.remove('active'); });
+  });
 
-    // ============================================================
-    // 25. CHECK ADMIN
-    // ============================================================
-    async function checkAdminStatus() {
-      if (!currentUser) return;
-      try {
-        const data = await apiCall(`/profile?email=${encodeURIComponent(currentUser.email)}`);
-        if (data.data?.profile?.is_admin) {
-          isAdmin = true;
-          $('adminTab').classList.remove('hidden');
-          loadAdminStats(); loadAdminPins(); loadAdminPosts(); loadAdminReports();
-        }
-      } catch(e){}
-    }
+  document.addEventListener('keydown', (e) => {
+    if (e.key==='Escape') document.querySelectorAll('.modal-overlay.active').forEach(m=>m.classList.remove('active'));
+    if (e.ctrlKey && e.key==='r') { e.preventDefault(); loadPosts(); showToast('รีเฟรชข้อมูลแล้ว','info'); }
+  });
 
-    // ============================================================
-    // 26. INIT
-    // ============================================================
-    window.onload = function() {
-      populateCountryDropdowns();
-      initOAuth();
-      setLanguage('th');
-      loadPosts();
-      debugLog('🚀 Platform loaded', 'success');
-      debugLog(`🔑 Worker URL: ${WORKER_URL}`, 'info');
-      debugLog(`🔐 API_SECRET: ${API_SECRET ? '✓ Set' : '✗ Missing'}`, API_SECRET ? 'success' : 'error');
-      debugLog(`📊 Countries: ${COUNTRIES.length} countries loaded`, 'info');
+  window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
+  window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
 
-      const savedUser = localStorage.getItem('luggage_user');
-      if (savedUser) {
-        try {
-          currentUser = JSON.parse(savedUser);
-          $('userDisplay').classList.remove('hidden');
-          $('userName').textContent = currentUser.name;
-          $('userAvatar').src = currentUser.picture;
-          $('loginBtn').classList.add('hidden');
-          $('logoutBtn').classList.remove('hidden');
-          checkAdminStatus();
-          loadProfile();
-          loadDashboard();
-          debugLog(`👤 User restored: ${currentUser.email}`, 'success');
-        } catch(e){ debugLog(`❌ Restore user error: ${e.message}`, 'error'); }
-      }
-
-      document.querySelectorAll('.modal-overlay').forEach(m => {
-        m.addEventListener('click', (e) => { if (e.target===m) m.classList.remove('active'); });
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key==='Escape') document.querySelectorAll('.modal-overlay.active').forEach(m=>m.classList.remove('active'));
-        if (e.ctrlKey && e.key==='r') { e.preventDefault(); loadPosts(); showToast('รีเฟรชข้อมูลแล้ว','info'); }
-      });
-
-      window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
-      window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
-
-      console.log('✅ Luggage Weight Sharing Platform loaded (Final Version)');
-      console.log(`📦 ${allPosts.length} posts loaded`);
-      console.log(`👤 User: ${currentUser ? currentUser.email : 'Not logged in'}`);
-      console.log(`🔑 Admin: ${isAdmin}`);
-      console.log(`📡 WORKER_URL: ${WORKER_URL}`);
-    };
+  console.log('✅ Luggage Weight Sharing Platform loaded (Security Fixed)');
+  console.log(`📦 ${allPosts.length} posts loaded`);
+  console.log(`👤 User: ${currentUser ? currentUser.email : 'Not logged in'}`);
+  console.log(`🔑 Admin: ${isAdmin}`);
+  console.log(`📡 WORKER_URL: ${WORKER_URL}`);
+};
 </script>
 </body>
 </html>
