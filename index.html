@@ -8,42 +8,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ================================================================ */
-    /* ROOT & BASE */
-    /* ================================================================ */
     :root { --primary: #1a56db; --primary-dark: #1e3a8a; --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-900: #0f172a; --shadow: 0 4px 24px rgba(0,0,0,0.06); --radius: 12px; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family: 'Inter', -apple-system, sans-serif; background: var(--gray-50); color: var(--gray-900); }
     .container-custom { max-width: 1280px; margin:0 auto; padding:0 1.5rem; }
-
-    /* FAB */
     .fab-main { position:fixed; bottom:2rem; right:2rem; z-index:100; width:60px; height:60px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; border:none; border-radius:50%; font-size:1.8rem; box-shadow:0 8px 32px rgba(26,86,219,0.35); cursor:pointer; transition:all 0.25s; display:flex; align-items:center; justify-content:center; }
     .fab-main:hover { transform:scale(1.08); }
-
-    /* Modal */
     .modal-overlay { position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.5); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:1.5rem; }
     .modal-overlay.active { display:flex; }
     .modal-box { background:#fff; border-radius:20px; max-width:720px; width:100%; max-height:92vh; overflow-y:auto; padding:2rem 2.5rem; box-shadow:0 24px 64px rgba(0,0,0,0.16); animation:modalFade 0.3s ease; }
     @keyframes modalFade { from { opacity:0; transform:translateY(30px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
-
-    /* Table */
     .table-wrap { overflow-x:auto; }
     .table-wrap table { width:100%; border-collapse:collapse; font-size:0.9rem; min-width:640px; }
     .table-wrap th { text-align:left; padding:0.75rem 1rem; background:var(--gray-100); font-weight:600; border-bottom:2px solid #e2e8f0; }
     .table-wrap td { padding:0.75rem 1rem; border-bottom:1px solid #f1f5f9; }
-
-    /* Badges */
     .badge-trust { display:inline-flex; align-items:center; gap:0.3rem; padding:0.2rem 0.7rem; border-radius:30px; font-size:0.7rem; font-weight:600; }
     .badge-trust.frequent { background:#dbeafe; color:#1e40af; }
     .badge-trust.verified { background:#d1fae5; color:#065f46; }
     .badge-trust.trusted { background:#fef3c7; color:#92400e; }
-    .badge-trust.sold { background:#d1fae5; color:#065f46; }
-
-    /* Filter Chip */
     .filter-chip { display:inline-flex; align-items:center; gap:0.3rem; padding:0.2rem 0.8rem; border-radius:30px; background:var(--gray-100); font-size:0.75rem; color:#64748b; border:1px solid #e2e8f0; cursor:pointer; transition:all 0.25s; }
     .filter-chip.active { background:var(--primary); color:#fff; border-color:var(--primary); }
-
-    /* Toast */
     .toast-container { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); z-index:9999; display:flex; flex-direction:column; gap:0.5rem; max-width:420px; width:90%; }
     .toast-item { padding:0.75rem 1.25rem; border-radius:12px; color:#fff; font-weight:500; box-shadow:0 16px 48px rgba(0,0,0,0.15); animation:toastIn 0.3s ease; display:flex; align-items:center; gap:0.75rem; }
     .toast-item.success { background:linear-gradient(135deg,#10b981,#059669); }
@@ -51,344 +35,327 @@
     .toast-item.info { background:linear-gradient(135deg,#3b82f6,#2563eb); }
     .toast-item.warning { background:linear-gradient(135deg,#f59e0b,#d97706); }
     @keyframes toastIn { from { opacity:0; transform:translateY(20px) scale(0.95); } to { opacity:1; transform:translateY(0) scale(1); } }
-
-    /* Stat Card */
     .stat-card { padding:1rem 1.25rem; border-radius:12px; background:#fff; border:1px solid #e2e8f0; text-align:center; }
     .stat-card .num { font-size:1.8rem; font-weight:800; color:var(--primary); }
-
-    /* Debug Panel */
     .debug-panel { background:#1e293b; color:#e2e8f0; padding:1rem; border-radius:12px; font-family:monospace; font-size:0.8rem; max-height:250px; overflow-y:auto; margin-top:1rem; }
     .debug-panel .error { color:#f87171; }
     .debug-panel .success { color:#34d399; }
     .debug-panel .warn { color:#fbbf24; }
-
-    /* Sponsor Card */
     .sponsor-card { border-left:4px solid #f59e0b; background:linear-gradient(135deg,rgba(245,158,11,0.04),rgba(245,158,11,0.01)); transition:all 0.25s; }
     .sponsor-card:hover { transform:translateY(-4px); box-shadow:0 8px 32px rgba(0,0,0,0.08); }
-
-    /* Stars */
     .stars { color:#f59e0b; letter-spacing:1px; }
     .stars-empty { color:#d1d5db; }
-
-    /* Status Badge */
     .status-badge { padding:0.15rem 0.6rem; border-radius:30px; font-size:0.65rem; font-weight:600; }
     .status-badge.active { background:#d1fae5; color:#065f46; }
     .status-badge.sold { background:#fef3c7; color:#92400e; }
     .status-badge.expired { background:#fee2e2; color:#991b1b; }
     .status-badge.hidden { background:#e5e7eb; color:#4b5563; }
-
-    /* Responsive */
-    @media (max-width:768px) { .container-custom { padding:0 1rem; } .modal-box { padding:1.5rem; } .fab-main { width:50px; height:50px; font-size:1.4rem; } .table-wrap table { font-size:0.8rem; min-width:480px; } .hide-mobile { display:none !important; } }
-    @media (max-width:480px) { .modal-box { padding:1rem; } .stat-card { padding:0.75rem; } .stat-card .num { font-size:1.2rem; } }
-
-    /* Rating Stars */
     .rating-star-selector span { cursor:pointer; font-size:2rem; transition:all 0.15s; }
     .rating-star-selector span:hover { transform:scale(1.2); }
+    @media (max-width:768px) { .container-custom { padding:0 1rem; } .modal-box { padding:1.5rem; } .fab-main { width:50px; height:50px; font-size:1.4rem; } .table-wrap table { font-size:0.8rem; min-width:480px; } .hide-mobile { display:none !important; } }
+    @media (max-width:480px) { .modal-box { padding:1rem; } .stat-card { padding:0.75rem; } .stat-card .num { font-size:1.2rem; } }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="bg-gradient-to-r from-blue-700 to-blue-800 text-white shadow-lg sticky top-0 z-50">
-    <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2 text-xl font-bold">
-        <i class="fas fa-suitcase-rolling"></i>
-        <span id="appTitle" data-i18n="appTitle">แบ่งปันน้ำหนักกระเป๋า</span>
-      </div>
-      <div class="flex items-center gap-3 flex-wrap">
-        <div class="flex bg-white/20 rounded-full overflow-hidden text-sm backdrop-blur-sm">
-          <button id="langTh" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">ไทย</button>
-          <button id="langMs" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">Melayu</button>
-        </div>
-        <div id="userDisplay" class="hidden flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5 backdrop-blur-sm">
-          <img id="userAvatar" class="w-7 h-7 rounded-full border-2 border-white/30" src="" alt="avatar">
-          <span id="userName" class="text-sm font-medium max-w-[100px] truncate"></span>
-        </div>
-        <button id="loginBtn" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-100 transition shadow-sm">
-          <i class="fab fa-google"></i> <span id="loginText" data-i18n="login">เข้าสู่ระบบ</span>
-        </button>
-        <button id="logoutBtn" class="hidden bg-red-500/80 hover:bg-red-500 px-4 py-1.5 rounded-full font-semibold transition backdrop-blur-sm" data-i18n="logout">ออกจากระบบ</button>
-        <button id="debugToggleBtn" class="bg-gray-700/50 hover:bg-gray-600 px-3 py-1.5 rounded-full text-xs font-mono transition"><i class="fas fa-bug"></i> Debug</button>
-      </div>
+<!-- ===== NAVBAR ===== -->
+<nav class="bg-gradient-to-r from-blue-700 to-blue-800 text-white shadow-lg sticky top-0 z-50">
+  <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2 text-xl font-bold">
+      <i class="fas fa-suitcase-rolling"></i>
+      <span id="appTitle" data-i18n="appTitle">แบ่งปันน้ำหนักกระเป๋า</span>
     </div>
-  </nav>
-
-  <!-- ===== MAIN CONTENT ===== -->
-  <main class="container-custom py-6">
-
-    <!-- TABS -->
-    <div class="flex flex-wrap gap-1 mb-6 border-b pb-2 overflow-x-auto">
-      <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed"><i class="fas fa-list"></i> <span data-i18n="tabFeed">ประกาศ</span></button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile"><i class="fas fa-user"></i> <span data-i18n="tabProfile">โปรไฟล์</span></button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe"><i class="fas fa-bell"></i> <span data-i18n="tabSubscribe">แจ้งเตือน</span></button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard"><i class="fas fa-chart-pie"></i> <span data-i18n="tabDashboard">แดชบอร์ด</span></button>
-      <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin"><i class="fas fa-crown"></i> <span data-i18n="tabAdmin">Admin</span></button>
-    </div>
-
-    <!-- ===== TAB: FEED ===== -->
-    <div id="tab-feed" class="tab-content">
-      <div class="bg-white rounded-xl shadow p-4 md:p-5 mb-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="fromLabel">ต้นทาง</label><select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="toLabel">ปลายทาง</label><select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="dateLabel">วันที่เดินทาง</label><input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="priceRangeLabel">ช่วงราคา (ต่อ kg)</label><div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
-        </div>
-        <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs text-gray-500 font-medium" data-i18n="sortLabel">เรียงลำดับ:</span>
-            <button class="filter-chip active" data-sort="date" data-i18n="sortDate">วันที่ใกล้สุด</button>
-            <button class="filter-chip" data-sort="price_asc" data-i18n="sortPriceAsc">ราคาต่ำ→สูง</button>
-            <button class="filter-chip" data-sort="price_desc" data-i18n="sortPriceDesc">ราคาสูง→ต่ำ</button>
-            <button class="filter-chip" data-sort="trust" data-i18n="sortTrust">ความน่าเชื่อถือ</button>
-          </div>
-          <button id="searchBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-sm"><i class="fas fa-search"></i> <span data-i18n="search">ค้นหา</span></button>
-        </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <div class="flex bg-white/20 rounded-full overflow-hidden text-sm backdrop-blur-sm">
+        <button id="langTh" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">ไทย</button>
+        <button id="langMs" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">Melayu</button>
       </div>
-
-      <div id="sponsorSection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8"></div>
-
-      <div class="bg-white rounded-xl shadow overflow-hidden">
-        <div class="px-5 py-4 border-b flex flex-wrap items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i> <span data-i18n="postListTitle">รายการประกาศ</span> <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
-          <button id="refreshPostsBtn" class="text-sm text-gray-500 hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th data-i18n="thSeller">ผู้ขาย</th><th data-i18n="thRoute">เส้นทาง</th><th class="hide-mobile" data-i18n="thDate">วันที่</th><th class="hide-mobile" data-i18n="thType">ประเภท</th><th data-i18n="thWeight">น้ำหนัก</th><th data-i18n="thPrice">ราคา</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thBadges">Badges</th><th class="text-center" data-i18n="thActions">ดำเนินการ</th></tr></thead>
-            <tbody id="postTableBody"></tbody>
-          </table>
-        </div>
-        <div class="px-5 py-3 border-t flex items-center justify-between text-sm">
-          <span id="pageInfo" class="text-gray-500">หน้า 1 / 1</span>
-          <div class="flex gap-2">
-            <button id="prevPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-left"></i></button>
-            <button id="nextPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-right"></i></button>
-          </div>
-        </div>
+      <div id="userDisplay" class="hidden flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5 backdrop-blur-sm">
+        <img id="userAvatar" class="w-7 h-7 rounded-full border-2 border-white/30" src="" alt="avatar">
+        <span id="userName" class="text-sm font-medium max-w-[100px] truncate"></span>
       </div>
-    </div>
-
-    <!-- ===== TAB: PROFILE ===== -->
-    <div id="tab-profile" class="tab-content hidden">
-      <div class="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
-          <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-blue-200" src="" alt="avatar">
-          <div class="flex-1 text-center md:text-left">
-            <h2 id="profileName" class="text-2xl font-bold">-</h2>
-            <p id="profileEmail" class="text-gray-500 text-sm"><i class="fas fa-envelope"></i> -</p>
-            <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition">
-              <i class="fas fa-pen"></i> <span data-i18n="changeNameOnce">เปลี่ยนชื่อ (ครั้งเดียว)</span>
-            </button>
-            <div class="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
-              <span id="profilePhone" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fas fa-phone"></i> -</span>
-              <span id="profileFacebook" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fab fa-facebook"></i> -</span>
-              <span id="profileLine" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fab fa-line"></i> -</span>
-            </div>
-            <div id="profileBadges" class="flex flex-wrap gap-2 mt-3 justify-center md:justify-start"></div>
-          </div>
-          <div class="grid grid-cols-3 gap-3 text-center">
-            <div class="bg-blue-50 p-3 rounded-lg"><div id="profileRating" class="text-xl font-bold text-blue-600">0.0</div><div class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="ratingLabel">คะแนน</span></div></div>
-            <div class="bg-green-50 p-3 rounded-lg"><div id="profilePosts" class="text-xl font-bold text-green-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-box"></i> <span data-i18n="postsLabel">โพสต์</span></div></div>
-            <div class="bg-purple-50 p-3 rounded-lg"><div id="profileSales" class="text-xl font-bold text-purple-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-handshake"></i> <span data-i18n="salesLabel">ขายสำเร็จ</span></div></div>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          <div class="stat-card"><div class="num" id="statViews">0</div><div class="label"><i class="fas fa-eye"></i> <span data-i18n="viewsLabel">ผู้เข้าชม</span></div></div>
-          <div class="stat-card"><div class="num" id="statClicks">0</div><div class="label"><i class="fas fa-mouse-pointer"></i> <span data-i18n="clicksLabel">คลิกติดต่อ</span></div></div>
-          <div class="stat-card"><div class="num" id="statConversion">0%</div><div class="label"><i class="fas fa-chart-line"></i> <span data-i18n="conversionLabel">อัตราขาย</span></div></div>
-          <div class="stat-card"><div class="num" id="statBookmarks">0</div><div class="label"><i class="fas fa-bookmark"></i> <span data-i18n="bookmarksLabel">บันทึกแล้ว</span></div></div>
-        </div>
-        <h3 class="font-semibold text-lg mb-3"><i class="fas fa-comment-dots text-blue-600"></i> <span data-i18n="reviewTitle">รีวิวจากผู้ซื้อ</span></h3>
-        <div id="reviewsList" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold text-lg mt-6 mb-3"><i class="fas fa-history text-blue-600"></i> <span data-i18n="historyTitle">ประวัติธุรกรรม</span></h3>
-        <div id="historyList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
-        <div class="mt-6 border-t pt-4">
-          <h4 class="font-medium mb-2"><i class="fas fa-edit"></i> <span data-i18n="editProfile">แก้ไขโปรไฟล์</span></h4>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <input id="editPhone" placeholder="เบอร์โทร" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
-            <input id="editFacebook" placeholder="Facebook ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
-            <input id="editLine" placeholder="LINE ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
-          </div>
-          <button id="updateProfileBtn" class="mt-3 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm"><i class="fas fa-save"></i> <span data-i18n="updateProfile">อัปเดตโปรไฟล์</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== TAB: SUBSCRIBE ===== -->
-    <div id="tab-subscribe" class="tab-content hidden">
-      <div class="bg-white rounded-xl shadow p-6 max-w-md mx-auto">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-bell text-blue-600"></i> <span data-i18n="subTitle">สมัครรับแจ้งเตือน</span></h2>
-        <p class="text-gray-600 text-sm mb-4" data-i18n="subDesc">รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ</p>
-        <form id="subscribeForm">
-          <div class="mb-3"><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="subDeparture" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div class="mb-3"><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><select id="subArrival" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div class="mb-4"><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่ (หรือ ANY)</label><input id="subDate" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="YYYY-MM-DD หรือ ANY"></div>
-          <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="subBtn">สมัครรับแจ้งเตือน</span></button>
-        </form>
-        <button id="unsubBtn" class="w-full mt-3 text-red-500 hover:underline text-sm" data-i18n="unsubBtn">ยกเลิกการรับแจ้งเตือน</button>
-      </div>
-    </div>
-
-    <!-- ===== TAB: DASHBOARD ===== -->
-    <div id="tab-dashboard" class="tab-content hidden">
-      <div class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-chart-pie text-blue-600"></i> <span data-i18n="dashboardTitle">แดชบอร์ดส่วนตัว</span></h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="stat-card"><div class="num" id="dashTotalPosts">0</div><div class="label" data-i18n="dashTotalPosts">โพสต์ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="dashActivePosts">0</div><div class="label" data-i18n="dashActivePosts">โพสต์ที่ใช้งาน</div></div>
-          <div class="stat-card"><div class="num" id="dashTotalViews">0</div><div class="label" data-i18n="dashTotalViews">ยอดเข้าชม</div></div>
-          <div class="stat-card"><div class="num" id="dashTotalClicks">0</div><div class="label" data-i18n="dashTotalClicks">ยอดคลิกติดต่อ</div></div>
-        </div>
-        <h3 class="font-semibold mb-2"><i class="fas fa-chart-bar text-blue-600"></i> <span data-i18n="marketPriceChart">กราฟราคาตลาด (ต่อ kg)</span></h3>
-        <div class="chart-placeholder" id="marketChartContainer"><canvas id="marketChart" height="160"></canvas></div>
-        <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="avgPrice">ราคาเฉลี่ย:</span> <strong id="dashAvgPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="minPrice">ต่ำสุด:</span> <strong id="dashMinPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="maxPrice">สูงสุด:</span> <strong id="dashMaxPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="routeCount">เส้นทางยอดนิยม:</span> <strong id="dashTopRoute">-</strong></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== TAB: ADMIN ===== -->
-    <div id="tab-admin" class="tab-content hidden">
-      <div class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-crown text-yellow-500"></i> <span data-i18n="adminTitle">แผงควบคุม Admin</span></h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="stat-card"><div class="num" id="adminTotalPosts">0</div><div class="label" data-i18n="adminTotalPosts">โพสต์ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="adminActivePosts">0</div><div class="label" data-i18n="adminActivePosts">โพสต์ที่ใช้งาน</div></div>
-          <div class="stat-card"><div class="num" id="adminTotalUsers">0</div><div class="label" data-i18n="adminTotalUsers">ผู้ใช้ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label" data-i18n="adminAvgRating">คะแนนเฉลี่ย</div></div>
-        </div>
-        <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor)</span></h3>
-        <div id="adminPinList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-eye-slash text-red-500"></i> <span data-i18n="adminHideTitle">ซ่อน/แสดงโพสต์</span></h3>
-        <div id="adminPostList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-flag text-red-500"></i> <span data-i18n="adminReportsTitle">รายงานปัญหา</span></h3>
-        <div id="adminReportsList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
-      </div>
-    </div>
-
-    <!-- ===== FAB ===== -->
-    <button id="fabPost" class="fab-main" title="ลงประกาศ"><i class="fas fa-plus"></i></button>
-
-  </main>
-
-  <!-- ===== MODAL: POST ===== -->
-  <div id="postModal" class="modal-overlay">
-    <div class="modal-box">
-      <button class="modal-close" id="closeModal">&times;</button>
-      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-suitcase"></i> <span data-i18n="modalPostTitle">ลงประกาศขายพื้นที่</span></h2>
-      <form id="postForm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
-          <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="departure" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="arrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="swapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
-          <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="flightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
-          <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="meetingPointLabel">จุดนัดพบในสนามบิน</label><input id="meetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
-          <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="tieredPriceLabel">ราคาต่อกิโลแบบขั้นบันได</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2"><input id="tier1" type="number" step="0.01" placeholder="1-5 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier2" type="number" step="0.01" placeholder="6-10 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier3" type="number" step="0.01" placeholder="11-20 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier4" type="number" step="0.01" placeholder="21+ kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"></div></div>
-          <div><label class="block text-sm font-medium" data-i18n="weightLabel">น้ำหนัก (kg)</label><input id="weight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
-          <div><label class="block text-sm font-medium" data-i18n="currencyLabel">สกุลเงิน</label><select id="currency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
-        </div>
-        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-          <input id="phone" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เบอร์โทร (WhatsApp)">
-          <input id="facebook" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="Facebook ID">
-          <input id="lineId" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="LINE ID">
-        </div>
-        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-          <span id="totalPriceDisplay" class="text-lg font-bold">ราคารวม: 0.00</span>
-          <div class="flex gap-2">
-            <button type="button" id="calcPriceBtn" class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm"><i class="fas fa-calculator"></i> <span data-i18n="calcPrice">คำนวณราคา</span></button>
-            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="publishBtn">เผยแพร่</span></button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== MODAL: EDIT POST ===== -->
-  <div id="editPostModal" class="modal-overlay">
-    <div class="modal-box">
-      <button class="modal-close" id="closeEditModal">&times;</button>
-      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-edit"></i> <span data-i18n="editPostTitle">แก้ไขประกาศ</span></h2>
-      <form id="editPostForm">
-        <input type="hidden" id="editPostId">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="editBaggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
-          <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="editDeparture" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="editArrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="editSwapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
-          <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="editFlightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
-          <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="meetingPointLabel">จุดนัดพบในสนามบิน</label><input id="editMeetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
-          <div><label class="block text-sm font-medium" data-i18n="weightLabel">น้ำหนัก (kg)</label><input id="editWeight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
-          <div><label class="block text-sm font-medium" data-i18n="currencyLabel">สกุลเงิน</label><select id="editCurrency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
-        </div>
-        <div class="mt-4 flex justify-end">
-          <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-save"></i> <span data-i18n="updatePost">อัปเดตประกาศ</span></button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== MODAL: REVIEW ===== -->
-  <div id="reviewModal" class="modal-overlay">
-    <div class="modal-box max-w-md">
-      <button class="modal-close" id="closeReviewModal">&times;</button>
-      <h3 class="text-xl font-bold mb-4"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="rateSeller">ให้คะแนนผู้ขาย</span></h3>
-      <div class="text-center mb-4">
-        <div class="rating-star-selector flex justify-center gap-2 text-4xl" id="ratingStars">
-          <span data-rating="1">☆</span>
-          <span data-rating="2">☆</span>
-          <span data-rating="3">☆</span>
-          <span data-rating="4">☆</span>
-          <span data-rating="5">☆</span>
-        </div>
-        <input type="hidden" id="selectedRating" value="0">
-        <p id="ratingText" class="text-sm text-gray-500 mt-1">กรุณาเลือกคะแนน</p>
-      </div>
-      <textarea id="reviewComment" class="w-full border rounded-lg p-3 h-24 focus:outline-blue-500" placeholder="เขียนรีวิว..."></textarea>
-      <button id="submitReviewBtn" class="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-        <i class="fas fa-paper-plane"></i> <span data-i18n="submitReview">ส่งรีวิว</span>
+      <button id="loginBtn" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-100 transition shadow-sm">
+        <i class="fab fa-google"></i> <span id="loginText" data-i18n="login">เข้าสู่ระบบ</span>
       </button>
+      <button id="logoutBtn" class="hidden bg-red-500/80 hover:bg-red-500 px-4 py-1.5 rounded-full font-semibold transition backdrop-blur-sm" data-i18n="logout">ออกจากระบบ</button>
+      <button id="debugToggleBtn" class="bg-gray-700/50 hover:bg-gray-600 px-3 py-1.5 rounded-full text-xs font-mono transition"><i class="fas fa-bug"></i> Debug</button>
     </div>
   </div>
+</nav>
 
-  <!-- ===== MODAL: SAFETY ===== -->
-  <div id="safetyModal" class="modal-overlay">
-    <div class="modal-box max-w-md">
-      <div class="text-center mb-4"><i class="fas fa-shield-halved text-5xl text-yellow-500"></i><h3 class="text-xl font-bold mt-2" data-i18n="safetyTitle">⚠️ คำเตือนความปลอดภัย</h3></div>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2 mb-4">
-        <li data-i18n="safety1">โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน</li>
-        <li data-i18n="safety2">เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย</li>
-        <li data-i18n="safety3">กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ</li>
-      </ul>
-      <button id="safetyConfirm" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-check"></i> <span data-i18n="safetyConfirm">ฉันเข้าใจและยอมรับ</span></button>
-    </div>
+<!-- ===== MAIN CONTENT ===== -->
+<main class="container-custom py-6">
+
+  <!-- TABS -->
+  <div class="flex flex-wrap gap-1 mb-6 border-b pb-2 overflow-x-auto">
+    <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed"><i class="fas fa-list"></i> <span data-i18n="tabFeed">ประกาศ</span></button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile"><i class="fas fa-user"></i> <span data-i18n="tabProfile">โปรไฟล์</span></button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe"><i class="fas fa-bell"></i> <span data-i18n="tabSubscribe">แจ้งเตือน</span></button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard"><i class="fas fa-chart-pie"></i> <span data-i18n="tabDashboard">แดชบอร์ด</span></button>
+    <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin"><i class="fas fa-crown"></i> <span data-i18n="tabAdmin">Admin</span></button>
   </div>
 
-  <!-- ===== TOAST ===== -->
-  <div class="toast-container" id="toastContainer"></div>
-
-  <!-- ===== DEBUG PANEL ===== -->
-  <div id="debugPanel" class="debug-panel hidden" style="margin: 1rem auto; max-width: 1280px; padding: 1rem 1.5rem;">
-    <div class="flex justify-between items-center mb-2">
-      <span class="font-bold"><i class="fas fa-bug"></i> Debug Console</span>
-      <div class="flex gap-2">
-        <button id="clearDebugBtn" class="text-xs bg-gray-600 hover:bg-gray-500 px-2 py-0.5 rounded">Clear</button>
-        <button id="copyDebugBtn" class="text-xs bg-gray-600 hover:bg-gray-500 px-2 py-0.5 rounded">Copy</button>
+  <!-- ===== TAB: FEED ===== -->
+  <div id="tab-feed" class="tab-content">
+    <div class="bg-white rounded-xl shadow p-4 md:p-5 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="fromLabel">ต้นทาง</label><select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
+        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="toLabel">ปลายทาง</label><select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
+        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="dateLabel">วันที่เดินทาง</label><input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
+        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="priceRangeLabel">ช่วงราคา (ต่อ kg)</label><div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
+        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs text-gray-500 font-medium" data-i18n="sortLabel">เรียงลำดับ:</span>
+          <button class="filter-chip active" data-sort="date" data-i18n="sortDate">วันที่ใกล้สุด</button>
+          <button class="filter-chip" data-sort="price_asc" data-i18n="sortPriceAsc">ราคาต่ำ→สูง</button>
+          <button class="filter-chip" data-sort="price_desc" data-i18n="sortPriceDesc">ราคาสูง→ต่ำ</button>
+          <button class="filter-chip" data-sort="trust" data-i18n="sortTrust">ความน่าเชื่อถือ</button>
+        </div>
+        <button id="searchBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-sm"><i class="fas fa-search"></i> <span data-i18n="search">ค้นหา</span></button>
       </div>
     </div>
-    <div id="debugContent" class="font-mono text-xs space-y-0.5 max-h-40 overflow-y-auto"></div>
+
+    <div id="sponsorSection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8"></div>
+
+    <div class="bg-white rounded-xl shadow overflow-hidden">
+      <div class="px-5 py-4 border-b flex flex-wrap items-center justify-between gap-2">
+        <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i> <span data-i18n="postListTitle">รายการประกาศ</span> <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
+        <button id="refreshPostsBtn" class="text-sm text-gray-500 hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th data-i18n="thSeller">ผู้ขาย</th><th data-i18n="thRoute">เส้นทาง</th><th class="hide-mobile" data-i18n="thDate">วันที่</th><th class="hide-mobile" data-i18n="thType">ประเภท</th><th data-i18n="thWeight">น้ำหนัก</th><th data-i18n="thPrice">ราคา</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thBadges">Badges</th><th class="text-center" data-i18n="thActions">ดำเนินการ</th></tr></thead>
+          <tbody id="postTableBody"></tbody>
+        </table>
+      </div>
+      <div class="px-5 py-3 border-t flex items-center justify-between text-sm">
+        <span id="pageInfo" class="text-gray-500">หน้า 1 / 1</span>
+        <div class="flex gap-2">
+          <button id="prevPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-left"></i></button>
+          <button id="nextPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="text-center text-gray-400 text-xs py-6 border-t mt-8">&copy; 2025 Luggage Weight Sharing Platform</footer>
+  <!-- ===== TAB: PROFILE ===== -->
+  <div id="tab-profile" class="tab-content hidden">
+    <div class="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+        <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-blue-200" src="" alt="avatar">
+        <div class="flex-1 text-center md:text-left">
+          <h2 id="profileName" class="text-2xl font-bold">-</h2>
+          <p id="profileEmail" class="text-gray-500 text-sm"><i class="fas fa-envelope"></i> -</p>
+          <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition">
+            <i class="fas fa-pen"></i> <span data-i18n="changeNameOnce">เปลี่ยนชื่อ (ครั้งเดียว)</span>
+          </button>
+          <div class="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
+            <span id="profilePhone" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fas fa-phone"></i> -</span>
+            <span id="profileFacebook" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fab fa-facebook"></i> -</span>
+            <span id="profileLine" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fab fa-line"></i> -</span>
+          </div>
+          <div id="profileBadges" class="flex flex-wrap gap-2 mt-3 justify-center md:justify-start"></div>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="bg-blue-50 p-3 rounded-lg"><div id="profileRating" class="text-xl font-bold text-blue-600">0.0</div><div class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="ratingLabel">คะแนน</span></div></div>
+          <div class="bg-green-50 p-3 rounded-lg"><div id="profilePosts" class="text-xl font-bold text-green-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-box"></i> <span data-i18n="postsLabel">โพสต์</span></div></div>
+          <div class="bg-purple-50 p-3 rounded-lg"><div id="profileSales" class="text-xl font-bold text-purple-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-handshake"></i> <span data-i18n="salesLabel">ขายสำเร็จ</span></div></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="stat-card"><div class="num" id="statViews">0</div><div class="label"><i class="fas fa-eye"></i> <span data-i18n="viewsLabel">ผู้เข้าชม</span></div></div>
+        <div class="stat-card"><div class="num" id="statClicks">0</div><div class="label"><i class="fas fa-mouse-pointer"></i> <span data-i18n="clicksLabel">คลิกติดต่อ</span></div></div>
+        <div class="stat-card"><div class="num" id="statConversion">0%</div><div class="label"><i class="fas fa-chart-line"></i> <span data-i18n="conversionLabel">อัตราขาย</span></div></div>
+        <div class="stat-card"><div class="num" id="statBookmarks">0</div><div class="label"><i class="fas fa-bookmark"></i> <span data-i18n="bookmarksLabel">บันทึกแล้ว</span></div></div>
+      </div>
+      <h3 class="font-semibold text-lg mb-3"><i class="fas fa-comment-dots text-blue-600"></i> <span data-i18n="reviewTitle">รีวิวจากผู้ซื้อ</span></h3>
+      <div id="reviewsList" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
+      <h3 class="font-semibold text-lg mt-6 mb-3"><i class="fas fa-history text-blue-600"></i> <span data-i18n="historyTitle">ประวัติธุรกรรม</span></h3>
+      <div id="historyList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
+      <div class="mt-6 border-t pt-4">
+        <h4 class="font-medium mb-2"><i class="fas fa-edit"></i> <span data-i18n="editProfile">แก้ไขโปรไฟล์</span></h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <input id="editPhone" placeholder="เบอร์โทร" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
+          <input id="editFacebook" placeholder="Facebook ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
+          <input id="editLine" placeholder="LINE ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
+        </div>
+        <button id="updateProfileBtn" class="mt-3 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm"><i class="fas fa-save"></i> <span data-i18n="updateProfile">อัปเดตโปรไฟล์</span></button>
+      </div>
+    </div>
+  </div>
 
-  <!-- ================================================================ -->
-  <!-- ===== JAVASCRIPT – 4,500+ LINES ===== -->
-  <!-- ================================================================ -->
-  <script>
+  <!-- ===== TAB: SUBSCRIBE ===== -->
+  <div id="tab-subscribe" class="tab-content hidden">
+    <div class="bg-white rounded-xl shadow p-6 max-w-md mx-auto">
+      <h2 class="text-xl font-bold mb-4"><i class="fas fa-bell text-blue-600"></i> <span data-i18n="subTitle">สมัครรับแจ้งเตือน</span></h2>
+      <p class="text-gray-600 text-sm mb-4" data-i18n="subDesc">รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ</p>
+      <form id="subscribeForm">
+        <div class="mb-3"><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="subDeparture" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+        <div class="mb-3"><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><select id="subArrival" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+        <div class="mb-4"><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่ (หรือ ANY)</label><input id="subDate" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="YYYY-MM-DD หรือ ANY"></div>
+        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="subBtn">สมัครรับแจ้งเตือน</span></button>
+      </form>
+      <button id="unsubBtn" class="w-full mt-3 text-red-500 hover:underline text-sm" data-i18n="unsubBtn">ยกเลิกการรับแจ้งเตือน</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB: DASHBOARD ===== -->
+  <div id="tab-dashboard" class="tab-content hidden">
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4"><i class="fas fa-chart-pie text-blue-600"></i> <span data-i18n="dashboardTitle">แดชบอร์ดส่วนตัว</span></h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card"><div class="num" id="dashTotalPosts">0</div><div class="label" data-i18n="dashTotalPosts">โพสต์ทั้งหมด</div></div>
+        <div class="stat-card"><div class="num" id="dashActivePosts">0</div><div class="label" data-i18n="dashActivePosts">โพสต์ที่ใช้งาน</div></div>
+        <div class="stat-card"><div class="num" id="dashTotalViews">0</div><div class="label" data-i18n="dashTotalViews">ยอดเข้าชม</div></div>
+        <div class="stat-card"><div class="num" id="dashTotalClicks">0</div><div class="label" data-i18n="dashTotalClicks">ยอดคลิกติดต่อ</div></div>
+      </div>
+      <h3 class="font-semibold mb-2"><i class="fas fa-chart-bar text-blue-600"></i> <span data-i18n="marketPriceChart">กราฟราคาตลาด (ต่อ kg)</span></h3>
+      <div class="chart-placeholder" id="marketChartContainer"><canvas id="marketChart" height="160"></canvas></div>
+      <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+        <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="avgPrice">ราคาเฉลี่ย:</span> <strong id="dashAvgPrice">-</strong></div>
+        <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="minPrice">ต่ำสุด:</span> <strong id="dashMinPrice">-</strong></div>
+        <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="maxPrice">สูงสุด:</span> <strong id="dashMaxPrice">-</strong></div>
+        <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="routeCount">เส้นทางยอดนิยม:</span> <strong id="dashTopRoute">-</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: ADMIN ===== -->
+  <div id="tab-admin" class="tab-content hidden">
+    <div class="bg-white rounded-xl shadow p-6">
+      <h2 class="text-xl font-bold mb-4"><i class="fas fa-crown text-yellow-500"></i> <span data-i18n="adminTitle">แผงควบคุม Admin</span></h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card"><div class="num" id="adminTotalPosts">0</div><div class="label" data-i18n="adminTotalPosts">โพสต์ทั้งหมด</div></div>
+        <div class="stat-card"><div class="num" id="adminActivePosts">0</div><div class="label" data-i18n="adminActivePosts">โพสต์ที่ใช้งาน</div></div>
+        <div class="stat-card"><div class="num" id="adminTotalUsers">0</div><div class="label" data-i18n="adminTotalUsers">ผู้ใช้ทั้งหมด</div></div>
+        <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label" data-i18n="adminAvgRating">คะแนนเฉลี่ย</div></div>
+      </div>
+      <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor)</span></h3>
+      <div id="adminPinList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
+      <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-eye-slash text-red-500"></i> <span data-i18n="adminHideTitle">ซ่อน/แสดงโพสต์</span></h3>
+      <div id="adminPostList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
+      <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-flag text-red-500"></i> <span data-i18n="adminReportsTitle">รายงานปัญหา</span></h3>
+      <div id="adminReportsList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
+    </div>
+  </div>
+
+  <!-- ===== FAB ===== -->
+  <button id="fabPost" class="fab-main" title="ลงประกาศ"><i class="fas fa-plus"></i></button>
+
+</main>
+
+<!-- ===== MODAL: POST ===== -->
+<div id="postModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <h2 class="text-2xl font-bold mb-4"><i class="fas fa-suitcase"></i> <span data-i18n="modalPostTitle">ลงประกาศขายพื้นที่</span></h2>
+    <form id="postForm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="departure" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="arrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="swapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
+        <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="flightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
+        <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="meetingPointLabel">จุดนัดพบในสนามบิน</label><input id="meetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
+        <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="tieredPriceLabel">ราคาต่อกิโลแบบขั้นบันได</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2"><input id="tier1" type="number" step="0.01" placeholder="1-5 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier2" type="number" step="0.01" placeholder="6-10 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier3" type="number" step="0.01" placeholder="11-20 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier4" type="number" step="0.01" placeholder="21+ kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"></div></div>
+        <div><label class="block text-sm font-medium" data-i18n="weightLabel">น้ำหนัก (kg)</label><input id="weight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
+        <div><label class="block text-sm font-medium" data-i18n="currencyLabel">สกุลเงิน</label><select id="currency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
+      </div>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <input id="phone" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เบอร์โทร (WhatsApp)">
+        <input id="facebook" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="Facebook ID">
+        <input id="lineId" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="LINE ID">
+      </div>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <span id="totalPriceDisplay" class="text-lg font-bold">ราคารวม: 0.00</span>
+        <div class="flex gap-2">
+          <button type="button" id="calcPriceBtn" class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm"><i class="fas fa-calculator"></i> <span data-i18n="calcPrice">คำนวณราคา</span></button>
+          <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="publishBtn">เผยแพร่</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: EDIT POST ===== -->
+<div id="editPostModal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" id="closeEditModal">&times;</button>
+    <h2 class="text-2xl font-bold mb-4"><i class="fas fa-edit"></i> <span data-i18n="editPostTitle">แก้ไขประกาศ</span></h2>
+    <form id="editPostForm">
+      <input type="hidden" id="editPostId">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="editBaggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="editDeparture" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="editArrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="editSwapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
+        <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="editFlightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
+        <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="meetingPointLabel">จุดนัดพบในสนามบิน</label><input id="editMeetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
+        <div><label class="block text-sm font-medium" data-i18n="weightLabel">น้ำหนัก (kg)</label><input id="editWeight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
+        <div><label class="block text-sm font-medium" data-i18n="currencyLabel">สกุลเงิน</label><select id="editCurrency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-save"></i> <span data-i18n="updatePost">อัปเดตประกาศ</span></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: REVIEW ===== -->
+<div id="reviewModal" class="modal-overlay">
+  <div class="modal-box max-w-md">
+    <button class="modal-close" id="closeReviewModal">&times;</button>
+    <h3 class="text-xl font-bold mb-4"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="rateSeller">ให้คะแนนผู้ขาย</span></h3>
+    <div class="text-center mb-4">
+      <div class="rating-star-selector flex justify-center gap-2 text-4xl" id="ratingStars">
+        <span data-rating="1">☆</span>
+        <span data-rating="2">☆</span>
+        <span data-rating="3">☆</span>
+        <span data-rating="4">☆</span>
+        <span data-rating="5">☆</span>
+      </div>
+      <input type="hidden" id="selectedRating" value="0">
+      <p id="ratingText" class="text-sm text-gray-500 mt-1">กรุณาเลือกคะแนน</p>
+    </div>
+    <textarea id="reviewComment" class="w-full border rounded-lg p-3 h-24 focus:outline-blue-500" placeholder="เขียนรีวิว..."></textarea>
+    <button id="submitReviewBtn" class="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+      <i class="fas fa-paper-plane"></i> <span data-i18n="submitReview">ส่งรีวิว</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== MODAL: SAFETY ===== -->
+<div id="safetyModal" class="modal-overlay">
+  <div class="modal-box max-w-md">
+    <div class="text-center mb-4"><i class="fas fa-shield-halved text-5xl text-yellow-500"></i><h3 class="text-xl font-bold mt-2" data-i18n="safetyTitle">⚠️ คำเตือนความปลอดภัย</h3></div>
+    <ul class="list-disc list-inside text-sm text-gray-700 space-y-2 mb-4">
+      <li data-i18n="safety1">โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน</li>
+      <li data-i18n="safety2">เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย</li>
+      <li data-i18n="safety3">กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ</li>
+    </ul>
+    <button id="safetyConfirm" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-check"></i> <span data-i18n="safetyConfirm">ฉันเข้าใจและยอมรับ</span></button>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== DEBUG PANEL ===== -->
+<div id="debugPanel" class="debug-panel hidden" style="margin: 1rem auto; max-width: 1280px; padding: 1rem 1.5rem;">
+  <div class="flex justify-between items-center mb-2">
+    <span class="font-bold"><i class="fas fa-bug"></i> Debug Console</span>
+    <div class="flex gap-2">
+      <button id="clearDebugBtn" class="text-xs bg-gray-600 hover:bg-gray-500 px-2 py-0.5 rounded">Clear</button>
+      <button id="copyDebugBtn" class="text-xs bg-gray-600 hover:bg-gray-500 px-2 py-0.5 rounded">Copy</button>
+    </div>
+  </div>
+  <div id="debugContent" class="font-mono text-xs space-y-0.5 max-h-40 overflow-y-auto"></div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="text-center text-gray-400 text-xs py-6 border-t mt-8">&copy; 2025 Luggage Weight Sharing Platform</footer>
+
+<script>
     // ============================================================
     // 1. I18N — ไทย / มาเลย์ (สมบูรณ์)
     // ============================================================
@@ -488,7 +455,8 @@
         statusSold: 'ขายแล้ว',
         statusExpired: 'หมดอายุ',
         statusHidden: 'ซ่อนอยู่',
-        noTransactions: 'ไม่มีประวัติธุรกรรม'
+        noTransactions: 'ไม่มีประวัติธุรกรรม',
+        editPost: 'แก้ไขประกาศ'
       },
       ms: {
         appTitle: 'Kongsi Berat Bagasi',
@@ -585,7 +553,8 @@
         statusSold: 'Terjual',
         statusExpired: 'Tamat',
         statusHidden: 'Tersembunyi',
-        noTransactions: 'Tiada sejarah transaksi'
+        noTransactions: 'Tiada sejarah transaksi',
+        editPost: 'Edit Iklan'
       }
     };
 
@@ -926,7 +895,6 @@
         });
         showToast('✅ เปลี่ยนสถานะเป็น ขายสำเร็จ', 'success');
 
-        // บันทึกประวัติธุรกรรม
         const post = allPosts.find(p => p.post_id === postId);
         if (post) {
           addTransactionHistory(currentUser.email, post.seller_email, postId, 'ขายสำเร็จ');
@@ -951,7 +919,6 @@
         return showToast('คุณไม่มีสิทธิ์แก้ไขโพสต์นี้', 'error');
       }
 
-      // เติมข้อมูลลงในฟอร์มแก้ไข
       $('editPostId').value = postId;
       $('editBaggageType').value = post.baggage_type || 'check-in';
       $('editDeparture').value = post.departure_airport || '';
@@ -1025,7 +992,6 @@
       $('reviewModal').classList.remove('active');
     });
 
-    // Rating stars selection
     document.querySelectorAll('#ratingStars span').forEach(el => {
       el.addEventListener('click', function() {
         const rating = parseInt(this.dataset.rating);
@@ -1116,7 +1082,6 @@
       });
       localStorage.setItem(key, JSON.stringify(history));
 
-      // ถ้าผู้ซื้อและผู้ขายเป็นคนเดียวกัน ให้บันทึกให้ด้วย
       if (userEmail !== sellerEmail) {
         const buyerKey = 'transaction_history_' + userEmail;
         const buyerHistory = JSON.parse(localStorage.getItem(buyerKey) || '[]');
@@ -1204,7 +1169,6 @@
         await apiCall('/posts', { method:'POST', body:JSON.stringify(body) });
         showToast('ประกาศสำเร็จ!','success');
         $('postModal').classList.remove('active');
-        // reset form
         $('postForm').reset();
         $('totalPriceDisplay').textContent = 'ราคารวม: 0.00';
         loadPosts();
@@ -1255,7 +1219,6 @@
           $('editFacebook').value = profile.facebook||'';
           $('editLine').value = profile.line||'';
         }
-        // โหลดประวัติธุรกรรม
         loadTransactionHistory(currentUser.email);
       } catch(e) { showToast('โหลดโปรไฟล์ล้มเหลว','error'); }
     }
@@ -1665,6 +1628,6 @@
       console.log(`🔑 Admin: ${isAdmin}`);
       console.log(`📡 WORKER_URL: ${WORKER_URL}`);
     };
-  </script>
+</script>
 </body>
 </html>
