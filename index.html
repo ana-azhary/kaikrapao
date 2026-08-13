@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>✈️ แชร์น้ำหนักกระเป๋า — Luggage Share</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f3b5e;
+            --primary-light: #1a5a8a;
+            --primary-dark: #09263a;
+            --secondary: #38bdf8;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.75);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #94a3b8;
+            --text-inverse: #f1f5f9;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --sidebar-width: 250px;
+            --glass-blur: blur(16px);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0b1120;
+            --bg-surface: #1e293b;
+            --bg-card: rgba(30, 41, 59, 0.70);
+            --bg-card-hover: rgba(30, 41, 59, 0.90);
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        html {
+            font-size: 15px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            transition: background var(--transition), color var(--transition);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ============================================================
+           SIDEBAR
+           ============================================================ */
+        .app-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--text-inverse);
+            padding: 28px 16px 24px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform var(--transition), background var(--transition);
+            overflow-y: auto;
+            box-shadow: 4px 0 32px rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .app-sidebar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 6px 24px 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 20px;
+        }
+        .app-sidebar .brand .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(56, 189, 248, 0.15);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+        .app-sidebar .brand .brand-text h1 {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .app-sidebar .brand .brand-text span {
+            font-size: 10px;
+            opacity: 0.5;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .app-sidebar .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 11px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            transition: all var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+        .app-sidebar .nav-item i {
+            width: 22px;
+            text-align: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .app-sidebar .nav-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+        }
+        .app-sidebar .nav-item.active {
+            background: rgba(56, 189, 248, 0.15);
+            color: #fff;
+            box-shadow: inset 4px 0 0 var(--secondary);
+        }
+        .app-sidebar .nav-item.active i {
+            color: var(--secondary);
+        }
+
+        .app-sidebar .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+        .app-sidebar .sidebar-footer .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .app-sidebar .sidebar-footer .sidebar-user .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .app-sidebar .sidebar-footer .sidebar-user .user-info .name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .app-sidebar .sidebar-footer .sidebar-user .user-info .role {
+            font-size: 10px;
+            opacity: 0.5;
+        }
+        .app-sidebar .sidebar-footer .btn-logout-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: none;
+            background: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            width: 100%;
+            text-align: left;
+            margin-top: 8px;
+        }
+        .app-sidebar .sidebar-footer .btn-logout-side:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        /* ============================================================
+           MAIN CONTENT
+           ============================================================ */
+        .app-main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+            padding: 24px 32px 48px;
+            transition: margin var(--transition);
+            background: var(--bg-body);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+        .topbar .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .topbar .topbar-left .menu-toggle {
+            display: none;
+            background: var(--bg-surface);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-sm);
+            font-size: 20px;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 6px 12px;
+            transition: all var(--transition);
+        }
+        .topbar .topbar-left .menu-toggle:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .topbar .topbar-left .page-title h2 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+        .topbar .topbar-left .page-title p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 0px;
+        }
+        .topbar .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .topbar .topbar-right .lang-btn {
+            background: var(--bg-surface);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius-sm);
+            padding: 6px 12px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+        }
+        .topbar .topbar-right .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .topbar .topbar-right .btn-refresh {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(15, 59, 94, 0.2);
+        }
+        .topbar .topbar-right .btn-refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 59, 94, 0.3);
+        }
+        .topbar .topbar-right .btn-refresh:active {
+            transform: scale(0.96);
+        }
+
+        /* ============================================================
+           PAGE SECTIONS
+           ============================================================ */
+        .page-section {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================================
+           CARDS & TABLES
+           ============================================================ */
+        .card-panel {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            transition: background var(--transition), border var(--transition), box-shadow var(--transition);
+        }
+        .card-panel:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .card-panel .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .card-panel .card-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+        .card-panel .card-header h3 i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-sm);
+        }
+        .table-wrap table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .table-wrap table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: var(--text-muted);
+            background: var(--bg-body);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+            white-space: nowrap;
+        }
+        .table-wrap table td {
+            padding: 8px 14px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        .table-wrap table tbody tr:hover td {
+            background: rgba(15, 59, 94, 0.04);
+        }
+        .table-wrap .empty-row {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 59, 94, 0.25);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.25);
+        }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #1ebe5c);
+            color: #fff;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: var(--text-secondary);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--bg-body);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+        .btn-sm {
+            padding: 3px 10px;
+            font-size: 10px;
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           FLOATING ACTION BUTTON
+           ============================================================ */
+        .fab {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #0ea5e9);
+            color: #fff;
+            border: none;
+            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.3);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all var(--transition);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 48px rgba(56, 189, 248, 0.4);
+        }
+
+        /* ============================================================
+           SPONSOR CARDS
+           ============================================================ */
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .sponsor-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .sponsor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .sponsor-card .sponsor-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 0 10px;
+            border-radius: 30px;
+            line-height: 20px;
+        }
+        .sponsor-card .sponsor-name {
+            font-weight: 700;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+        .sponsor-card .sponsor-route {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .sponsor-card .sponsor-price {
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 4px;
+        }
+        .sponsor-card .badges {
+            margin-top: 6px;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           TRUST BADGES
+           ============================================================ */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 30px;
+            background: rgba(15, 59, 94, 0.06);
+            color: var(--primary);
+        }
+        .trust-badge i {
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           MODAL
+           ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.show {
+            display: flex !important;
+        }
+        .modal-box {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 100%;
+            max-height: 95vh;
+            overflow-y: auto;
+            padding: 32px 36px;
+            box-shadow: 0 40px 96px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.35s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .modal-box .modal-header h3 {
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .modal-box .modal-header .close {
+            font-size: 30px;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all var(--transition);
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            padding: 0 4px;
+        }
+        .modal-box .modal-header .close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+        .modal-box .form-group {
+            margin-bottom: 14px;
+        }
+        .modal-box .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        .modal-box .form-group input,
+        .modal-box .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+        .modal-box .form-group input:focus,
+        .modal-box .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(15, 59, 94, 0.10);
+        }
+        .modal-box .btn-submit {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .modal-box .btn-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: 28px;
+            left: 28px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+            width: 100%;
+        }
+        .toast-item {
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transform: translateX(-120%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .toast-item.show {
+            transform: translateX(0);
+        }
+        .toast-item.success {
+            background: rgba(16, 185, 129, 0.92);
+        }
+        .toast-item.error {
+            background: rgba(239, 68, 68, 0.92);
+        }
+        .toast-item.info {
+            background: rgba(15, 59, 94, 0.92);
+        }
+        .toast-item.warning {
+            background: rgba(245, 158, 11, 0.92);
+            color: #0f172a;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 992px) {
+            .app-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+                box-shadow: 0 0 48px rgba(0, 0, 0, 0.3);
+            }
+            .app-sidebar.open {
+                transform: translateX(0);
+            }
+            .app-main {
+                margin-left: 0;
+                padding: 14px 16px 28px;
+            }
+            .topbar .topbar-left .menu-toggle {
+                display: block;
+            }
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 999;
+                backdrop-filter: blur(4px);
+            }
+            .sidebar-overlay.show {
+                display: block;
+            }
+            .sponsor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar .topbar-left .page-title h2 {
+                font-size: 18px;
+            }
+            .topbar .topbar-left .page-title p {
+                font-size: 12px;
+            }
+            .topbar .topbar-right .lang-btn span {
+                display: none;
+            }
+            .table-wrap table {
+                font-size: 12px;
+                min-width: 480px;
+            }
+            .modal-box {
+                padding: 24px 20px;
+                max-width: 95%;
+            }
+            .fab {
+                width: 52px;
+                height: 52px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .sponsor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-main {
+                padding: 10px 12px 20px;
+            }
+            .topbar .topbar-left .page-title h2 {
+                font-size: 16px;
+            }
+            .topbar .topbar-left .page-title p {
+                display: none;
+            }
+            .topbar .topbar-right .btn-refresh span {
+                display: none;
+            }
+            .table-wrap table {
+                font-size: 11px;
+                min-width: 360px;
+            }
+            .table-wrap table th,
+            .table-wrap table td {
+                padding: 4px 8px;
+            }
+            .card-panel {
+                padding: 12px 14px;
+            }
+            .modal-box {
+                padding: 16px 14px;
+            }
+            .fab {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+                bottom: 16px;
+                right: 16px;
+            }
+            .sponsor-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .sponsor-card {
+                padding: 10px 8px;
+            }
+            .sponsor-card .sponsor-name {
+                font-size: 13px;
+            }
+            .sponsor-card .sponsor-route {
+                font-size: 10px;
+            }
+        }
+
+        /* ============================================================
+           LOGIN SCREEN
+           ============================================================ */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+            padding: 20px;
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+        }
+        #loginPage .login-box {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-xl);
+            padding: 40px 36px;
+            max-width: 420px;
+            width: 100%;
+            color: #fff;
+            box-shadow: 0 32px 96px rgba(0, 0, 0, 0.4);
+        }
+        #loginPage .login-box .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        #loginPage .login-box .logo i {
+            font-size: 48px;
+            color: var(--secondary);
+            background: rgba(56, 189, 248, 0.10);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            margin-bottom: 10px;
+        }
+        #loginPage .login-box .logo h1 {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        #loginPage .login-box .logo p {
+            opacity: 0.4;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        #loginPage .login-box .btn-google {
+            width: 100%;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            background: #fff;
+            color: #0f172a;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            transition: all var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        #loginPage .login-box .btn-google:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+        }
+        #loginPage .login-box .btn-google i {
+            font-size: 20px;
+        }
+        #loginPage .login-box .login-error {
+            color: #f87171;
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        #loginPage .login-box .status-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+        #loginPage .login-box .status-row .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        #loginPage .login-box .status-row .dot.online {
+            background: #4ade80;
+        }
+        #loginPage .login-box .status-row .dot.offline {
+            background: #f87171;
+        }
+        #loginPage .login-box .status-row .dot.checking {
+            background: #fbbf24;
+            animation: pulse 1.2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    LOGIN PAGE
+    ============================================================ -->
+    <div id="loginPage">
+        <div class="login-box">
+            <div class="logo">
+                <i class="fas fa-suitcase-rolling"></i>
+                <h1 id="loginTitle">✈️ แชร์น้ำหนักกระเป๋า</h1>
+                <p id="loginSub">Luggage Weight Sharing</p>
+            </div>
+            <button class="btn-google" onclick="handleGoogleLogin()">
+                <i class="fab fa-google"></i> <span id="loginBtnText">เข้าสู่ระบบด้วย Google</span>
+            </button>
+            <div class="login-error" id="loginError"></div>
+            <div class="status-row">
+                <span class="dot checking" id="loginStatusDot"></span>
+                <span id="loginStatusText">กำลังเชื่อมต่อ...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SIDEBAR OVERLAY
+    ============================================================ -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- ============================================================
+    SIDEBAR
+    ============================================================ -->
+    <aside class="app-sidebar" id="appSidebar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fas fa-suitcase-rolling"></i></div>
+            <div class="brand-text">
+                <h1 id="sidebarBrand">แชร์น้ำหนัก</h1>
+                <span id="sidebarSub">Luggage Share</span>
+            </div>
+        </div>
+        <nav>
+            <button class="nav-item active" data-page="feed" onclick="switchTab('feed')">
+                <i class="fas fa-list-ul"></i> <span id="navFeed">ฟีด</span>
+            </button>
+            <button class="nav-item" data-page="profile" onclick="switchTab('profile')" id="profileNav" style="display:none;">
+                <i class="fas fa-user"></i> <span id="navProfile">โปรไฟล์</span>
+            </button>
+            <button class="nav-item" data-page="admin" onclick="switchTab('admin')" id="adminNav" style="display:none;">
+                <i class="fas fa-shield-alt"></i> <span id="navAdmin">จัดการโพสต์</span>
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="avatar" id="sidebarAvatar">👤</div>
+                <div class="user-info">
+                    <span class="name" id="sidebarUserName">ผู้เยี่ยมชม</span>
+                    <span class="role" id="sidebarUserRole">Guest</span>
+                </div>
+            </div>
+            <button class="btn-logout-side" id="logoutBtnSide" onclick="logout()" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i> <span id="logoutBtn">ออกจากระบบ</span>
+            </button>
+            <button class="btn-logout-side" id="loginBtnSide" onclick="showLogin()" style="display:flex;">
+                <i class="fas fa-sign-in-alt"></i> <span>เข้าสู่ระบบ</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main class="app-main" id="appMain" style="display:none;">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="page-title">
+                    <h2 id="pageTitle">📋 ฟีดประกาศ</h2>
+                    <p id="pageSubtitle">ค้นหาน้ำหนักกระเป๋าว่าง</p>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <button class="lang-btn" onclick="toggleLanguage()">
+                    <i class="fas fa-language"></i> <span id="langLabel">ภาษา</span>
+                </button>
+                <button class="btn-refresh" onclick="refreshFeed()">
+                    <i class="fas fa-sync"></i> <span id="refreshBtnLabel">รีเฟรช</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ============================================================
+        PAGE: FEED
+        ============================================================ -->
+        <div id="page-feed" class="page-section active">
+
+            <!-- FILTERS -->
+            <div class="card-panel">
+                <div class="card-header">
+                    <h3><i class="fas fa-filter"></i> <span id="filterTitle">ตัวกรอง</span></h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <input type="text" id="filterFrom" placeholder="ต้นทาง" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1 min-w-[120px]" />
+                    <input type="text" id="filterTo" placeholder="ปลายทาง" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1 min-w-[120px]" />
+                    <input type="date" id="filterDate" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1 min-w-[140px]" />
+                    <button class="btn btn-primary" onclick="applyFilters()"><i class="fas fa-search"></i> <span id="filterBtn">ค้นหา</span></button>
+                    <button class="btn btn-outline" onclick="resetFilters()"><i class="fas fa-undo"></i> <span id="resetBtn">รีเซ็ต</span></button>
+                </div>
+            </div>
+
+            <!-- SPONSORED SECTION -->
+            <div id="sponsoredSection" class="card-panel">
+                <div class="card-header">
+                    <h3><i class="fas fa-crown" style="color:var(--accent);"></i> <span id="sponsoredTitle">ผู้สนับสนุน</span></h3>
+                    <span class="text-xs text-muted" id="sponsoredCount">7 คนแรก</span>
+                </div>
+                <div class="sponsor-grid" id="sponsoredGrid">
+                    <div class="text-center text-muted text-sm py-8 col-span-full">⏳ กำลังโหลด...</div>
+                </div>
+            </div>
+
+            <!-- RANKINGS SECTION -->
+            <div class="card-panel">
+                <div class="card-header">
+                    <h3><i class="fas fa-star" style="color:var(--accent);"></i> <span id="rankTitle">แนะนำ</span></h3>
+                    <span class="text-xs text-muted" id="rankCount">5 อันดับ</span>
+                </div>
+                <div class="sponsor-grid" id="rankGrid">
+                    <div class="text-center text-muted text-sm py-8 col-span-full">⏳ กำลังโหลด...</div>
+                </div>
+            </div>
+
+            <!-- POSTS TABLE -->
+            <div class="card-panel">
+                <div class="card-header">
+                    <h3><i class="fas fa-table"></i> <span id="tableTitle">ประกาศทั้งหมด</span></h3>
+                    <span class="text-xs text-muted" id="postCount">0 รายการ</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="thUser">ผู้ใช้</th>
+                                <th id="thRoute">เส้นทาง</th>
+                                <th id="thDate">วันที่</th>
+                                <th id="thKg">กิโล</th>
+                                <th id="thPrice">ราคา/กก.</th>
+                                <th id="thType">ประเภท</th>
+                                <th id="thContact">ติดต่อ</th>
+                                <th id="thBadges">Badge</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postsTableBody">
+                            <tr><td colspan="8" class="empty-row">⏳ กำลังโหลดข้อมูล...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        PAGE: PROFILE
+        ============================================================ -->
+        <div id="page-profile" class="page-section">
+            <div class="card-panel">
+                <div class="flex items-center gap-4 flex-wrap">
+                    <div class="w-20 h-20 rounded-full bg-primary text-white flex items-center justify-center text-3xl font-bold" id="profileAvatar">👤</div>
+                    <div>
+                        <h2 class="text-2xl font-bold" id="profileName">-</h2>
+                        <p class="text-muted text-sm" id="profileEmail">-</p>
+                        <div class="flex gap-2 mt-1 flex-wrap" id="profileBadges">
+                            <!-- Trust badges will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-body rounded p-3 text-center">
+                        <div class="text-xl font-bold" id="profilePostCount">0</div>
+                        <div class="text-xs text-muted">โพสต์</div>
+                    </div>
+                    <div class="bg-body rounded p-3 text-center">
+                        <div class="text-xl font-bold" id="profileClickCount">0</div>
+                        <div class="text-xs text-muted">คลิก</div>
+                    </div>
+                    <div class="bg-body rounded p-3 text-center">
+                        <div class="text-xl font-bold" id="profileRankScore">0</div>
+                        <div class="text-xs text-muted">คะแนน</div>
+                    </div>
+                    <div class="bg-body rounded p-3 text-center">
+                        <div class="text-xl font-bold" id="profileStatus">-</div>
+                        <div class="text-xs text-muted">สถานะ</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-panel">
+                <h3 class="font-bold"><i class="fas fa-cog"></i> จัดการโปรไฟล์</h3>
+                <div class="mt-2 space-y-2">
+                    <div class="flex gap-2 flex-wrap">
+                        <input type="text" id="editPhone" placeholder="เบอร์โทร" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1" />
+                        <input type="text" id="editWhatsapp" placeholder="ลิงก์ WhatsApp" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1" />
+                        <input type="text" id="editMessenger" placeholder="ลิงก์ Messenger" class="border rounded px-3 py-1 text-sm bg-body text-primary flex-1" />
+                        <button class="btn btn-success" onclick="updateProfile()"><i class="fas fa-save"></i> บันทึก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        PAGE: ADMIN
+        ============================================================ -->
+        <div id="page-admin" class="page-section">
+            <div class="card-panel">
+                <div class="card-header">
+                    <h3><i class="fas fa-shield-alt"></i> จัดการโพสต์ทั้งหมด</h3>
+                    <button class="btn btn-outline btn-sm" onclick="loadAdminPosts()"><i class="fas fa-sync"></i> รีเฟรช</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ผู้ใช้</th>
+                                <th>เส้นทาง</th>
+                                <th>วันที่</th>
+                                <th>สถานะ</th>
+                                <th>สปอนเซอร์</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <tr><td colspan="7" class="empty-row">⏳ กำลังโหลด...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        FLOATING ACTION BUTTON
+        ============================================================ -->
+        <button class="fab" id="fabBtn" style="display:none;" onclick="openCreatePostModal()">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- ============================================================
+        MODAL: CREATE POST
+        ============================================================ -->
+        <div class="modal-overlay" id="createPostModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3><i class="fas fa-suitcase-rolling"></i> <span id="modalTitle">ประกาศขายน้ำหนัก</span></h3>
+                    <button class="close" onclick="closeModal('createPostModal')">&times;</button>
+                </div>
+                <div id="createPostForm">
+                    <div class="form-group">
+                        <label id="lblRouteFrom">ต้นทาง</label>
+                        <input type="text" id="postRouteFrom" placeholder="เช่น กรุงเทพฯ" />
+                    </div>
+                    <div class="form-group">
+                        <label id="lblRouteTo">ปลายทาง</label>
+                        <input type="text" id="postRouteTo" placeholder="เช่น กัวลาลัมเปอร์" />
+                    </div>
+                    <div class="form-group">
+                        <label id="lblFlightDate">วันที่เดินทาง</label>
+                        <input type="date" id="postFlightDate" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="form-group">
+                            <label id="lblPrice">ราคาต่อกิโล (บาท)</label>
+                            <input type="number" id="postPrice" placeholder="100" />
+                        </div>
+                        <div class="form-group">
+                            <label id="lblKg">จำนวนกิโลที่ว่าง</label>
+                            <input type="number" id="postKg" placeholder="5" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label id="lblType">ประเภทกระเป๋า</label>
+                        <select id="postType">
+                            <option value="check-in">Check-in</option>
+                            <option value="carry-on">Carry-on</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="lblWhatsapp">ลิงก์ WhatsApp</label>
+                        <input type="text" id="postWhatsapp" placeholder="https://wa.me/60123456789" />
+                    </div>
+                    <div class="form-group">
+                        <label id="lblMessenger">ลิงก์ Facebook Messenger</label>
+                        <input type="text" id="postMessenger" placeholder="https://m.me/username" />
+                    </div>
+                    <button class="btn btn-success btn-submit" onclick="submitPost()">
+                        <i class="fas fa-paper-plane"></i> <span id="submitBtnLabel">ประกาศ</span>
+                    </button>
+                    <div id="postResult" style="margin-top:12px;text-align:center;font-size:14px;font-weight:600;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        MODAL: SMART ALERT (subscribe)
+        ============================================================ -->
+        <div class="modal-overlay" id="smartAlertModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3><i class="fas fa-bell"></i> <span id="alertTitle">แจ้งเตือนอัจฉริยะ</span></h3>
+                    <button class="close" onclick="closeModal('smartAlertModal')">&times;</button>
+                </div>
+                <p class="text-sm text-muted mb-4" id="alertDesc">กรอกเส้นทางและวันที่ที่ต้องการ เราจะแจ้งเตือนคุณเมื่อมีโพสต์ตรงกัน</p>
+                <div class="form-group">
+                    <label id="lblAlertFrom">ต้นทาง</label>
+                    <input type="text" id="alertFrom" placeholder="เช่น กรุงเทพฯ" />
+                </div>
+                <div class="form-group">
+                    <label id="lblAlertTo">ปลายทาง</label>
+                    <input type="text" id="alertTo" placeholder="เช่น กัวลาลัมเปอร์" />
+                </div>
+                <div class="form-group">
+                    <label id="lblAlertDate">วันที่เดินทาง</label>
+                    <input type="date" id="alertDate" />
+                </div>
+                <button class="btn btn-primary btn-submit" onclick="subscribeAlert()">
+                    <i class="fas fa-check"></i> <span id="alertBtn">สมัครรับแจ้งเตือน</span>
+                </button>
+                <div id="alertResult" style="margin-top:12px;text-align:center;font-size:14px;font-weight:600;"></div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TOAST CONTAINER
+        ============================================================ -->
+        <div class="toast-container" id="toastContainer"></div>
+
+    </main>
+
+    <!-- ============================================================
+    JAVASCRIPT — FULL APPLICATION (HYBRID MODE)
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // CONFIG
+        // ============================================================
+        const API_BASE = 'https://clien.hem5426.workers.dev'; // เปลี่ยนเป็น URL Worker ของคุณ
+        const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'; // เปลี่ยนเป็น Client ID ของคุณ
+
+        let currentUser = null; // { email, name, idToken }
+        let currentLanguage = 'th'; // 'th' or 'ms'
+        let allPosts = [];
+        let sponsoredPosts = [];
+        let rankPosts = [];
+        let isAdmin = false;
+
+        // ============================================================
+        // I18N TRANSLATIONS
+        // ============================================================
+        const i18n = {
+            th: {
+                appName: '✈️ แชร์น้ำหนักกระเป๋า',
+                loginTitle: '✈️ แชร์น้ำหนักกระเป๋า',
+                loginSub: 'Luggage Weight Sharing',
+                loginBtn: 'เข้าสู่ระบบด้วย Google',
+                logout: 'ออกจากระบบ',
+                sidebarBrand: 'แชร์น้ำหนัก',
+                sidebarSub: 'Luggage Share',
+                navFeed: 'ฟีด',
+                navProfile: 'โปรไฟล์',
+                navAdmin: 'จัดการโพสต์',
+                feedTitle: '📋 ฟีดประกาศ',
+                feedSub: 'ค้นหาน้ำหนักกระเป๋าว่าง',
+                filterTitle: 'ตัวกรอง',
+                filterFrom: 'ต้นทาง',
+                filterTo: 'ปลายทาง',
+                filterBtn: 'ค้นหา',
+                resetBtn: 'รีเซ็ต',
+                sponsoredTitle: 'ผู้สนับสนุน',
+                sponsoredCount: '7 คนแรก',
+                rankTitle: 'แนะนำ',
+                rankCount: '5 อันดับ',
+                tableTitle: 'ประกาศทั้งหมด',
+                thUser: 'ผู้ใช้',
+                thRoute: 'เส้นทาง',
+                thDate: 'วันที่',
+                thKg: 'กิโล',
+                thPrice: 'ราคา/กก.',
+                thType: 'ประเภท',
+                thContact: 'ติดต่อ',
+                thBadges: 'Badge',
+                modalTitle: 'ประกาศขายน้ำหนัก',
+                lblRouteFrom: 'ต้นทาง',
+                lblRouteTo: 'ปลายทาง',
+                lblFlightDate: 'วันที่เดินทาง',
+                lblPrice: 'ราคาต่อกิโล (บาท)',
+                lblKg: 'จำนวนกิโลที่ว่าง',
+                lblType: 'ประเภทกระเป๋า',
+                lblWhatsapp: 'ลิงก์ WhatsApp',
+                lblMessenger: 'ลิงก์ Facebook Messenger',
+                submitBtn: 'ประกาศ',
+                alertTitle: 'แจ้งเตือนอัจฉริยะ',
+                alertDesc: 'กรอกเส้นทางและวันที่ที่ต้องการ เราจะแจ้งเตือนคุณเมื่อมีโพสต์ตรงกัน',
+                lblAlertFrom: 'ต้นทาง',
+                lblAlertTo: 'ปลายทาง',
+                lblAlertDate: 'วันที่เดินทาง',
+                alertBtn: 'สมัครรับแจ้งเตือน',
+                refreshBtn: 'รีเฟรช',
+                langLabel: 'ภาษา',
+                postCount: 'รายการ',
+                userRole: 'สมาชิก',
+                adminRole: 'ผู้ดูแล',
+                statusActive: 'ใช้งาน',
+                statusHidden: 'ซ่อน',
+                statusReported: 'ถูกแจ้ง',
+                sponsored: 'สปอนเซอร์',
+                notSponsored: 'ทั่วไป',
+                contactWhatsapp: 'WhatsApp',
+                contactMessenger: 'Messenger',
+                trustVerified: 'ยืนยันตัวตน',
+                trustFrequent: 'บินบ่อย',
+                trustSeller: 'ผู้ขายน่าเชื่อถือ',
+                toastError: 'เกิดข้อผิดพลาด',
+                toastSuccess: 'สำเร็จ',
+                toastWarning: 'คำเตือน',
+                alertSubscribed: 'สมัครรับแจ้งเตือนเรียบร้อย',
+                postCreated: 'ประกาศสำเร็จ',
+                postUpdated: 'อัปเดตสำเร็จ',
+                postDeleted: 'ลบสำเร็จ',
+                loginError: 'เข้าสู่ระบบล้มเหลว',
+                logoutConfirm: 'คุณต้องการออกจากระบบใช่หรือไม่?',
+                loginRequired: 'ต้องเข้าสู่ระบบ',
+                guestMode: 'ผู้เยี่ยมชม',
+                guestSub: 'ดูฟีดฟรี ประกาศต้องล็อกอิน',
+                loginToPost: '🔑 เข้าสู่ระบบเพื่อประกาศขายน้ำหนัก',
+                needLoginContact: '🔒 ต้องเข้าสู่ระบบเพื่อติดต่อ',
+            },
+            ms: {
+                appName: '✈️ Kongsi Berat Bagasi',
+                loginTitle: '✈️ Kongsi Berat Bagasi',
+                loginSub: 'Luggage Weight Sharing',
+                loginBtn: 'Log masuk dengan Google',
+                logout: 'Log keluar',
+                sidebarBrand: 'Kongsi Berat',
+                sidebarSub: 'Luggage Share',
+                navFeed: 'Suapan',
+                navProfile: 'Profil',
+                navAdmin: 'Urus Siaran',
+                feedTitle: '📋 Suapan Siaran',
+                feedSub: 'Cari ruang bagasi kosong',
+                filterTitle: 'Penapis',
+                filterFrom: 'Asal',
+                filterTo: 'Destinasi',
+                filterBtn: 'Cari',
+                resetBtn: 'Tetapkan semula',
+                sponsoredTitle: 'Penaja',
+                sponsoredCount: '7 teratas',
+                rankTitle: 'Disyorkan',
+                rankCount: '5 teratas',
+                tableTitle: 'Semua Siaran',
+                thUser: 'Pengguna',
+                thRoute: 'Laluan',
+                thDate: 'Tarikh',
+                thKg: 'Kg',
+                thPrice: 'Harga/Kg',
+                thType: 'Jenis',
+                thContact: 'Hubungi',
+                thBadges: 'Lencana',
+                modalTitle: 'Siaran Jual Bagasi',
+                lblRouteFrom: 'Asal',
+                lblRouteTo: 'Destinasi',
+                lblFlightDate: 'Tarikh Penerbangan',
+                lblPrice: 'Harga per Kg (RM)',
+                lblKg: 'Kg Kosong',
+                lblType: 'Jenis Bagasi',
+                lblWhatsapp: 'Pautan WhatsApp',
+                lblMessenger: 'Pautan Facebook Messenger',
+                submitBtn: 'Siarkan',
+                alertTitle: 'Pemberitahuan Pintar',
+                alertDesc: 'Isi laluan dan tarikh yang dikehendaki, kami akan memberitahu anda apabila ada siaran yang sepadan',
+                lblAlertFrom: 'Asal',
+                lblAlertTo: 'Destinasi',
+                lblAlertDate: 'Tarikh Penerbangan',
+                alertBtn: 'Langgan Pemberitahuan',
+                refreshBtn: 'Segar Semula',
+                langLabel: 'Bahasa',
+                postCount: 'siaran',
+                userRole: 'Ahli',
+                adminRole: 'Pentadbir',
+                statusActive: 'Aktif',
+                statusHidden: 'Tersembunyi',
+                statusReported: 'Dilaporkan',
+                sponsored: 'Penaja',
+                notSponsored: 'Umum',
+                contactWhatsapp: 'WhatsApp',
+                contactMessenger: 'Messenger',
+                trustVerified: 'Disahkan',
+                trustFrequent: 'Kerap Terbang',
+                trustSeller: 'Penjual Dipercayai',
+                toastError: 'Ralat',
+                toastSuccess: 'Berjaya',
+                toastWarning: 'Amaran',
+                alertSubscribed: 'Berjaya melanggan pemberitahuan',
+                postCreated: 'Siaran berjaya',
+                postUpdated: 'Kemaskini berjaya',
+                postDeleted: 'Padam berjaya',
+                loginError: 'Log masuk gagal',
+                logoutConfirm: 'Adakah anda pasti mahu log keluar?',
+                loginRequired: 'Log masuk diperlukan',
+                guestMode: 'Pelawat',
+                guestSub: 'Lihat suapan percuma, siaran perlu log masuk',
+                loginToPost: '🔑 Log masuk untuk menjual bagasi',
+                needLoginContact: '🔒 Log masuk diperlukan untuk menghubungi',
+            }
+        };
+
+        function t(key) {
+            return i18n[currentLanguage]?.[key] || key;
+        }
+
+        // ============================================================
+        // LANGUAGE TOGGLE
+        // ============================================================
+        function toggleLanguage() {
+            currentLanguage = (currentLanguage === 'th') ? 'ms' : 'th';
+            localStorage.setItem('lang', currentLanguage);
+            applyLanguage();
+            showToast('🌐 เปลี่ยนภาษา / Tukar bahasa: ' + (currentLanguage === 'th' ? 'ไทย' : 'Melayu'), 'info');
+        }
+
+        function applyLanguage() {
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                el.textContent = t(key);
+            });
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.dataset.i18nPlaceholder;
+                el.placeholder = t(key);
+            });
+            // Update specific elements
+            document.getElementById('loginTitle').textContent = t('loginTitle');
+            document.getElementById('loginSub').textContent = t('loginSub');
+            document.getElementById('loginBtnText').textContent = t('loginBtn');
+            document.getElementById('logoutBtn').textContent = t('logout');
+            document.getElementById('sidebarBrand').textContent = t('sidebarBrand');
+            document.getElementById('sidebarSub').textContent = t('sidebarSub');
+            document.getElementById('navFeed').textContent = t('navFeed');
+            document.getElementById('navProfile').textContent = t('navProfile');
+            document.getElementById('navAdmin').textContent = t('navAdmin');
+            document.getElementById('pageTitle').textContent = t('feedTitle');
+            document.getElementById('pageSubtitle').textContent = t('feedSub');
+            document.getElementById('filterTitle').textContent = t('filterTitle');
+            document.getElementById('filterBtn').textContent = t('filterBtn');
+            document.getElementById('resetBtn').textContent = t('resetBtn');
+            document.getElementById('sponsoredTitle').textContent = t('sponsoredTitle');
+            document.getElementById('sponsoredCount').textContent = t('sponsoredCount');
+            document.getElementById('rankTitle').textContent = t('rankTitle');
+            document.getElementById('rankCount').textContent = t('rankCount');
+            document.getElementById('tableTitle').textContent = t('tableTitle');
+            document.getElementById('thUser').textContent = t('thUser');
+            document.getElementById('thRoute').textContent = t('thRoute');
+            document.getElementById('thDate').textContent = t('thDate');
+            document.getElementById('thKg').textContent = t('thKg');
+            document.getElementById('thPrice').textContent = t('thPrice');
+            document.getElementById('thType').textContent = t('thType');
+            document.getElementById('thContact').textContent = t('thContact');
+            document.getElementById('thBadges').textContent = t('thBadges');
+            document.getElementById('modalTitle').textContent = t('modalTitle');
+            document.getElementById('lblRouteFrom').textContent = t('lblRouteFrom');
+            document.getElementById('lblRouteTo').textContent = t('lblRouteTo');
+            document.getElementById('lblFlightDate').textContent = t('lblFlightDate');
+            document.getElementById('lblPrice').textContent = t('lblPrice');
+            document.getElementById('lblKg').textContent = t('lblKg');
+            document.getElementById('lblType').textContent = t('lblType');
+            document.getElementById('lblWhatsapp').textContent = t('lblWhatsapp');
+            document.getElementById('lblMessenger').textContent = t('lblMessenger');
+            document.getElementById('submitBtnLabel').textContent = t('submitBtn');
+            document.getElementById('alertTitle').textContent = t('alertTitle');
+            document.getElementById('alertDesc').textContent = t('alertDesc');
+            document.getElementById('lblAlertFrom').textContent = t('lblAlertFrom');
+            document.getElementById('lblAlertTo').textContent = t('lblAlertTo');
+            document.getElementById('lblAlertDate').textContent = t('lblAlertDate');
+            document.getElementById('alertBtn').textContent = t('alertBtn');
+            document.getElementById('refreshBtnLabel').textContent = t('refreshBtn');
+            document.getElementById('langLabel').textContent = t('langLabel');
+
+            // Update filter placeholders
+            document.getElementById('filterFrom').placeholder = t('filterFrom');
+            document.getElementById('filterTo').placeholder = t('filterTo');
+
+            // Update role
+            if (currentUser) {
+                document.getElementById('sidebarUserRole').textContent = isAdmin ? t('adminRole') : t('userRole');
+            } else {
+                document.getElementById('sidebarUserRole').textContent = '👤 Guest';
+            }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const el = document.createElement('div');
+            el.className = `toast-item ${type}`;
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-triangle-exclamation',
+                info: 'fa-info-circle' };
+            el.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${msg}`;
+            container.appendChild(el);
+            requestAnimationFrame(() => el.classList.add('show'));
+            setTimeout(() => { el.classList.remove('show');
+                setTimeout(() => el.remove(), 500); }, 4000);
+        }
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // ============================================================
+        // SIDEBAR
+        // ============================================================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        // ============================================================
+        // TAB SWITCHING
+        // ============================================================
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.nav-item[data-page="${tab}"]`)?.classList.add('active');
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('page-' + tab);
+            if (target) target.classList.add('active');
+
+            if (tab === 'feed') {
+                document.getElementById('pageTitle').textContent = t('feedTitle');
+                document.getElementById('pageSubtitle').textContent = t('feedSub');
+                refreshFeed();
+            } else if (tab === 'profile') {
+                if (!currentUser) {
+                    showToast('⚠️ ' + t('loginRequired'), 'warning');
+                    showLogin();
+                    return;
+                }
+                document.getElementById('pageTitle').textContent = t('navProfile');
+                document.getElementById('pageSubtitle').textContent = '';
+                loadProfile();
+            } else if (tab === 'admin') {
+                if (!isAdmin) {
+                    showToast('⚠️ ต้องเป็นผู้ดูแล', 'warning');
+                    return;
+                }
+                document.getElementById('pageTitle').textContent = t('navAdmin');
+                document.getElementById('pageSubtitle').textContent = '';
+                loadAdminPosts();
+            }
+
+            if (window.innerWidth <= 992) toggleSidebar();
+        }
+
+        // ============================================================
+        // LOGIN / LOGOUT
+        // ============================================================
+        function showLogin() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('appMain').style.display = 'none';
+        }
+
+        function handleGoogleLogin() {
+            // For demo: simulate login with dummy user
+            const dummyUser = {
+                email: 'demo@example.com',
+                name: 'Demo User',
+                idToken: 'dummy_token',
+                isVerified: true,
+                frequentFlyer: true,
+                trustedSeller: true,
+                phone: '0812345678',
+                whatsapp: 'https://wa.me/60123456789',
+                messenger: 'https://m.me/demo'
+            };
+            // Check admin by email (for demo)
+            if (dummyUser.email === 'admin@example.com') {
+                isAdmin = true;
+            } else {
+                isAdmin = false;
+            }
+            currentUser = dummyUser;
+            localStorage.setItem('user', JSON.stringify(dummyUser));
+            localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+            showToast('✅ เข้าสู่ระบบสำเร็จ / Log masuk berjaya', 'success');
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appMain').style.display = 'block';
+            initApp();
+        }
+
+        function logout() {
+            if (!currentUser) return;
+            if (!confirm(t('logoutConfirm'))) return;
+            currentUser = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('isAdmin');
+            isAdmin = false;
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appMain').style.display = 'block';
+            loadGuestMode();
+            showToast('👋 ออกจากระบบ / Log keluar', 'info');
+        }
+
+        // ============================================================
+        // API HELPERS
+        // ============================================================
+        async function apiCall(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const headers = {
+                'Content-Type': 'application/json',
+                ...(options.headers || {})
+            };
+            if (currentUser) {
+                headers['Authorization'] = `Bearer ${currentUser.idToken}`;
+            }
+            const res = await fetch(url, {
+                ...options,
+                headers,
+            });
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'API Error');
+            }
+            return res.json();
+        }
+
+        async function apiCallPublic(endpoint) {
+            const url = `${API_BASE}${endpoint}`;
+            const res = await fetch(url, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'API Error');
+            }
+            return res.json();
+        }
+
+        // ============================================================
+        // GUEST MODE — ไม่ต้องล็อกอิน ดูฟีดได้
+        // ============================================================
+        function loadGuestMode() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appMain').style.display = 'block';
+            currentUser = null;
+            isAdmin = false;
+
+            // ตั้งค่าหน้า
+            document.getElementById('pageTitle').textContent = currentLanguage === 'th' ? '📋 ฟีดประกาศ' :
+                '📋 Suapan Siaran';
+            document.getElementById('pageSubtitle').textContent = currentLanguage === 'th' ?
+                'ค้นหาน้ำหนักกระเป๋าว่าง (ไม่ต้องล็อกอิน)' :
+                'Cari ruang bagasi kosong (Log masuk tidak diperlukan)';
+
+            // เปลี่ยน Sidebar
+            document.getElementById('sidebarUserName').textContent = currentLanguage === 'th' ? 'ผู้เยี่ยมชม' :
+            'Pelawat';
+            document.getElementById('sidebarUserRole').textContent = '👤 Guest';
+            document.getElementById('sidebarAvatar').textContent = '👤';
+
+            // ซ่อนเมนูที่ต้องล็อกอิน
+            document.getElementById('profileNav').style.display = 'none';
+            document.getElementById('adminNav').style.display = 'none';
+
+            // ซ่อนปุ่ม FAB
+            document.getElementById('fabBtn').style.display = 'none';
+
+            // แสดงปุ่ม Login ใน Sidebar
+            document.getElementById('logoutBtnSide').style.display = 'none';
+            document.getElementById('loginBtnSide').style.display = 'flex';
+
+            // โหลดฟีดสาธารณะ
+            loadPublicFeed();
+
+            // เปลี่ยนข้อความใน Topbar
+            document.querySelector('.topbar .btn-refresh').innerHTML = '<i class="fas fa-sync"></i> <span>' + t(
+                'refreshBtn') + '</span>';
+        }
+
+        // ============================================================
+        // LOAD PUBLIC FEED — ไม่ต้องใช้ Token
+        // ============================================================
+        async function loadPublicFeed() {
+            try {
+                const [postsRes, sponsoredRes, rankRes] = await Promise.all([
+                    apiCallPublic('/posts'),
+                    apiCallPublic('/sponsored'),
+                    apiCallPublic('/rankings')
+                ]);
+
+                allPosts = postsRes.data || [];
+                sponsoredPosts = sponsoredRes.data || [];
+                rankPosts = rankRes.data || [];
+
+                renderSponsored();
+                renderRankings();
+                renderPosts(allPosts);
+                document.getElementById('postCount').textContent = allPosts.length + ' ' + t('postCount');
+
+                // เปลี่ยนข้อความแถวว่างให้เป็น Guest-friendly
+                if (allPosts.length === 0) {
+                    document.getElementById('postsTableBody').innerHTML = `
+                        <tr><td colspan="8" class="empty-row">
+                            📭 ${currentLanguage === 'th' ? 'ยังไม่มีประกาศ' : 'Tiada siaran'}<br>
+                            <span class="text-xs text-muted">${t('loginToPost')}</span>
+                        </td></tr>
+                    `;
+                }
+
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // INIT APP (Logged-in)
+        // ============================================================
+        function initApp() {
+            const savedLang = localStorage.getItem('lang') || 'th';
+            currentLanguage = savedLang;
+            applyLanguage();
+
+            // Update sidebar user
+            if (currentUser) {
+                document.getElementById('sidebarUserName').textContent = currentUser.name || 'User';
+                document.getElementById('sidebarUserRole').textContent = isAdmin ? t('adminRole') : t('userRole');
+                document.getElementById('sidebarAvatar').textContent = currentUser.name ? currentUser.name.charAt(0)
+                    .toUpperCase() : '👤';
+                document.getElementById('profileNav').style.display = 'flex';
+                document.getElementById('adminNav').style.display = isAdmin ? 'flex' : 'none';
+                document.getElementById('fabBtn').style.display = 'flex';
+                document.getElementById('logoutBtnSide').style.display = 'flex';
+                document.getElementById('loginBtnSide').style.display = 'none';
+            }
+
+            // Load initial data
+            refreshFeed();
+            loadProfile();
+            if (isAdmin) loadAdminPosts();
+
+            // Set today's date for post form
+            document.getElementById('postFlightDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('alertDate').value = new Date().toISOString().split('T')[0];
+        }
+
+        // ============================================================
+        // FEED
+        // ============================================================
+        async function refreshFeed() {
+            try {
+                const [postsRes, sponsoredRes, rankRes] = await Promise.all([
+                    apiCall('/posts'),
+                    apiCall('/sponsored'),
+                    apiCall('/rankings')
+                ]);
+
+                allPosts = postsRes.data || [];
+                sponsoredPosts = sponsoredRes.data || [];
+                rankPosts = rankRes.data || [];
+
+                renderSponsored();
+                renderRankings();
+                renderPosts(allPosts);
+                document.getElementById('postCount').textContent = allPosts.length + ' ' + t('postCount');
+
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        function renderSponsored() {
+            const grid = document.getElementById('sponsoredGrid');
+            if (!sponsoredPosts.length) {
+                grid.innerHTML =
+                    `<div class="text-center text-muted text-sm py-4 col-span-full">📭 ${currentLanguage === 'th' ? 'ไม่มีผู้สนับสนุน' : 'Tiada penaja'}</div>`;
+                return;
+            }
+            grid.innerHTML = sponsoredPosts.map(p => `
+                <div class="sponsor-card">
+                    <span class="sponsor-badge">⭐ ${t('sponsored')}</span>
+                    <div class="sponsor-name">${p.userName || 'ผู้ใช้'}</div>
+                    <div class="sponsor-route">${p.routeFrom || ''} → ${p.routeTo || ''}</div>
+                    <div class="sponsor-price">${p.pricePerKg || 0} ${currentLanguage === 'th' ? 'บาท/กก.' : 'RM/kg'}</div>
+                    <div class="badges">${renderBadges(p)}</div>
+                    <div class="mt-2 flex gap-1 justify-center">
+                        ${p.contactWhatsapp && currentUser ? `<a href="${p.contactWhatsapp}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i></a>` : ''}
+                        ${p.contactMessenger && currentUser ? `<a href="${p.contactMessenger}" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-facebook-messenger"></i></a>` : ''}
+                        ${!currentUser ? `<span class="text-xs text-muted">🔒 ${t('loginRequired')}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRankings() {
+            const grid = document.getElementById('rankGrid');
+            if (!rankPosts.length) {
+                grid.innerHTML =
+                    `<div class="text-center text-muted text-sm py-4 col-span-full">📭 ${currentLanguage === 'th' ? 'ไม่มีอันดับแนะนำ' : 'Tiada cadangan'}</div>`;
+                return;
+            }
+            grid.innerHTML = rankPosts.map((p, i) => `
+                <div class="sponsor-card" style="border-color: rgba(59,130,246,0.2);">
+                    <span class="sponsor-badge" style="background:var(--info);">#${i+1}</span>
+                    <div class="sponsor-name">${p.userName || 'ผู้ใช้'}</div>
+                    <div class="sponsor-route">${p.routeFrom || ''} → ${p.routeTo || ''}</div>
+                    <div class="sponsor-price">${p.pricePerKg || 0} ${currentLanguage === 'th' ? 'บาท/กก.' : 'RM/kg'}</div>
+                    <div class="badges">${renderBadges(p)}</div>
+                    <div class="mt-2 flex gap-1 justify-center">
+                        ${p.contactWhatsapp && currentUser ? `<a href="${p.contactWhatsapp}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i></a>` : ''}
+                        ${p.contactMessenger && currentUser ? `<a href="${p.contactMessenger}" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-facebook-messenger"></i></a>` : ''}
+                        ${!currentUser ? `<span class="text-xs text-muted">🔒 ${t('loginRequired')}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPosts(posts) {
+            const tbody = document.getElementById('postsTableBody');
+            if (!posts.length) {
+                tbody.innerHTML = `
+                    <tr><td colspan="8" class="empty-row">
+                        📭 ${currentLanguage === 'th' ? 'ไม่มีประกาศ' : 'Tiada siaran'}
+                        ${!currentUser ? `<br><span class="text-xs text-muted">${t('loginToPost')}</span>` : ''}
+                    </td></tr>
+                `;
+                return;
+            }
+            tbody.innerHTML = posts.map(p => `
+                <tr>
+                    <td><strong>${p.userName || 'ไม่ระบุ'}</strong></td>
+                    <td>${p.routeFrom || ''} → ${p.routeTo || ''}</td>
+                    <td>${p.flightDate || ''}</td>
+                    <td>${p.availableKg || 0} กก.</td>
+                    <td>${p.pricePerKg || 0}</td>
+                    <td>${p.luggageType === 'carry-on' ? '🧳 Carry-on' : '🧳 Check-in'}</td>
+                    <td>
+                        ${p.contactWhatsapp && currentUser ? `<a href="${p.contactWhatsapp}" target="_blank" class="btn btn-whatsapp btn-sm"><i class="fab fa-whatsapp"></i></a>` : ''}
+                        ${p.contactMessenger && currentUser ? `<a href="${p.contactMessenger}" target="_blank" class="btn btn-primary btn-sm"><i class="fab fa-facebook-messenger"></i></a>` : ''}
+                        ${!currentUser ? `<span class="text-xs text-muted">🔒 ${t('loginRequired')}</span>` : ''}
+                    </td>
+                    <td>${renderBadges(p)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderBadges(p) {
+            let html = '';
+            if (p.isVerified) html +=
+                `<span class="trust-badge"><i class="fas fa-shield-alt" style="color:var(--success);"></i> ${t('trustVerified')}</span>`;
+            if (p.frequentFlyer) html +=
+                `<span class="trust-badge"><i class="fas fa-plane" style="color:var(--accent);"></i> ${t('trustFrequent')}</span>`;
+            if (p.trustedSeller) html +=
+                `<span class="trust-badge"><i class="fas fa-star" style="color:var(--warning);"></i> ${t('trustSeller')}</span>`;
+            return html || '<span class="text-xs text-muted">-</span>';
+        }
+
+        // ============================================================
+        // FILTERS
+        // ============================================================
+        function applyFilters() {
+            const from = document.getElementById('filterFrom').value.trim().toLowerCase();
+            const to = document.getElementById('filterTo').value.trim().toLowerCase();
+            const date = document.getElementById('filterDate').value;
+            let filtered = allPosts;
+            if (from) filtered = filtered.filter(p => (p.routeFrom || '').toLowerCase().includes(from));
+            if (to) filtered = filtered.filter(p => (p.routeTo || '').toLowerCase().includes(to));
+            if (date) filtered = filtered.filter(p => p.flightDate === date);
+            renderPosts(filtered);
+            document.getElementById('postCount').textContent = filtered.length + ' ' + t('postCount');
+        }
+
+        function resetFilters() {
+            document.getElementById('filterFrom').value = '';
+            document.getElementById('filterTo').value = '';
+            document.getElementById('filterDate').value = '';
+            renderPosts(allPosts);
+            document.getElementById('postCount').textContent = allPosts.length + ' ' + t('postCount');
+        }
+
+        // ============================================================
+        // CREATE POST
+        // ============================================================
+        function openCreatePostModal() {
+            if (!currentUser) {
+                showToast('⚠️ ' + t('loginRequired'), 'warning');
+                showLogin();
+                return;
+            }
+            document.getElementById('postRouteFrom').value = '';
+            document.getElementById('postRouteTo').value = '';
+            document.getElementById('postFlightDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('postPrice').value = '';
+            document.getElementById('postKg').value = '';
+            document.getElementById('postType').value = 'check-in';
+            document.getElementById('postWhatsapp').value = '';
+            document.getElementById('postMessenger').value = '';
+            document.getElementById('postResult').textContent = '';
+            openModal('createPostModal');
+        }
+
+        async function submitPost() {
+            if (!currentUser) {
+                showToast('⚠️ ' + t('loginRequired'), 'warning');
+                return;
+            }
+            const routeFrom = document.getElementById('postRouteFrom').value.trim();
+            const routeTo = document.getElementById('postRouteTo').value.trim();
+            const flightDate = document.getElementById('postFlightDate').value;
+            const pricePerKg = parseFloat(document.getElementById('postPrice').value);
+            const availableKg = parseFloat(document.getElementById('postKg').value);
+            const luggageType = document.getElementById('postType').value;
+            const contactWhatsapp = document.getElementById('postWhatsapp').value.trim();
+            const contactMessenger = document.getElementById('postMessenger').value.trim();
+
+            if (!routeFrom || !routeTo || !flightDate || !pricePerKg || !availableKg) {
+                document.getElementById('postResult').innerHTML =
+                    `<span style="color:var(--danger);">⚠️ ${currentLanguage === 'th' ? 'กรุณากรอกข้อมูลให้ครบ' : 'Sila lengkapkan semua maklumat'}</span>`;
+                return;
+            }
+
+            try {
+                const body = {
+                    userEmail: currentUser.email,
+                    userName: currentUser.name || 'ผู้ใช้',
+                    routeFrom,
+                    routeTo,
+                    flightDate,
+                    pricePerKg,
+                    availableKg,
+                    luggageType,
+                    contactWhatsapp,
+                    contactMessenger,
+                };
+                const res = await apiCall('/posts', { method: 'POST', body: JSON.stringify(body) });
+                document.getElementById('postResult').innerHTML =
+                `<span style="color:var(--success);">✅ ${t('postCreated')}</span>`;
+                showToast('✅ ' + t('postCreated'), 'success');
+                closeModal('createPostModal');
+                refreshFeed();
+            } catch (e) {
+                document.getElementById('postResult').innerHTML =
+                `<span style="color:var(--danger);">❌ ${e.message}</span>`;
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // SMART ALERT (Subscribe)
+        // ============================================================
+        function openSmartAlert() {
+            if (!currentUser) {
+                showToast('⚠️ ' + t('loginRequired'), 'warning');
+                showLogin();
+                return;
+            }
+            openModal('smartAlertModal');
+        }
+
+        async function subscribeAlert() {
+            if (!currentUser) {
+                showToast('⚠️ ' + t('loginRequired'), 'warning');
+                return;
+            }
+            const from = document.getElementById('alertFrom').value.trim();
+            const to = document.getElementById('alertTo').value.trim();
+            const date = document.getElementById('alertDate').value;
+            if (!from || !to || !date) {
+                document.getElementById('alertResult').innerHTML =
+                    `<span style="color:var(--danger);">⚠️ ${currentLanguage === 'th' ? 'กรุณากรอกข้อมูลให้ครบ' : 'Sila lengkapkan semua maklumat'}</span>`;
+                return;
+            }
+            try {
+                await apiCall('/subscribers', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: currentUser.email,
+                        routeFrom: from,
+                        routeTo: to,
+                        flightDate: date
+                    })
+                });
+                document.getElementById('alertResult').innerHTML =
+                    `<span style="color:var(--success);">✅ ${t('alertSubscribed')}</span>`;
+                showToast('✅ ' + t('alertSubscribed'), 'success');
+                setTimeout(() => closeModal('smartAlertModal'), 1500);
+            } catch (e) {
+                document.getElementById('alertResult').innerHTML =
+                    `<span style="color:var(--danger);">❌ ${e.message}</span>`;
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // PROFILE
+        // ============================================================
+        async function loadProfile() {
+            if (!currentUser) return;
+            try {
+                const res = await apiCall(`/users/${encodeURIComponent(currentUser.email)}`);
+                const user = res.data;
+                if (user) {
+                    document.getElementById('profileName').textContent = user.displayName || currentUser.name || '-';
+                    document.getElementById('profileEmail').textContent = user.email || currentUser.email;
+                    document.getElementById('profilePostCount').textContent = user.totalPosts || 0;
+                    document.getElementById('profileClickCount').textContent = user.totalClicks || 0;
+                    document.getElementById('profileRankScore').textContent = user.rankScore || 0;
+                    document.getElementById('profileStatus').textContent = user.isVerified ? '✅ Verified' : '⏳ Pending';
+                    document.getElementById('profileAvatar').textContent = (user.displayName || currentUser.name || 'U')
+                        .charAt(0).toUpperCase();
+
+                    // Badges
+                    const badges = document.getElementById('profileBadges');
+                    badges.innerHTML = '';
+                    if (user.isVerified) badges.innerHTML +=
+                        `<span class="trust-badge"><i class="fas fa-shield-alt" style="color:var(--success);"></i> ${t('trustVerified')}</span>`;
+                    if (user.frequentFlyer) badges.innerHTML +=
+                        `<span class="trust-badge"><i class="fas fa-plane" style="color:var(--accent);"></i> ${t('trustFrequent')}</span>`;
+                    if (user.trustedSeller) badges.innerHTML +=
+                        `<span class="trust-badge"><i class="fas fa-star" style="color:var(--warning);"></i> ${t('trustSeller')}</span>`;
+
+                    // Pre-fill edit fields
+                    document.getElementById('editPhone').value = user.phone || '';
+                    document.getElementById('editWhatsapp').value = user.whatsapp || '';
+                    document.getElementById('editMessenger').value = user.messenger || '';
+                }
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        async function updateProfile() {
+            if (!currentUser) return;
+            const phone = document.getElementById('editPhone').value.trim();
+            const whatsapp = document.getElementById('editWhatsapp').value.trim();
+            const messenger = document.getElementById('editMessenger').value.trim();
+            try {
+                await apiCall(`/users/${encodeURIComponent(currentUser.email)}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ phone, whatsapp, messenger })
+                });
+                showToast('✅ ' + t('postUpdated'), 'success');
+                loadProfile();
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // ADMIN
+        // ============================================================
+        async function loadAdminPosts() {
+            if (!isAdmin) return;
+            try {
+                const res = await apiCall('/posts?all=true');
+                const posts = res.data || [];
+                const tbody = document.getElementById('adminTableBody');
+                if (!posts.length) {
+                    tbody.innerHTML =
+                        `<tr><td colspan="7" class="empty-row">📭 ${currentLanguage === 'th' ? 'ไม่มีโพสต์' : 'Tiada siaran'}</td></tr>`;
+                    return;
+                }
+                tbody.innerHTML = posts.map(p => `
+                    <tr>
+                        <td>${p.id || '-'}</td>
+                        <td>${p.userName || '-'}</td>
+                        <td>${p.routeFrom || ''} → ${p.routeTo || ''}</td>
+                        <td>${p.flightDate || ''}</td>
+                        <td>${p.status === 'active' ? '🟢 '+t('statusActive') : p.status === 'hidden' ? '🔴 '+t('statusHidden') : '🟠 '+t('statusReported')}</td>
+                        <td>${p.isSponsored ? '⭐ '+t('sponsored') : t('notSponsored')}</td>
+                        <td>
+                            <button class="btn btn-sm ${p.status === 'active' ? 'btn-danger' : 'btn-success'}" onclick="togglePostStatus('${p.id}')">
+                                ${p.status === 'active' ? 'ซ่อน' : 'แสดง'}
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deletePost('${p.id}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        async function togglePostStatus(id) {
+            if (!confirm('ยืนยันการเปลี่ยนสถานะ?')) return;
+            try {
+                await apiCall(`/posts/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ status: 'hidden' }) // will toggle in real logic
+                });
+                showToast('✅ ' + t('postUpdated'), 'success');
+                loadAdminPosts();
+                refreshFeed();
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        async function deletePost(id) {
+            if (!confirm('ยืนยันการลบโพสต์?')) return;
+            try {
+                await apiCall(`/posts/${id}`, { method: 'DELETE' });
+                showToast('✅ ' + t('postDeleted'), 'success');
+                loadAdminPosts();
+                refreshFeed();
+            } catch (e) {
+                showToast('❌ ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // CHECK AUTH ON LOAD — HYBRID MODE
+        // ============================================================
+        (function() {
+            const savedUser = localStorage.getItem('user');
+            const savedAdmin = localStorage.getItem('isAdmin') === 'true';
+
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    isAdmin = savedAdmin;
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('appMain').style.display = 'block';
+                    initApp();
+                    showToast('👋 สวัสดี ' + (currentUser.name || 'User'), 'success');
+                } catch (e) {
+                    localStorage.removeItem('user');
+                    loadGuestMode();
+                }
+            } else {
+                // 👤 โหมดผู้เยี่ยมชม (Guest) — ดูฟีดได้ฟรี
+                loadGuestMode();
+            }
+        })();
+
+        // ============================================================
+        // GLOBAL EXPOSURE FOR INLINE ONCLICK
+        // ============================================================
+        window.toggleLanguage = toggleLanguage;
+        window.switchTab = switchTab;
+        window.toggleSidebar = toggleSidebar;
+        window.handleGoogleLogin = handleGoogleLogin;
+        window.logout = logout;
+        window.showLogin = showLogin;
+        window.refreshFeed = refreshFeed;
+        window.applyFilters = applyFilters;
+        window.resetFilters = resetFilters;
+        window.openCreatePostModal = openCreatePostModal;
+        window.submitPost = submitPost;
+        window.openSmartAlert = openSmartAlert;
+        window.subscribeAlert = subscribeAlert;
+        window.loadProfile = loadProfile;
+        window.updateProfile = updateProfile;
+        window.loadAdminPosts = loadAdminPosts;
+        window.togglePostStatus = togglePostStatus;
+        window.deletePost = deletePost;
+        window.closeModal = closeModal;
+        window.showToast = showToast;
+        window.t = t;
+    </script>
+
+</body>
+</html>
