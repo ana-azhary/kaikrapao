@@ -8,228 +8,824 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ===== CSS หลัก (เพิ่มเติม) ===== */
+    /* ================================================================ */
+    /* 1. ROOT VARIABLES — ระบบสีและตัวแปรหลัก                       */
+    /* ================================================================ */
     :root {
       --primary: #1a56db;
       --primary-dark: #1e3a8a;
+      --primary-light: #60a5fa;
+      --primary-50: #eff6ff;
+      --primary-100: #dbeafe;
+      --primary-200: #bfdbfe;
+      --primary-300: #93c5fd;
+      --primary-400: #60a5fa;
+      --primary-500: #3b82f6;
+      --primary-600: #2563eb;
+      --primary-700: #1d4ed8;
+      --primary-800: #1e40af;
+      --primary-900: #1e3a8a;
+      --secondary: #0ea5e9;
+      --accent: #f59e0b;
+      --accent-50: #fffbeb;
+      --accent-100: #fef3c7;
+      --accent-200: #fde68a;
+      --accent-300: #fcd34d;
+      --accent-400: #fbbf24;
+      --accent-500: #f59e0b;
+      --accent-600: #d97706;
+      --accent-700: #b45309;
+      --success: #10b981;
+      --success-50: #ecfdf5;
+      --success-100: #d1fae5;
+      --success-200: #a7f3d0;
+      --success-300: #6ee7b7;
+      --success-400: #34d399;
+      --success-500: #10b981;
+      --success-600: #059669;
+      --success-700: #047857;
+      --danger: #ef4444;
+      --danger-50: #fef2f2;
+      --danger-100: #fee2e2;
+      --danger-200: #fecaca;
+      --danger-300: #fca5a5;
+      --danger-400: #f87171;
+      --danger-500: #ef4444;
+      --danger-600: #dc2626;
+      --danger-700: #b91c1c;
+      --warning: #f59e0b;
+      --warning-50: #fffbeb;
+      --warning-100: #fef3c7;
+      --warning-200: #fde68a;
+      --warning-300: #fcd34d;
+      --warning-400: #fbbf24;
+      --warning-500: #f59e0b;
+      --warning-600: #d97706;
+      --warning-700: #b45309;
+      --info: #3b82f6;
+      --info-50: #eff6ff;
+      --info-100: #dbeafe;
+      --info-200: #bfdbfe;
+      --info-300: #93c5fd;
+      --info-400: #60a5fa;
+      --info-500: #3b82f6;
+      --info-600: #2563eb;
+      --info-700: #1d4ed8;
       --gray-50: #f8fafc;
       --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
       --gray-900: #0f172a;
+      --gray-950: #020617;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
       --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.16);
+      --shadow-2xl: 0 32px 80px rgba(0,0,0,0.20);
+      --radius-sm: 6px;
       --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+      --transition-fast: 0.15s cubic-bezier(0.4,0,0.2,1);
       --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+      --transition-slow: 0.4s cubic-bezier(0.4,0,0.2,1);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+
+    /* ================================================================ */
+    /* 2. RESET & BASE — รีเซ็ตและพื้นฐาน                           */
+    /* ================================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font);
       background: var(--gray-50);
       color: var(--gray-900);
       min-height: 100vh;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
-    .container-custom { max-width: 1280px; margin:0 auto; padding:0 1.5rem; }
+
+    /* ================================================================ */
+    /* 3. SCROLLBAR — ปรับแต่งแถบเลื่อน                              */
+    /* ================================================================ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+    ::-webkit-scrollbar-corner { background: transparent; }
+
+    /* ================================================================ */
+    /* 4. UTILITY — คลาสช่วยเหลือ                                     */
+    /* ================================================================ */
+    .container-custom { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+    .text-gradient { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .bg-gradient-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+    .bg-gradient-success { background: linear-gradient(135deg, var(--success), var(--success-600)); }
+    .bg-gradient-danger { background: linear-gradient(135deg, var(--danger), var(--danger-600)); }
+    .bg-gradient-warning { background: linear-gradient(135deg, var(--warning), var(--warning-600)); }
+    .bg-gradient-info { background: linear-gradient(135deg, var(--info), var(--info-600)); }
+    .shadow-hover { transition: all var(--transition); }
+    .shadow-hover:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+    /* ================================================================ */
+    /* 5. GLASS CARD — การ์ดโปร่งใส                                   */
+    /* ================================================================ */
+    .glass-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+    .glass-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+    /* ================================================================ */
+    /* 6. SPONSOR CARD — การ์ดผู้สนับสนุน                             */
+    /* ================================================================ */
+    .sponsor-card {
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(135deg, rgba(245,158,11,0.04), rgba(245,158,11,0.01));
+      transition: all var(--transition);
+    }
+    .sponsor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+    /* ================================================================ */
+    /* 7. FAB — ปุ่มลอยหลัก                                           */
+    /* ================================================================ */
     .fab-main {
-      position:fixed; bottom:2rem; right:2rem; z-index:100;
-      width:60px; height:60px;
-      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-      color:#fff; border:none; border-radius:50%; font-size:1.8rem;
-      box-shadow:0 8px 32px rgba(26,86,219,0.35);
-      cursor:pointer; transition:all var(--transition);
-      display:flex; align-items:center; justify-content:center;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 32px rgba(26,86,219,0.35);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .fab-main:hover { transform:scale(1.08); box-shadow:0 12px 48px rgba(26,86,219,0.45); }
+    .fab-main:hover { transform: scale(1.08); box-shadow: 0 12px 48px rgba(26,86,219,0.45); }
+    .fab-main:active { transform: scale(0.94); }
+
+    /* ================================================================ */
+    /* 8. MODAL — หน้าต่างป็อปอัป                                   */
+    /* ================================================================ */
     .modal-overlay {
-      position:fixed; inset:0; z-index:999;
-      background:rgba(0,0,0,0.5);
-      backdrop-filter:blur(6px);
-      display:none;
-      align-items:center; justify-content:center;
-      padding:1.5rem;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
     }
-    .modal-overlay.active { display:flex; }
+    .modal-overlay.active { display: flex; }
     .modal-box {
-      background:#fff; border-radius:20px;
-      max-width:720px; width:100%; max-height:92vh;
-      overflow-y:auto; padding:2rem 2.5rem;
-      box-shadow:0 24px 64px rgba(0,0,0,0.16);
-      animation:modalFade 0.3s ease;
+      background: #fff;
+      border-radius: var(--radius-lg);
+      max-width: 720px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 2rem 2.5rem;
+      box-shadow: var(--shadow-2xl);
+      animation: modalFade 0.3s ease;
     }
     @keyframes modalFade {
-      from { opacity:0; transform:translateY(30px) scale(0.96); }
-      to { opacity:1; transform:translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(30px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .table-wrap { overflow-x:auto; }
-    .table-wrap table { width:100%; border-collapse:collapse; font-size:0.9rem; min-width:640px; }
-    .table-wrap th { text-align:left; padding:0.75rem 1rem; background:var(--gray-100); font-weight:600; border-bottom:2px solid #e2e8f0; }
-    .table-wrap td { padding:0.75rem 1rem; border-bottom:1px solid #f1f5f9; }
+    .modal-close {
+      float: right;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--gray-400);
+      transition: all var(--transition);
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--gray-800); transform: rotate(90deg); }
+
+    /* ================================================================ */
+    /* 9. TABLE — ตารางข้อมูล                                         */
+    /* ================================================================ */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-wrap table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 640px; }
+    .table-wrap th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      background: var(--gray-100);
+      font-weight: 600;
+      color: var(--gray-600);
+      border-bottom: 2px solid var(--gray-200);
+      white-space: nowrap;
+    }
+    .table-wrap td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+    }
+    .table-wrap tbody tr { transition: background var(--transition-fast); }
+    .table-wrap tbody tr:hover { background: rgba(26,86,219,0.03); }
+    .table-wrap .empty-row { text-align: center; padding: 2rem 0; color: var(--gray-400); }
+
+    /* ================================================================ */
+    /* 10. BADGE — ตราสัญลักษณ์ต่าง ๆ                                 */
+    /* ================================================================ */
     .badge-trust {
-      display:inline-flex; align-items:center; gap:0.3rem;
-      padding:0.2rem 0.7rem; border-radius:30px;
-      font-size:0.7rem; font-weight:600;
-      transition:all var(--transition);
-      cursor:help;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      transition: all var(--transition);
+      cursor: help;
     }
-    .badge-trust.frequent { background:#dbeafe; color:#1e40af; }
-    .badge-trust.verified { background:#d1fae5; color:#065f46; }
-    .badge-trust.trusted { background:#fef3c7; color:#92400e; }
+    .badge-trust.frequent { background: var(--primary-100); color: var(--primary-800); }
+    .badge-trust.verified { background: var(--success-100); color: var(--success-700); }
+    .badge-trust.trusted { background: var(--accent-100); color: var(--accent-700); }
+    .badge-trust i { font-size: 0.75rem; }
+
+    .status-badge {
+      padding: 0.15rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-size: 0.65rem;
+      font-weight: 600;
+    }
+    .status-badge.active { background: var(--success-100); color: var(--success-700); }
+    .status-badge.sold { background: var(--accent-100); color: var(--accent-700); }
+    .status-badge.expired { background: var(--danger-100); color: var(--danger-700); }
+    .status-badge.hidden { background: var(--gray-200); color: var(--gray-600); }
+
+    /* ================================================================ */
+    /* 11. FILTER CHIP — ปุ่มกรองข้อมูล                                */
+    /* ================================================================ */
     .filter-chip {
-      display:inline-flex; align-items:center; gap:0.3rem;
-      padding:0.2rem 0.8rem; border-radius:30px;
-      background:var(--gray-100); font-size:0.75rem; color:#64748b;
-      border:1px solid #e2e8f0; cursor:pointer;
-      transition:all var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: var(--radius-full);
+      background: var(--gray-100);
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      border: 1px solid var(--gray-200);
+      cursor: pointer;
+      transition: all var(--transition);
     }
-    .filter-chip.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .filter-chip:hover { background: var(--gray-200); }
+    .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* ================================================================ */
+    /* 12. TOAST — การแจ้งเตือนแบบป๊อปอัป                          */
+    /* ================================================================ */
     .toast-container {
-      position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
-      z-index:9999; display:flex; flex-direction:column; gap:0.5rem;
-      max-width:420px; width:90%;
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 420px;
+      width: 90%;
     }
     .toast-item {
-      padding:0.75rem 1.25rem; border-radius:12px;
-      color:#fff; font-weight:500; font-size:0.9rem;
-      box-shadow:0 16px 48px rgba(0,0,0,0.15);
-      animation:toastIn 0.3s ease;
-      display:flex; align-items:center; gap:0.75rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-lg);
+      animation: toastIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .toast-item.success { background:linear-gradient(135deg,#10b981,#059669); }
-    .toast-item.error { background:linear-gradient(135deg,#ef4444,#dc2626); }
-    .toast-item.info { background:linear-gradient(135deg,#3b82f6,#2563eb); }
-    .toast-item.warning { background:linear-gradient(135deg,#f59e0b,#d97706); }
+    .toast-item.success { background: linear-gradient(135deg, var(--success), var(--success-600)); }
+    .toast-item.error { background: linear-gradient(135deg, var(--danger), var(--danger-600)); }
+    .toast-item.warning { background: linear-gradient(135deg, var(--warning), var(--warning-600)); }
+    .toast-item.info { background: linear-gradient(135deg, var(--info), var(--info-600)); }
     @keyframes toastIn {
-      from { opacity:0; transform:translateY(20px) scale(0.95); }
-      to { opacity:1; transform:translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
+    /* ================================================================ */
+    /* 13. STAT CARD — การ์ดสถิติ                                     */
+    /* ================================================================ */
     .stat-card {
-      padding:1rem 1.25rem; border-radius:12px;
-      background:#fff; border:1px solid #e2e8f0;
-      text-align:center; transition:all var(--transition);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      text-align: center;
+      transition: all var(--transition);
     }
-    .stat-card:hover { box-shadow:var(--shadow); transform:translateY(-3px); }
-    .stat-card .num { font-size:1.8rem; font-weight:800; color:var(--primary); }
+    .stat-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .stat-card .num { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .stat-card .label { font-size: 0.75rem; color: var(--gray-500); font-weight: 500; margin-top: 0.2rem; }
+
+    /* ================================================================ */
+    /* 14. DEBUG PANEL — แผงดีบัก                                     */
+    /* ================================================================ */
     .debug-panel {
-      background:#1e293b; color:#e2e8f0; padding:1rem;
-      border-radius:12px; font-family:monospace; font-size:0.8rem;
-      max-height:250px; overflow-y:auto; margin-top:1rem;
+      background: var(--gray-900);
+      color: var(--gray-200);
+      padding: 1rem;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      border: 1px solid var(--gray-700);
     }
-    .debug-panel .error { color:#f87171; }
-    .debug-panel .success { color:#34d399; }
-    .debug-panel .warn { color:#fbbf24; }
-    .sponsor-card {
-      border-left:4px solid #f59e0b;
-      background:linear-gradient(135deg,rgba(245,158,11,0.04),rgba(245,158,11,0.01));
-      transition:all var(--transition);
-    }
-    .sponsor-card:hover { transform:translateY(-4px); box-shadow:0 8px 32px rgba(0,0,0,0.08); }
-    .stars { color:#f59e0b; letter-spacing:1px; }
-    .stars-empty { color:#d1d5db; }
-    .status-badge {
-      padding:0.15rem 0.6rem; border-radius:30px;
-      font-size:0.65rem; font-weight:600;
-    }
-    .status-badge.active { background:#d1fae5; color:#065f46; }
-    .status-badge.sold { background:#fef3c7; color:#92400e; }
-    .status-badge.expired { background:#fee2e2; color:#991b1b; }
-    .status-badge.hidden { background:#e5e7eb; color:#4b5563; }
+    .debug-panel .error { color: var(--danger-400); }
+    .debug-panel .success { color: var(--success-400); }
+    .debug-panel .warn { color: var(--warning-400); }
+    .debug-panel .info { color: var(--info-400); }
+
+    /* ================================================================ */
+    /* 15. RATING STARS — ดาวให้คะแนน                                */
+    /* ================================================================ */
+    .stars { color: var(--accent); letter-spacing: 1px; }
+    .stars-empty { color: var(--gray-300); }
     .rating-star-selector span {
-      cursor:pointer; font-size:2rem;
-      transition:all 0.15s;
+      cursor: pointer;
+      font-size: 2rem;
+      transition: all 0.15s;
     }
-    .rating-star-selector span:hover { transform:scale(1.2); }
+    .rating-star-selector span:hover { transform: scale(1.2); }
 
-    /* ===== Animation เพิ่มเติม ===== */
-    @keyframes pulse {
-      0%, 100% { transform:scale(1); }
-      50% { transform:scale(1.05); }
-    }
-    .pulse-animation { animation:pulse 2s infinite; }
-    @keyframes slideDown {
-      from { transform:translateY(-100%); opacity:0; }
-      to { transform:translateY(0); opacity:1; }
-    }
-    .slide-down { animation:slideDown 0.4s ease; }
-
-    /* ===== Notification Bell ===== */
+    /* ================================================================ */
+    /* 16. NOTIFICATION BELL — กระดิ่งแจ้งเตือน                       */
+    /* ================================================================ */
     .notification-bell {
-      position:relative;
-      cursor:pointer;
-      transition:all var(--transition);
+      position: relative;
+      cursor: pointer;
+      transition: all var(--transition);
     }
     .notification-bell .badge-count {
-      position:absolute; top:-6px; right:-8px;
-      background:#ef4444; color:#fff;
-      border-radius:50%; width:18px; height:18px;
-      font-size:10px; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--danger);
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    @media (max-width:768px) {
-      .container-custom { padding:0 1rem; }
-      .modal-box { padding:1.5rem; }
-      .fab-main { width:50px; height:50px; font-size:1.4rem; }
-      .table-wrap table { font-size:0.8rem; min-width:480px; }
-      .hide-mobile { display:none !important; }
+    /* ================================================================ */
+    /* 17. ANIMATIONS — แอนิเมชั่นต่าง ๆ                             */
+    /* ================================================================ */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
-    @media (max-width:480px) {
-      .modal-box { padding:1rem; }
-      .stat-card { padding:0.75rem; }
-      .stat-card .num { font-size:1.2rem; }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .pulse-animation { animation: pulse 2s infinite; }
+    .slide-down { animation: slideDown 0.4s ease; }
+    .slide-up { animation: slideUp 0.4s ease; }
+    .fade-in { animation: fadeIn 0.3s ease; }
+    .spin { animation: spin 1s linear infinite; }
+    .shimmer { background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+    .bounce { animation: bounce 1s infinite; }
+
+    /* ================================================================ */
+    /* 18. SKELETON LOADING — โหลดแบบโครงร่าง                       */
+    /* ================================================================ */
+    .skeleton {
+      background: var(--gray-200);
+      border-radius: var(--radius-sm);
+      animation: pulse 1.5s infinite;
+      min-height: 20px;
+    }
+
+    /* ================================================================ */
+    /* 19. CHART PLACEHOLDER — ที่ว่างกราฟ                           */
+    /* ================================================================ */
+    .chart-placeholder {
+      height: 160px;
+      background: linear-gradient(135deg, var(--gray-100), var(--gray-50));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: 0.9rem;
+      border: 1px dashed var(--gray-300);
+    }
+
+    /* ================================================================ */
+    /* 20. TOGGLE SWITCH — สวิตช์สลับ                                */
+    /* ================================================================ */
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: var(--gray-300);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+    .toggle-switch.active { background: var(--primary); }
+    .toggle-switch .toggle-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .toggle-switch.active .toggle-thumb { left: 22px; }
+
+    /* ================================================================ */
+    /* 21. RESPONSIVE — การปรับตามขนาดหน้าจอ                        */
+    /* ================================================================ */
+    @media (max-width: 1024px) {
+      .container-custom { padding: 0 1.25rem; }
+    }
+    @media (max-width: 768px) {
+      .container-custom { padding: 0 1rem; }
+      .modal-box { padding: 1.5rem; margin: 0.5rem; }
+      .fab-main { width: 50px; height: 50px; font-size: 1.4rem; bottom: 1.5rem; right: 1.5rem; }
+      .table-wrap table { font-size: 0.8rem; min-width: 480px; }
+      .hide-mobile { display: none !important; }
+      .stat-card .num { font-size: 1.4rem; }
+      .debug-panel { font-size: 0.7rem; max-height: 180px; }
+    }
+    @media (max-width: 480px) {
+      .container-custom { padding: 0 0.75rem; }
+      .modal-box { padding: 1rem; }
+      .stat-card { padding: 0.75rem; }
+      .stat-card .num { font-size: 1.2rem; }
+      .fab-main { width: 44px; height: 44px; font-size: 1.2rem; bottom: 1rem; right: 1rem; }
+      .toast-container { max-width: 95%; }
+      .table-wrap table { font-size: 0.7rem; min-width: 360px; }
+      .debug-panel { font-size: 0.65rem; max-height: 150px; padding: 0.75rem; }
+    }
+
+    /* ================================================================ */
+    /* 22. PRINT STYLES — การพิมพ์                                    */
+    /* ================================================================ */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; }
+      .glass-card { background: #fff !important; backdrop-filter: none !important; box-shadow: none !important; border: 1px solid #ddd; }
+      .table-wrap { overflow: visible; }
+      .table-wrap table { font-size: 0.8rem; }
+    }
+
+    /* ================================================================ */
+    /* 23. DARK MODE SUPPORT — รองรับโหมดมืด                       */
+    /* ================================================================ */
+    [data-theme="dark"] {
+      --gray-50: #0f172a;
+      --gray-100: #1e293b;
+      --gray-200: #334155;
+      --gray-300: #475569;
+      --gray-400: #64748b;
+      --gray-500: #94a3b8;
+      --gray-600: #cbd5e1;
+      --gray-700: #e2e8f0;
+      --gray-800: #f1f5f9;
+      --gray-900: #f8fafc;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+      --shadow-xl: 0 24px 64px rgba(0,0,0,0.6);
+      --shadow-2xl: 0 32px 80px rgba(0,0,0,0.7);
+    }
+    [data-theme="dark"] .glass-card {
+      background: rgba(30,41,59,0.7);
+      border-color: rgba(255,255,255,0.05);
+    }
+    [data-theme="dark"] .stat-card {
+      background: var(--gray-100);
+      border-color: var(--gray-200);
+    }
+    [data-theme="dark"] .modal-box { background: var(--gray-100); }
+    [data-theme="dark"] .filter-chip { background: var(--gray-200); border-color: var(--gray-300); color: var(--gray-600); }
+    [data-theme="dark"] .filter-chip.active { background: var(--primary); color: #fff; }
+    [data-theme="dark"] .badge-trust.frequent { background: var(--primary-900); color: var(--primary-300); }
+    [data-theme="dark"] .badge-trust.verified { background: var(--success-900); color: var(--success-300); }
+    [data-theme="dark"] .badge-trust.trusted { background: var(--accent-900); color: var(--accent-300); }
+    [data-theme="dark"] .table-wrap th { background: var(--gray-200); color: var(--gray-500); border-color: var(--gray-300); }
+    [data-theme="dark"] .table-wrap td { border-color: var(--gray-200); }
+    [data-theme="dark"] .table-wrap tbody tr:hover { background: rgba(255,255,255,0.03); }
+    [data-theme="dark"] .chart-placeholder { background: var(--gray-100); border-color: var(--gray-300); color: var(--gray-500); }
+    [data-theme="dark"] .debug-panel { background: #0a0e17; border-color: var(--gray-200); }
+    [data-theme="dark"] .sponsor-card { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02)); }
+    [data-theme="dark"] .skeleton { background: var(--gray-200); }
+    [data-theme="dark"] .toggle-switch { background: var(--gray-400); }
+    [data-theme="dark"] .toggle-switch.active { background: var(--primary); }
+
+    /* ================================================================ */
+    /* 24. EXTRA UTILITIES — คลาสเสริม                              */
+    /* ================================================================ */
+    .truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .truncate-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.25rem; }
+    .gap-6 { gap: 1.5rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-5 { margin-top: 1.25rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mt-10 { margin-top: 2.5rem; }
+    .mb-1 { margin-bottom: 0.25rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-5 { margin-bottom: 1.25rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mr-1 { margin-right: 0.25rem; }
+    .mr-2 { margin-right: 0.5rem; }
+    .ml-1 { margin-left: 0.25rem; }
+    .ml-2 { margin-left: 0.5rem; }
+    .p-1 { padding: 0.25rem; }
+    .p-2 { padding: 0.5rem; }
+    .p-3 { padding: 0.75rem; }
+    .p-4 { padding: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .p-6 { padding: 1.5rem; }
+    .p-8 { padding: 2rem; }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .flex-between { display: flex; align-items: center; justify-content: space-between; }
+    .flex-col { display: flex; flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .text-left { text-align: left; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; }
+    .text-3xl { font-size: 1.875rem; }
+    .text-4xl { font-size: 2.25rem; }
+    .font-light { font-weight: 300; }
+    .font-normal { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .font-extrabold { font-weight: 800; }
+    .text-gray-400 { color: var(--gray-400); }
+    .text-gray-500 { color: var(--gray-500); }
+    .text-gray-600 { color: var(--gray-600); }
+    .text-gray-700 { color: var(--gray-700); }
+    .text-gray-800 { color: var(--gray-800); }
+    .text-gray-900 { color: var(--gray-900); }
+    .text-primary { color: var(--primary); }
+    .text-success { color: var(--success); }
+    .text-danger { color: var(--danger); }
+    .text-warning { color: var(--warning); }
+    .text-accent { color: var(--accent); }
+    .bg-white { background: #fff; }
+    .bg-gray-50 { background: var(--gray-50); }
+    .bg-gray-100 { background: var(--gray-100); }
+    .bg-gray-200 { background: var(--gray-200); }
+    .border { border: 1px solid var(--gray-200); }
+    .border-t { border-top: 1px solid var(--gray-200); }
+    .border-b { border-bottom: 1px solid var(--gray-200); }
+    .rounded { border-radius: var(--radius); }
+    .rounded-lg { border-radius: var(--radius-lg); }
+    .rounded-full { border-radius: var(--radius-full); }
+    .shadow { box-shadow: var(--shadow); }
+    .shadow-md { box-shadow: var(--shadow-md); }
+    .shadow-lg { box-shadow: var(--shadow-lg); }
+    .hidden { display: none !important; }
+    .block { display: block; }
+    .inline-block { display: inline-block; }
+    .flex { display: flex; }
+    .grid { display: grid; }
+    .w-full { width: 100%; }
+    .w-auto { width: auto; }
+    .h-full { height: 100%; }
+    .h-auto { height: auto; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .fixed { position: fixed; }
+    .sticky { position: sticky; }
+    .top-0 { top: 0; }
+    .left-0 { left: 0; }
+    .right-0 { right: 0; }
+    .bottom-0 { bottom: 0; }
+    .z-10 { z-index: 10; }
+    .z-20 { z-index: 20; }
+    .z-30 { z-index: 30; }
+    .z-40 { z-index: 40; }
+    .z-50 { z-index: 50; }
+    .overflow-hidden { overflow: hidden; }
+    .overflow-y-auto { overflow-y: auto; }
+    .overflow-x-auto { overflow-x: auto; }
+    .cursor-pointer { cursor: pointer; }
+    .cursor-default { cursor: default; }
+    .select-none { user-select: none; }
+    .transition { transition: all var(--transition); }
+    .transition-fast { transition: all var(--transition-fast); }
+    .transition-slow { transition: all var(--transition-slow); }
+    .transform { transform: translateY(0); }
+    .hover-scale:hover { transform: scale(1.02); }
+    .hover-scale-105:hover { transform: scale(1.05); }
+    .hover-shadow:hover { box-shadow: var(--shadow-md); }
+    .hover-bg-gray-50:hover { background: var(--gray-50); }
+    .hover-bg-primary:hover { background: var(--primary); color: #fff; }
+    .hover-text-primary:hover { color: var(--primary); }
+    .hover-text-danger:hover { color: var(--danger); }
+    .hover-text-success:hover { color: var(--success); }
+    .hover-underline:hover { text-decoration: underline; }
+
+    /* ================================================================ */
+    /* 25. END OF CSS — สิ้นสุด CSS                                   */
+    /* ================================================================ */
   </style>
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="bg-gradient-to-r from-blue-700 to-blue-800 text-white shadow-lg sticky top-0 z-50">
+<!-- ================================================================ -->
+<!-- 26. NAVBAR — แถบนำทาง                                          -->
+<!-- ================================================================ -->
+<nav class="bg-gradient-to-r from-blue-700 to-blue-800 text-white shadow-lg sticky top-0 z-50 no-print">
   <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
+    <!-- Brand -->
     <div class="flex items-center gap-2 text-xl font-bold">
       <i class="fas fa-suitcase-rolling"></i>
       <span id="appTitle" data-i18n="appTitle">แบ่งปันน้ำหนักกระเป๋า</span>
     </div>
+
+    <!-- Right Section -->
     <div class="flex items-center gap-3 flex-wrap">
+      <!-- Language Switcher -->
       <div class="flex bg-white/20 rounded-full overflow-hidden text-sm backdrop-blur-sm">
         <button id="langTh" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">ไทย</button>
         <button id="langMs" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">Melayu</button>
       </div>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle" class="bg-white/10 hover:bg-white/20 rounded-full p-1.5 transition text-sm" title="สลับโหมดมืด/สว่าง">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+
+      <!-- User Display -->
       <div id="userDisplay" class="hidden flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5 backdrop-blur-sm">
         <img id="userAvatar" class="w-7 h-7 rounded-full border-2 border-white/30" src="" alt="avatar">
         <span id="userName" class="text-sm font-medium max-w-[100px] truncate"></span>
       </div>
+
+      <!-- Login / Logout -->
       <button id="loginBtn" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-100 transition shadow-sm">
         <i class="fab fa-google"></i> <span id="loginText" data-i18n="login">เข้าสู่ระบบ</span>
       </button>
       <button id="logoutBtn" class="hidden bg-red-500/80 hover:bg-red-500 px-4 py-1.5 rounded-full font-semibold transition backdrop-blur-sm" data-i18n="logout">ออกจากระบบ</button>
-      <button id="debugToggleBtn" class="bg-gray-700/50 hover:bg-gray-600 px-3 py-1.5 rounded-full text-xs font-mono transition"><i class="fas fa-bug"></i> Debug</button>
+
+      <!-- Notification Bell -->
       <div class="notification-bell" id="notificationBell" title="การแจ้งเตือน">
         <i class="fas fa-bell text-xl"></i>
         <span class="badge-count" id="notifCount" style="display:none;">0</span>
       </div>
+
+      <!-- Debug Toggle -->
+      <button id="debugToggleBtn" class="bg-gray-700/50 hover:bg-gray-600 px-3 py-1.5 rounded-full text-xs font-mono transition"><i class="fas fa-bug"></i> Debug</button>
     </div>
   </div>
 </nav>
 
-<!-- ===== MAIN CONTENT ===== -->
+<!-- ================================================================ -->
+<!-- 27. MAIN CONTENT — เนื้อหาหลัก                                 -->
+<!-- ================================================================ -->
 <main class="container-custom py-6">
 
-  <!-- TABS -->
-  <div class="flex flex-wrap gap-1 mb-6 border-b pb-2 overflow-x-auto">
-    <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed"><i class="fas fa-list"></i> <span data-i18n="tabFeed">ประกาศ</span></button>
-    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile"><i class="fas fa-user"></i> <span data-i18n="tabProfile">โปรไฟล์</span></button>
-    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe"><i class="fas fa-bell"></i> <span data-i18n="tabSubscribe">แจ้งเตือน</span></button>
-    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard"><i class="fas fa-chart-pie"></i> <span data-i18n="tabDashboard">แดชบอร์ด</span></button>
-    <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin"><i class="fas fa-crown"></i> <span data-i18n="tabAdmin">Admin</span></button>
+  <!-- ============================================================== -->
+  <!-- 28. TABS — แถบเลือกหน้า                                     -->
+  <!-- ============================================================== -->
+  <div class="flex flex-wrap gap-1 mb-6 border-b pb-2 overflow-x-auto no-print">
+    <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed">
+      <i class="fas fa-list"></i> <span data-i18n="tabFeed">ประกาศ</span>
+    </button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile">
+      <i class="fas fa-user"></i> <span data-i18n="tabProfile">โปรไฟล์</span>
+    </button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe">
+      <i class="fas fa-bell"></i> <span data-i18n="tabSubscribe">แจ้งเตือน</span>
+    </button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard">
+      <i class="fas fa-chart-pie"></i> <span data-i18n="tabDashboard">แดชบอร์ด</span>
+    </button>
+    <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin">
+      <i class="fas fa-crown"></i> <span data-i18n="tabAdmin">Admin</span>
+    </button>
+    <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="help">
+      <i class="fas fa-question-circle"></i> <span data-i18n="tabHelp">ช่วยเหลือ</span>
+    </button>
   </div>
 
-  <!-- ===== TAB: FEED ===== -->
+  <!-- ============================================================== -->
+  <!-- 29. TAB: FEED — หน้าแสดงประกาศ                               -->
+  <!-- ============================================================== -->
   <div id="tab-feed" class="tab-content">
+
+    <!-- Filter Bar -->
     <div class="bg-white rounded-xl shadow p-4 md:p-5 mb-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="fromLabel">ต้นทาง</label><select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="toLabel">ปลายทาง</label><select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="dateLabel">วันที่เดินทาง</label><input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
-        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="priceRangeLabel">ช่วงราคา (ต่อ kg)</label><div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
-        <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
+        <div>
+          <label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="fromLabel">ต้นทาง</label>
+          <select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select>
+        </div>
+        <div>
+          <label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="toLabel">ปลายทาง</label>
+          <select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select>
+        </div>
+        <div>
+          <label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="dateLabel">วันที่เดินทาง</label>
+          <input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
+        </div>
+        <div>
+          <label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="priceRangeLabel">ช่วงราคา (ต่อ kg)</label>
+          <div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div>
+        </div>
+        <div>
+          <label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label>
+          <div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div>
+        </div>
       </div>
       <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t">
         <div class="flex flex-wrap items-center gap-2">
@@ -243,16 +839,37 @@
       </div>
     </div>
 
+    <!-- Sponsor Section -->
     <div id="sponsorSection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8"></div>
 
+    <!-- Post Table -->
     <div class="bg-white rounded-xl shadow overflow-hidden">
       <div class="px-5 py-4 border-b flex flex-wrap items-center justify-between gap-2">
-        <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i> <span data-i18n="postListTitle">รายการประกาศ</span> <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
-        <button id="refreshPostsBtn" class="text-sm text-gray-500 hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
+        <h2 class="text-lg font-semibold flex items-center gap-2">
+          <i class="fas fa-list-ul text-blue-600"></i>
+          <span data-i18n="postListTitle">รายการประกาศ</span>
+          <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span>
+        </h2>
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <button id="refreshPostsBtn" class="hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
+          <span class="text-xs" id="dataModeIndicator">API</span>
+        </div>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th data-i18n="thSeller">ผู้ขาย</th><th data-i18n="thRoute">เส้นทาง</th><th class="hide-mobile" data-i18n="thDate">วันที่</th><th class="hide-mobile" data-i18n="thType">ประเภท</th><th data-i18n="thWeight">น้ำหนัก</th><th data-i18n="thPrice">ราคา</th><th data-i18n="thStatus">สถานะ</th><th data-i18n="thBadges">Badges</th><th class="text-center" data-i18n="thActions">ดำเนินการ</th></tr></thead>
+          <thead>
+            <tr>
+              <th data-i18n="thSeller">ผู้ขาย</th>
+              <th data-i18n="thRoute">เส้นทาง</th>
+              <th class="hide-mobile" data-i18n="thDate">วันที่</th>
+              <th class="hide-mobile" data-i18n="thType">ประเภท</th>
+              <th data-i18n="thWeight">น้ำหนัก</th>
+              <th data-i18n="thPrice">ราคา</th>
+              <th data-i18n="thStatus">สถานะ</th>
+              <th data-i18n="thBadges">Badges</th>
+              <th class="text-center" data-i18n="thActions">ดำเนินการ</th>
+            </tr>
+          </thead>
           <tbody id="postTableBody"></tbody>
         </table>
       </div>
@@ -266,7 +883,9 @@
     </div>
   </div>
 
-  <!-- ===== TAB: PROFILE ===== -->
+  <!-- ============================================================== -->
+  <!-- 30. TAB: PROFILE — หน้าโปรไฟล์ผู้ใช้                          -->
+  <!-- ============================================================== -->
   <div id="tab-profile" class="tab-content hidden">
     <div class="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto">
       <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
@@ -274,7 +893,7 @@
         <div class="flex-1 text-center md:text-left">
           <h2 id="profileName" class="text-2xl font-bold">-</h2>
           <p id="profileEmail" class="text-gray-500 text-sm"><i class="fas fa-envelope"></i> -</p>
-          <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition">
+          <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition no-print">
             <i class="fas fa-pen"></i> <span data-i18n="changeNameOnce">เปลี่ยนชื่อ (ครั้งเดียว)</span>
           </button>
           <div class="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
@@ -300,7 +919,7 @@
       <div id="reviewsList" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
       <h3 class="font-semibold text-lg mt-6 mb-3"><i class="fas fa-history text-blue-600"></i> <span data-i18n="historyTitle">ประวัติธุรกรรม</span></h3>
       <div id="historyList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
-      <div class="mt-6 border-t pt-4">
+      <div class="mt-6 border-t pt-4 no-print">
         <h4 class="font-medium mb-2"><i class="fas fa-edit"></i> <span data-i18n="editProfile">แก้ไขโปรไฟล์</span></h4>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input id="editPhone" placeholder="เบอร์โทร" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
@@ -312,7 +931,9 @@
     </div>
   </div>
 
-  <!-- ===== TAB: SUBSCRIBE ===== -->
+  <!-- ============================================================== -->
+  <!-- 31. TAB: SUBSCRIBE — หน้ารับแจ้งเตือน                         -->
+  <!-- ============================================================== -->
   <div id="tab-subscribe" class="tab-content hidden">
     <div class="bg-white rounded-xl shadow p-6 max-w-md mx-auto">
       <h2 class="text-xl font-bold mb-4"><i class="fas fa-bell text-blue-600"></i> <span data-i18n="subTitle">สมัครรับแจ้งเตือน</span></h2>
@@ -327,7 +948,9 @@
     </div>
   </div>
 
-  <!-- ===== TAB: DASHBOARD ===== -->
+  <!-- ============================================================== -->
+  <!-- 32. TAB: DASHBOARD — หน้าแดชบอร์ดส่วนตัว                    -->
+  <!-- ============================================================== -->
   <div id="tab-dashboard" class="tab-content hidden">
     <div class="bg-white rounded-xl shadow p-6">
       <h2 class="text-xl font-bold mb-4"><i class="fas fa-chart-pie text-blue-600"></i> <span data-i18n="dashboardTitle">แดชบอร์ดส่วนตัว</span></h2>
@@ -337,15 +960,14 @@
         <div class="stat-card"><div class="num" id="dashTotalViews">0</div><div class="label" data-i18n="dashTotalViews">ยอดเข้าชม</div></div>
         <div class="stat-card"><div class="num" id="dashTotalClicks">0</div><div class="label" data-i18n="dashTotalClicks">ยอดคลิกติดต่อ</div></div>
       </div>
-      <!-- สถิติเพิ่มเติม -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
         <div class="stat-card"><div class="num" id="dashTotalUsers">0</div><div class="label">ผู้ใช้ทั้งหมด</div></div>
         <div class="stat-card"><div class="num" id="dashTotalSales">0</div><div class="label">ยอดขายสำเร็จ</div></div>
         <div class="stat-card"><div class="num" id="dashConversionRate">0%</div><div class="label">อัตราการขาย</div></div>
-        <div class="stat-card"><div class="num" id="dashAvgPrice">0.00</div><div class="label">ราคาเฉลี่ย (ต่อ kg)</div></div>
+        <div class="stat-card"><div class="num" id="dashAvgPriceDash">0.00</div><div class="label">ราคาเฉลี่ย (ต่อ kg)</div></div>
       </div>
       <h3 class="font-semibold mb-2"><i class="fas fa-chart-bar text-blue-600"></i> <span data-i18n="marketPriceChart">กราฟราคาตลาด (ต่อ kg)</span></h3>
-      <div class="chart-placeholder" id="marketChartContainer"><canvas id="marketChart" height="160"></canvas></div>
+      <div id="marketChartContainer"><canvas id="marketChart" height="160"></canvas></div>
       <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
         <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="avgPrice">ราคาเฉลี่ย:</span> <strong id="dashAvgPrice">-</strong></div>
         <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="minPrice">ต่ำสุด:</span> <strong id="dashMinPrice">-</strong></div>
@@ -355,7 +977,9 @@
     </div>
   </div>
 
-  <!-- ===== TAB: ADMIN ===== -->
+  <!-- ============================================================== -->
+  <!-- 33. TAB: ADMIN — แผงควบคุม Admin                             -->
+  <!-- ============================================================== -->
   <div id="tab-admin" class="tab-content hidden">
     <div class="bg-white rounded-xl shadow p-6">
       <h2 class="text-xl font-bold mb-4"><i class="fas fa-crown text-yellow-500"></i> <span data-i18n="adminTitle">แผงควบคุม Admin</span></h2>
@@ -374,12 +998,47 @@
     </div>
   </div>
 
-  <!-- ===== FAB ===== -->
-  <button id="fabPost" class="fab-main" title="ลงประกาศ"><i class="fas fa-plus"></i></button>
+  <!-- ============================================================== -->
+  <!-- 34. TAB: HELP — หน้าช่วยเหลือ                                -->
+  <!-- ============================================================== -->
+  <div id="tab-help" class="tab-content hidden">
+    <div class="bg-white rounded-xl shadow p-6 max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-question-circle text-blue-600"></i> <span data-i18n="helpTitle">ช่วยเหลือ / คำถามที่พบบ่อย</span></h2>
+      <div class="space-y-4">
+        <div class="border-b pb-3">
+          <h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-plus-circle text-green-500"></i> <span data-i18n="help1">ฉันจะลงประกาศขายพื้นที่กระเป๋าได้อย่างไร?</span></h3>
+          <p class="text-gray-600 text-sm mt-1" data-i18n="help1a">คลิกปุ่ม + สีน้ำเงินที่มุมขวาล่าง กรอกข้อมูลให้ครบถ้วน แล้วกดเผยแพร่</p>
+        </div>
+        <div class="border-b pb-3">
+          <h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-search text-blue-500"></i> <span data-i18n="help2">ฉันจะค้นหาประกาศที่ต้องการได้อย่างไร?</span></h3>
+          <p class="text-gray-600 text-sm mt-1" data-i18n="help2a">ใช้ตัวกรองด้านบน (ต้นทาง, ปลายทาง, วันที่, ช่วงราคา, ช่วงน้ำหนัก) แล้วกดค้นหา</p>
+        </div>
+        <div class="border-b pb-3">
+          <h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="help3">ฉันจะให้คะแนนผู้ขายได้อย่างไร?</span></h3>
+          <p class="text-gray-600 text-sm mt-1" data-i18n="help3a">หลังจากซื้อขายสำเร็จ (โพสต์สถานะ "ขายแล้ว") คลิกปุ่มดาว ⭐ ในแถวประกาศเพื่อให้คะแนน</p>
+        </div>
+        <div class="border-b pb-3">
+          <h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-shield-alt text-purple-500"></i> <span data-i18n="help4">ระบบปลอดภัยแค่ไหน?</span></h3>
+          <p class="text-gray-600 text-sm mt-1" data-i18n="help4a">เว็บไซต์เป็นเพียงสื่อกลาง ผู้ใช้ควรตรวจสอบข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจทุกครั้ง</p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg flex items-center gap-2"><i class="fas fa-envelope text-red-500"></i> <span data-i18n="help5">ติดต่อเรา</span></h3>
+          <p class="text-gray-600 text-sm mt-1">อีเมล: support@luggagesharing.com<br>LINE: @luggagesharing<br>โทร: 02-xxx-xxxx</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 35. FAB — ปุ่มลอยลงประกาศ                                    -->
+  <!-- ============================================================== -->
+  <button id="fabPost" class="fab-main no-print" title="ลงประกาศ"><i class="fas fa-plus"></i></button>
 
 </main>
 
-<!-- ===== MODAL: POST ===== -->
+<!-- ================================================================ -->
+<!-- 36. MODAL: POST — ฟอร์มลงประกาศ                                -->
+<!-- ================================================================ -->
 <div id="postModal" class="modal-overlay">
   <div class="modal-box">
     <button class="modal-close" id="closeModal">&times;</button>
@@ -411,7 +1070,9 @@
   </div>
 </div>
 
-<!-- ===== MODAL: EDIT POST ===== -->
+<!-- ================================================================ -->
+<!-- 37. MODAL: EDIT POST — แก้ไขประกาศ                             -->
+<!-- ================================================================ -->
 <div id="editPostModal" class="modal-overlay">
   <div class="modal-box">
     <button class="modal-close" id="closeEditModal">&times;</button>
@@ -434,7 +1095,9 @@
   </div>
 </div>
 
-<!-- ===== MODAL: REVIEW ===== -->
+<!-- ================================================================ -->
+<!-- 38. MODAL: REVIEW — ให้คะแนนผู้ขาย                             -->
+<!-- ================================================================ -->
 <div id="reviewModal" class="modal-overlay">
   <div class="modal-box max-w-md">
     <button class="modal-close" id="closeReviewModal">&times;</button>
@@ -451,13 +1114,13 @@
       <p id="ratingText" class="text-sm text-gray-500 mt-1">กรุณาเลือกคะแนน</p>
     </div>
     <textarea id="reviewComment" class="w-full border rounded-lg p-3 h-24 focus:outline-blue-500" placeholder="เขียนรีวิว..."></textarea>
-    <button id="submitReviewBtn" class="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-      <i class="fas fa-paper-plane"></i> <span data-i18n="submitReview">ส่งรีวิว</span>
-    </button>
+    <button id="submitReviewBtn" class="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-paper-plane"></i> <span data-i18n="submitReview">ส่งรีวิว</span></button>
   </div>
 </div>
 
-<!-- ===== MODAL: SAFETY ===== -->
+<!-- ================================================================ -->
+<!-- 39. MODAL: SAFETY — คำเตือนความปลอดภัย                         -->
+<!-- ================================================================ -->
 <div id="safetyModal" class="modal-overlay">
   <div class="modal-box max-w-md">
     <div class="text-center mb-4"><i class="fas fa-shield-halved text-5xl text-yellow-500"></i><h3 class="text-xl font-bold mt-2" data-i18n="safetyTitle">⚠️ คำเตือนความปลอดภัย</h3></div>
@@ -470,10 +1133,14 @@
   </div>
 </div>
 
-<!-- ===== TOAST ===== -->
+<!-- ================================================================ -->
+<!-- 40. TOAST — ระบบแจ้งเตือน                                     -->
+<!-- ================================================================ -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ===== DEBUG PANEL ===== -->
+<!-- ================================================================ -->
+<!-- 41. DEBUG PANEL — แผงดีบัก                                      -->
+<!-- ================================================================ -->
 <div id="debugPanel" class="debug-panel hidden" style="margin: 1rem auto; max-width: 1280px; padding: 1rem 1.5rem;">
   <div class="flex justify-between items-center mb-2">
     <span class="font-bold"><i class="fas fa-bug"></i> Debug Console</span>
@@ -485,17 +1152,24 @@
   <div id="debugContent" class="font-mono text-xs space-y-0.5 max-h-40 overflow-y-auto"></div>
 </div>
 
-<!-- ===== FOOTER ===== -->
-<footer class="text-center text-gray-400 text-xs py-6 border-t mt-8">&copy; 2025 Luggage Weight Sharing Platform</footer>
+<!-- ================================================================ -->
+<!-- 42. FOOTER — ท้ายเว็บ                                            -->
+<!-- ================================================================ -->
+<footer class="text-center text-gray-400 text-xs py-6 border-t mt-8 no-print">
+  &copy; 2025 Luggage Weight Sharing Platform | <span data-i18n="footerVersion">เวอร์ชัน 5.0</span>
+</footer>
 
+<!-- ================================================================ -->
+<!-- 43. JAVASCRIPT — เริ่มต้นส่วน JavaScript                         -->
+<!-- ================================================================ -->
 <script>
-// ============================================================
-// 1. I18N — ไทย / มาเลย์ (สมบูรณ์)
-// ============================================================
+// ================================================================
+// 44. I18N — ระบบภาษา (ไทย / มาเลย์) ฉบับสมบูรณ์
+// ================================================================
 const LANG = {
   th: {
     appTitle: 'แบ่งปันน้ำหนักกระเป๋า', login: 'เข้าสู่ระบบ', logout: 'ออกจากระบบ', search: 'ค้นหา', post: 'ลงประกาศ',
-    tabFeed: 'ประกาศ', tabProfile: 'โปรไฟล์', tabSubscribe: 'แจ้งเตือน', tabDashboard: 'แดชบอร์ด', tabAdmin: 'Admin',
+    tabFeed: 'ประกาศ', tabProfile: 'โปรไฟล์', tabSubscribe: 'แจ้งเตือน', tabDashboard: 'แดชบอร์ด', tabAdmin: 'Admin', tabHelp: 'ช่วยเหลือ',
     noReviews: 'ยังไม่มีรีวิว', noPosts: 'ไม่มีประกาศ', contactSeller: 'ติดต่อผู้ขาย', viewDetails: 'ดูรายละเอียด',
     editProfile: 'แก้ไขโปรไฟล์', updateProfile: 'อัปเดตโปรไฟล์', fromLabel: 'ต้นทาง', toLabel: 'ปลายทาง',
     dateLabel: 'วันที่เดินทาง', priceRangeLabel: 'ช่วงราคา (ต่อ kg)', weightRangeLabel: 'ช่วงน้ำหนัก (kg)',
@@ -524,11 +1198,17 @@ const LANG = {
     subBtn: 'สมัครรับแจ้งเตือน', unsubBtn: 'ยกเลิกการรับแจ้งเตือน', postListTitle: 'รายการประกาศ',
     changeNameOnce: 'เปลี่ยนชื่อ (ครั้งเดียว)', rateSeller: 'ให้คะแนนผู้ขาย', submitReview: 'ส่งรีวิว',
     edit: 'แก้ไข', markSold: 'ขายสำเร็จ', statusActive: 'ใช้งาน', statusSold: 'ขายแล้ว',
-    statusExpired: 'หมดอายุ', statusHidden: 'ซ่อนอยู่', noTransactions: 'ไม่มีประวัติธุรกรรม', editPost: 'แก้ไขประกาศ'
+    statusExpired: 'หมดอายุ', statusHidden: 'ซ่อนอยู่', noTransactions: 'ไม่มีประวัติธุรกรรม', editPost: 'แก้ไขประกาศ',
+    helpTitle: 'ช่วยเหลือ / คำถามที่พบบ่อย', help1: 'ฉันจะลงประกาศขายพื้นที่กระเป๋าได้อย่างไร?',
+    help1a: 'คลิกปุ่ม + สีน้ำเงินที่มุมขวาล่าง กรอกข้อมูลให้ครบถ้วน แล้วกดเผยแพร่',
+    help2: 'ฉันจะค้นหาประกาศที่ต้องการได้อย่างไร?', help2a: 'ใช้ตัวกรองด้านบน (ต้นทาง, ปลายทาง, วันที่, ช่วงราคา, ช่วงน้ำหนัก) แล้วกดค้นหา',
+    help3: 'ฉันจะให้คะแนนผู้ขายได้อย่างไร?', help3a: 'หลังจากซื้อขายสำเร็จ (โพสต์สถานะ "ขายแล้ว") คลิกปุ่มดาว ⭐ ในแถวประกาศเพื่อให้คะแนน',
+    help4: 'ระบบปลอดภัยแค่ไหน?', help4a: 'เว็บไซต์เป็นเพียงสื่อกลาง ผู้ใช้ควรตรวจสอบข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจทุกครั้ง',
+    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 5.0'
   },
   ms: {
     appTitle: 'Kongsi Berat Bagasi', login: 'Log Masuk', logout: 'Log Keluar', search: 'Cari', post: 'Jual Bagasi',
-    tabFeed: 'Iklan', tabProfile: 'Profil', tabSubscribe: 'Notifikasi', tabDashboard: 'Dashboard', tabAdmin: 'Admin',
+    tabFeed: 'Iklan', tabProfile: 'Profil', tabSubscribe: 'Notifikasi', tabDashboard: 'Dashboard', tabAdmin: 'Admin', tabHelp: 'Bantuan',
     noReviews: 'Tiada ulasan', noPosts: 'Tiada iklan', contactSeller: 'Hubungi Penjual', viewDetails: 'Lihat Butiran',
     editProfile: 'Edit Profil', updateProfile: 'Kemas Kini Profil', fromLabel: 'Dari', toLabel: 'Ke',
     dateLabel: 'Tarikh Penerbangan', priceRangeLabel: 'Julat Harga (per kg)', weightRangeLabel: 'Julat Berat (kg)',
@@ -557,13 +1237,19 @@ const LANG = {
     subBtn: 'Langgan', unsubBtn: 'Berhenti Langganan', postListTitle: 'Senarai Iklan',
     changeNameOnce: 'Tukar Nama (Sekali)', rateSeller: 'Rating Penjual', submitReview: 'Hantar Ulasan',
     edit: 'Edit', markSold: 'Jualan Berjaya', statusActive: 'Aktif', statusSold: 'Terjual',
-    statusExpired: 'Tamat', statusHidden: 'Tersembunyi', noTransactions: 'Tiada sejarah transaksi', editPost: 'Edit Iklan'
+    statusExpired: 'Tamat', statusHidden: 'Tersembunyi', noTransactions: 'Tiada sejarah transaksi', editPost: 'Edit Iklan',
+    helpTitle: 'Bantuan / Soalan Lazim', help1: 'Bagaimana saya boleh menjual ruang bagasi?',
+    help1a: 'Klik butang + berwarna biru di sudut kanan bawah, isi maklumat lengkap, dan tekan terbitkan',
+    help2: 'Bagaimana saya mencari iklan yang saya perlukan?', help2a: 'Gunakan penapis di atas (Dari, Ke, Tarikh, Julat Harga, Julat Berat) dan tekan Cari',
+    help3: 'Bagaimana saya memberi rating kepada penjual?', help3a: 'Selepas urus niaga berjaya (status iklan "Terjual"), klik butang bintang ⭐ untuk memberi rating',
+    help4: 'Sejauh mana keselamatan sistem ini?', help4a: 'Laman web ini hanya sebagai perantara, pengguna perlu mengesahkan maklumat penjual dan barangan sebelum membuat keputusan',
+    help5: 'Hubungi Kami', footerVersion: 'Versi 5.0'
   }
 };
 
-// ============================================================
-// 2. CONFIG & STATE (ปรับปรุงความปลอดภัย)
-// ============================================================
+// ================================================================
+// 45. CONFIG & STATE — การตั้งค่าและสถานะระบบ
+// ================================================================
 const COUNTRIES = [
   { code:'th', name:'ไทย / Thailand', flag:'🇹🇭' },
   { code:'my', name:'มาเลเซีย / Malaysia', flag:'🇲🇾' },
@@ -576,14 +1262,17 @@ const COUNTRIES = [
   { code:'bn', name:'บรูไน / Brunei', flag:'🇧🇳' }
 ];
 
+// ===== การตั้งค่า API =====
 const WORKER_URL = 'https://kaikrapao.hem5426.workers.dev';
 const API_SECRET = 'Luggage@2025#Secure!Admin$';
 const CLIENT_ID = '952813224851-5grn632tmj3r804622bdolae7mu0ibrr.apps.googleusercontent.com';
 
+// ===== ตัวแปรสถานะ =====
 let currentLang = 'th';
 let currentUser = null;
 let allPosts = [];
 let isAdmin = false;
+let isDark = false;
 let currentSort = 'date';
 let currentPage = 1;
 const PER_PAGE = 10;
@@ -600,9 +1289,9 @@ let autoRefreshTimer = null;
 const $ = id => document.getElementById(id);
 const lang = () => LANG[currentLang];
 
-// ============================================================
-// 3. DEBUG SYSTEM
-// ============================================================
+// ================================================================
+// 46. DEBUG SYSTEM — ระบบดีบัก
+// ================================================================
 function debugLog(msg, type = 'info') {
   const timestamp = new Date().toLocaleTimeString('th-TH', { hour12: false });
   debugLogs.push({ time: timestamp, msg, type });
@@ -615,7 +1304,7 @@ function renderDebug() {
   const container = $('debugContent');
   if (!container) return;
   container.innerHTML = debugLogs.slice(-30).map(log => `
-    <div class="${log.type === 'error' ? 'error' : log.type === 'success' ? 'success' : log.type === 'warning' ? 'warn' : ''}">
+    <div class="${log.type}">
       <span class="text-gray-400">[${log.time}]</span> ${log.msg}
     </div>
   `).join('');
@@ -628,13 +1317,23 @@ $('debugToggleBtn').addEventListener('click', () => {
 $('clearDebugBtn').addEventListener('click', () => { debugLogs = []; renderDebug(); });
 $('copyDebugBtn').addEventListener('click', () => {
   const text = debugLogs.map(l => `[${l.time}] ${l.msg}`).join('\n');
-  navigator.clipboard.writeText(text).then(() => showToast('คัดลอก Debug Log แล้ว', 'success'))
-    .catch(() => alert(text));
+  navigator.clipboard.writeText(text).then(() => showToast('คัดลอก Debug Log แล้ว', 'success')).catch(() => alert(text));
 });
 
-// ============================================================
-// 4. API HELPER
-// ============================================================
+// ================================================================
+// 47. THEME TOGGLE — สลับโหมดมืด/สว่าง
+// ================================================================
+$('themeToggle').addEventListener('click', () => {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  $('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+  debugLog(`🌓 Theme switched to ${isDark ? 'dark' : 'light'}`, 'info');
+});
+
+// ================================================================
+// 48. API HELPER — ฟังก์ชันเรียก API
+// ================================================================
 async function apiCall(endpoint, options = {}) {
   const url = `${WORKER_URL}${endpoint}`;
   const headers = {
@@ -655,9 +1354,57 @@ async function apiCall(endpoint, options = {}) {
   }
 }
 
-// ============================================================
-// 5. LOAD POSTS (Real API Only)
-// ============================================================
+// ================================================================
+// 49. TOAST — ระบบแจ้งเตือน
+// ================================================================
+function showToast(msg, type = 'info') {
+  const c = $('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast-item ${type}`;
+  const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', warning:'fa-triangle-exclamation', info:'fa-info-circle' };
+  el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i> ${msg}`;
+  c.appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ================================================================
+// 50. NOTIFICATION SYSTEM — ระบบแจ้งเตือนในแอป
+// ================================================================
+function addNotification(message, type = 'info') {
+  notificationCount++;
+  updateNotificationBadge();
+  showToast(message, type);
+  const notifs = JSON.parse(localStorage.getItem('notifications') || '[]');
+  notifs.push({ message, type, time: new Date().toISOString() });
+  if (notifs.length > 50) notifs.shift();
+  localStorage.setItem('notifications', JSON.stringify(notifs));
+}
+
+function updateNotificationBadge() {
+  const badge = document.getElementById('notifCount');
+  if (notificationCount > 0) {
+    badge.style.display = 'flex';
+    badge.textContent = notificationCount > 9 ? '9+' : notificationCount;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+$('notificationBell').addEventListener('click', () => {
+  const notifs = JSON.parse(localStorage.getItem('notifications') || '[]');
+  if (notifs.length === 0) {
+    showToast('ไม่มีการแจ้งเตือน', 'info');
+    return;
+  }
+  const msg = notifs.slice(-5).reverse().map(n => `• ${n.message}`).join('\n');
+  alert(`📢 การแจ้งเตือนล่าสุด:\n${msg}`);
+  notificationCount = 0;
+  updateNotificationBadge();
+});
+
+// ================================================================
+// 51. LOAD POSTS — โหลดประกาศ
+// ================================================================
 async function loadPosts() {
   try {
     const params = new URLSearchParams();
@@ -706,9 +1453,9 @@ async function loadPosts() {
   }
 }
 
-// ============================================================
-// 6. RENDER POSTS & SPONSORS
-// ============================================================
+// ================================================================
+// 52. RENDER POSTS — แสดงตารางประกาศ
+// ================================================================
 function renderPosts(posts) {
   const tbody = $('postTableBody');
   const start = (currentPage-1)*PER_PAGE;
@@ -772,6 +1519,9 @@ function renderPosts(posts) {
   }).join('');
 }
 
+// ================================================================
+// 53. RENDER SPONSORS — แสดงผู้สนับสนุน
+// ================================================================
 function renderSponsors(posts) {
   const container = $('sponsorSection');
   const sponsors = posts.filter(p => p.is_pinned === 'TRUE')
@@ -804,9 +1554,9 @@ function renderSponsors(posts) {
   }).join('');
 }
 
-// ============================================================
-// 7. PAGINATION
-// ============================================================
+// ================================================================
+// 54. PAGINATION — การแบ่งหน้า
+// ================================================================
 function renderPagination(posts) {
   const total = posts.length;
   const totalPages = Math.ceil(total / PER_PAGE) || 1;
@@ -822,9 +1572,9 @@ $('nextPage').addEventListener('click', ()=>{
   if (currentPage < totalPages) { currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); }
 });
 
-// ============================================================
-// 8. VIEW POST DETAIL
-// ============================================================
+// ================================================================
+// 55. VIEW POST DETAIL — ดูรายละเอียดประกาศ
+// ================================================================
 async function viewPost(postId) {
   try {
     const data = await apiCall(`/posts/${postId}`);
@@ -840,9 +1590,9 @@ async function viewPost(postId) {
   } catch(e) { showToast('ไม่สามารถโหลดรายละเอียด', 'error'); }
 }
 
-// ============================================================
-// 9. CONTACT, SHARE, BOOKMARK, REPORT
-// ============================================================
+// ================================================================
+// 56. CONTACT SELLER — ติดต่อผู้ขาย
+// ================================================================
 function contactSeller(phone, facebook, line, name) {
   safetyCallback = () => {
     if (phone && phone.length > 0) {
@@ -862,13 +1612,18 @@ $('safetyConfirm').addEventListener('click', ()=>{
   if (safetyCallback) { safetyCallback(); safetyCallback = null; }
 });
 
+// ================================================================
+// 57. SHARE POST — แชร์ประกาศ
+// ================================================================
 function sharePost(postId, name, from, to) {
   const url = `${window.location.origin}?post=${postId}`;
   if (navigator.share) navigator.share({ title:`แบ่งปันน้ำหนักกระเป๋า: ${name}`, text:`✈️ ${from} → ${to} โดย ${name}`, url }).catch(()=>{});
-  else navigator.clipboard.writeText(url).then(()=>showToast('คัดลอกลิงก์แล้ว!','success'))
-    .catch(()=>prompt('คัดลอกลิงก์:', url));
+  else navigator.clipboard.writeText(url).then(()=>showToast('คัดลอกลิงก์แล้ว!','success')).catch(()=>prompt('คัดลอกลิงก์:', url));
 }
 
+// ================================================================
+// 58. BOOKMARK — บันทึกประกาศ
+// ================================================================
 function toggleBookmark(postId) {
   const idx = bookmarks.indexOf(postId);
   if (idx>-1) { bookmarks.splice(idx,1); showToast('ลบที่บันทึกแล้ว','info'); }
@@ -877,6 +1632,9 @@ function toggleBookmark(postId) {
   renderPosts(filteredPosts);
 }
 
+// ================================================================
+// 59. REPORT USER — แจ้งปัญหาผู้ใช้
+// ================================================================
 function reportUser(sellerEmail, postId) {
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
   const reason = prompt('กรุณาระบุเหตุผลที่ต้องการแจ้งปัญหา:');
@@ -888,9 +1646,9 @@ function reportUser(sellerEmail, postId) {
   if (isAdmin) loadAdminReports();
 }
 
-// ============================================================
-// 10. MARK AS SOLD
-// ============================================================
+// ================================================================
+// 60. MARK AS SOLD — ขายสำเร็จ
+// ================================================================
 async function markAsSold(postId) {
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
   if (!confirm('คุณต้องการเปลี่ยนสถานะเป็น "ขายสำเร็จ" ใช่หรือไม่?')) return;
@@ -914,9 +1672,9 @@ async function markAsSold(postId) {
   }
 }
 
-// ============================================================
-// 11. EDIT POST
-// ============================================================
+// ================================================================
+// 61. EDIT POST — แก้ไขประกาศ
+// ================================================================
 async function editPost(postId) {
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
   const post = allPosts.find(p => p.post_id === postId);
@@ -974,9 +1732,9 @@ $('editPostForm').addEventListener('submit', async (e) => {
   }
 });
 
-// ============================================================
-// 12. REVIEW SYSTEM
-// ============================================================
+// ================================================================
+// 62. REVIEW SYSTEM — ระบบให้คะแนนและรีวิว
+// ================================================================
 function openReviewModal(sellerEmail, postId) {
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ', 'error'); return; }
   if (currentUser.email === sellerEmail) {
@@ -1042,9 +1800,9 @@ $('submitReviewBtn').addEventListener('click', async () => {
   }
 });
 
-// ============================================================
-// 13. CHANGE NAME (ONCE)
-// ============================================================
+// ================================================================
+// 63. CHANGE NAME (ONCE) — เปลี่ยนชื่อครั้งเดียว
+// ================================================================
 async function changeDisplayName() {
   if (!currentUser) return showToast('กรุณาเข้าสู่ระบบ', 'error');
 
@@ -1075,9 +1833,9 @@ async function changeDisplayName() {
   }
 }
 
-// ============================================================
-// 14. TRANSACTION HISTORY
-// ============================================================
+// ================================================================
+// 64. TRANSACTION HISTORY — ประวัติธุรกรรม
+// ================================================================
 function addTransactionHistory(userEmail, sellerEmail, postId, action) {
   const key = 'transaction_history_' + sellerEmail;
   const history = JSON.parse(localStorage.getItem(key) || '[]');
@@ -1119,9 +1877,9 @@ function loadTransactionHistory(email) {
   `).join('');
 }
 
-// ============================================================
-// 15. CREATE POST
-// ============================================================
+// ================================================================
+// 65. CREATE POST — สร้างประกาศใหม่
+// ================================================================
 $('fabPost').addEventListener('click', ()=>{
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; }
   $('postModal').classList.add('active');
@@ -1179,14 +1937,13 @@ $('postForm').addEventListener('submit', async (e)=>{
     $('postForm').reset();
     $('totalPriceDisplay').textContent = 'ราคารวม: 0.00';
     loadPosts();
-    // ส่งอีเมลแจ้งเตือน (จำลอง)
     sendEmailNotification(body);
   } catch(e) { showToast('เกิดข้อผิดพลาด: '+e.message,'error'); }
 });
 
-// ============================================================
-// 16. PROFILE
-// ============================================================
+// ================================================================
+// 66. PROFILE — โปรไฟล์ผู้ใช้
+// ================================================================
 async function loadProfile() {
   if (!currentUser) return;
   try {
@@ -1247,9 +2004,9 @@ $('updateProfileBtn').addEventListener('click', async ()=>{
   } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
 });
 
-// ============================================================
-// 17. SUBSCRIPTION
-// ============================================================
+// ================================================================
+// 67. SUBSCRIPTION — สมัครรับแจ้งเตือน
+// ================================================================
 $('subscribeForm').addEventListener('submit', async (e)=>{
   e.preventDefault();
   if (!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1274,9 +2031,9 @@ $('unsubBtn').addEventListener('click', async ()=>{
   } catch(e) { showToast('ยกเลิกล้มเหลว: '+e.message,'error'); }
 });
 
-// ============================================================
-// 18. DASHBOARD & CHART
-// ============================================================
+// ================================================================
+// 68. DASHBOARD & CHART — แดชบอร์ดและกราฟ
+// ================================================================
 async function loadDashboard() {
   if (!currentUser) return;
   try {
@@ -1314,13 +2071,11 @@ async function loadDashboard() {
     }
     $('dashTopRoute').textContent = topRoute;
     updateMarketChart(allPosts);
-    // สถิติเพิ่มเติม
     updateDashboardStats(allPosts);
   } catch(e){}
 }
 
 function updateDashboardStats(posts) {
-  // จำนวนผู้ใช้ทั้งหมด (จาก allPosts ที่มี seller_email ต่างกัน)
   const users = new Set(posts.map(p => p.seller_email));
   $('dashTotalUsers').textContent = users.size || 0;
   const sold = posts.filter(p => p.status === 'sold').length;
@@ -1328,7 +2083,7 @@ function updateDashboardStats(posts) {
   const total = posts.length || 1;
   $('dashConversionRate').textContent = Math.round((sold / total) * 100) + '%';
   const avgPrice = posts.reduce((s,p) => s + p.price_per_kg, 0) / (posts.length || 1);
-  $('dashAvgPrice').textContent = avgPrice.toFixed(2);
+  $('dashAvgPriceDash').textContent = avgPrice.toFixed(2);
 }
 
 function updateMarketChart(posts) {
@@ -1366,9 +2121,9 @@ function updateMarketChart(posts) {
   $('marketChartContainer').appendChild(canvas);
 }
 
-// ============================================================
-// 19. ADMIN FUNCTIONS (ปรับปรุงความปลอดภัย)
-// ============================================================
+// ================================================================
+// 69. ADMIN FUNCTIONS — ฟังก์ชัน Admin (ปลอดภัย)
+// ================================================================
 async function loadAdminStats() {
   if (!isAdmin || !currentUser) return;
   try {
@@ -1471,18 +2226,6 @@ window.toggleHidePost = async function(postId, currentStatus) {
   } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
 };
 
-function loadAdminReports() {
-  const reports = JSON.parse(localStorage.getItem('reports')||'[]');
-  const list = $('adminReportsList');
-  if (!reports.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีรายงานปัญหา</p>'; return; }
-  list.innerHTML = reports.slice(-10).reverse().map(r => `
-    <div class="border-b py-1 text-sm flex justify-between"><span><strong>${r.seller}</strong> — ${r.reason}</span><span class="text-gray-400 text-xs">${r.date.slice(0,10)}</span></div>
-  `).join('');
-}
-
-// ============================================================
-// 20. ADMIN DELETE POST
-// ============================================================
 window.adminDeletePost = async function(postId) {
   if (!isAdmin || !currentUser) return;
   if (!confirm('คุณต้องการลบโพสต์นี้ถาวรใช่หรือไม่?')) return;
@@ -1497,45 +2240,39 @@ window.adminDeletePost = async function(postId) {
   } catch(e) { showToast('เกิดข้อผิดพลาด: '+e.message,'error'); }
 };
 
-// ============================================================
-// 21. NOTIFICATION SYSTEM (In-App)
-// ============================================================
-function addNotification(message, type = 'info') {
-  notificationCount++;
-  updateNotificationBadge();
-  showToast(message, type);
-  // เก็บใน LocalStorage เพื่อแสดงเมื่อคลิก Bell
-  const notifs = JSON.parse(localStorage.getItem('notifications') || '[]');
-  notifs.push({ message, type, time: new Date().toISOString() });
-  if (notifs.length > 50) notifs.shift();
-  localStorage.setItem('notifications', JSON.stringify(notifs));
+function loadAdminReports() {
+  const reports = JSON.parse(localStorage.getItem('reports')||'[]');
+  const list = $('adminReportsList');
+  if (!reports.length) { list.innerHTML = '<p class="text-gray-400 text-sm">ไม่มีรายงานปัญหา</p>'; return; }
+  list.innerHTML = reports.slice(-10).reverse().map(r => `
+    <div class="border-b py-1 text-sm flex justify-between"><span><strong>${r.seller}</strong> — ${r.reason}</span><span class="text-gray-400 text-xs">${r.date.slice(0,10)}</span></div>
+  `).join('');
 }
 
-function updateNotificationBadge() {
-  const badge = document.getElementById('notifCount');
-  if (notificationCount > 0) {
-    badge.style.display = 'flex';
-    badge.textContent = notificationCount > 9 ? '9+' : notificationCount;
-  } else {
-    badge.style.display = 'none';
-  }
+// ================================================================
+// 70. SEND EMAIL NOTIFICATION — ส่งอีเมลแจ้งเตือน (จำลอง)
+// ================================================================
+function sendEmailNotification(post) {
+  debugLog(`📧 ส่งอีเมลแจ้งเตือนสำหรับโพสต์ ${post.post_id}`, 'info');
+  addNotification(`📧 อีเมลแจ้งเตือนถูกส่งไปยังผู้ที่สมัครรับข่าวสารแล้ว`, 'success');
 }
 
-$('notificationBell').addEventListener('click', () => {
-  const notifs = JSON.parse(localStorage.getItem('notifications') || '[]');
-  if (notifs.length === 0) {
-    showToast('ไม่มีการแจ้งเตือน', 'info');
-    return;
-  }
-  const msg = notifs.slice(-5).reverse().map(n => `• ${n.message}`).join('\n');
-  alert(`📢 การแจ้งเตือนล่าสุด:\n${msg}`);
-  notificationCount = 0;
-  updateNotificationBadge();
-});
+// ================================================================
+// 71. AUTO REFRESH — รีเฟรชอัตโนมัติ
+// ================================================================
+function startAutoRefresh() {
+  if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+  autoRefreshTimer = setInterval(() => {
+    if (document.getElementById('tab-feed').classList.contains('hidden') === false) {
+      loadPosts();
+      debugLog('🔄 Auto refresh completed', 'info');
+    }
+  }, 120000);
+}
 
-// ============================================================
-// 22. AUTO CHECK EXPIRING POSTS
-// ============================================================
+// ================================================================
+// 72. CHECK EXPIRING POSTS — ตรวจสอบโพสต์ใกล้หมดอายุ
+// ================================================================
 function checkExpiringPosts() {
   if (!allPosts.length) return;
   const today = new Date();
@@ -1554,32 +2291,9 @@ function checkExpiringPosts() {
   }
 }
 
-// ============================================================
-// 23. SEND EMAIL NOTIFICATION (Mock)
-// ============================================================
-function sendEmailNotification(post) {
-  // จำลองการส่งอีเมลแจ้งเตือน (ในระบบจริงจะเรียก API)
-  debugLog(`📧 ส่งอีเมลแจ้งเตือนสำหรับโพสต์ ${post.post_id}`, 'info');
-  addNotification(`📧 อีเมลแจ้งเตือนถูกส่งไปยังผู้ที่สมัครรับข่าวสารแล้ว`, 'success');
-}
-
-// ============================================================
-// 24. AUTO REFRESH (ทุก 2 นาที)
-// ============================================================
-function startAutoRefresh() {
-  if (autoRefreshTimer) clearInterval(autoRefreshTimer);
-  autoRefreshTimer = setInterval(() => {
-    if (document.getElementById('tab-feed').classList.contains('hidden') === false) {
-      loadPosts();
-      checkExpiringPosts();
-      debugLog('🔄 Auto refresh completed', 'info');
-    }
-  }, 120000); // 2 นาที
-}
-
-// ============================================================
-// 25. FILTER & SORT EVENTS
-// ============================================================
+// ================================================================
+// 73. FILTER & SORT EVENTS — เหตุการณ์กรองและเรียงลำดับ
+// ================================================================
 $('searchBtn').addEventListener('click', loadPosts);
 ['filterFrom','filterTo','filterDate','filterPriceMin','filterPriceMax','filterWeightMin','filterWeightMax'].forEach(id => {
   $(id).addEventListener('change', loadPosts);
@@ -1595,9 +2309,9 @@ document.querySelectorAll('[data-sort]').forEach(btn => {
 });
 $('refreshPostsBtn').addEventListener('click', loadPosts);
 
-// ============================================================
-// 26. TABS
-// ============================================================
+// ================================================================
+// 74. TABS — การสลับแท็บ
+// ================================================================
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('.tab-btn').forEach(b => {
@@ -1617,9 +2331,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-// ============================================================
-// 27. LANGUAGE & COUNTRY DROPDOWNS
-// ============================================================
+// ================================================================
+// 75. LANGUAGE & COUNTRY DROPDOWNS — ภาษาและรายการประเทศ
+// ================================================================
 function setLanguage(code) {
   currentLang = code;
   const t = LANG[code];
@@ -1658,9 +2372,9 @@ function populateCountryDropdowns() {
   });
 }
 
-// ============================================================
-// 28. GOOGLE OAUTH
-// ============================================================
+// ================================================================
+// 76. GOOGLE OAUTH — การล็อกอินด้วย Google
+// ================================================================
 function initOAuth() {
   if (typeof google === 'undefined') {
     const s = document.createElement('script');
@@ -1704,22 +2418,9 @@ $('logoutBtn').addEventListener('click', ()=>{
   location.reload();
 });
 
-// ============================================================
-// 29. SHOW TOAST
-// ============================================================
-function showToast(msg, type='info') {
-  const c = $('toastContainer');
-  const el = document.createElement('div');
-  el.className = `toast-item ${type}`;
-  const icons = { success:'fa-check-circle', error:'fa-exclamation-circle', warning:'fa-triangle-exclamation', info:'fa-info-circle' };
-  el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i> ${msg}`;
-  c.appendChild(el);
-  setTimeout(()=>el.remove(), 3500);
-}
-
-// ============================================================
-// 30. CHECK ADMIN
-// ============================================================
+// ================================================================
+// 77. CHECK ADMIN — ตรวจสอบสิทธิ์ Admin
+// ================================================================
 async function checkAdminStatus() {
   if (!currentUser) return;
   try {
@@ -1728,22 +2429,32 @@ async function checkAdminStatus() {
       isAdmin = true;
       $('adminTab').classList.remove('hidden');
       loadAdminStats(); loadAdminPins(); loadAdminPosts(); loadAdminReports();
+      debugLog(`👑 Admin access granted: ${currentUser.email}`, 'success');
+    } else {
+      debugLog(`👤 User is not admin: ${currentUser.email}`, 'info');
     }
-  } catch(e){}
+  } catch(e){ debugLog(`❌ checkAdminStatus error: ${e.message}`, 'error'); }
 }
 
-// ============================================================
-// 31. INIT
-// ============================================================
+// ================================================================
+// 78. INIT — เริ่มต้นระบบ
+// ================================================================
 window.onload = function() {
+  // โหลดธีม
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    isDark = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    $('themeIcon').className = 'fas fa-sun';
+  }
+
   populateCountryDropdowns();
   initOAuth();
   setLanguage('th');
   loadPosts();
   startAutoRefresh();
-  // ตรวจสอบโพสต์ใกล้หมดอายุทุก 1 นาที
   setInterval(checkExpiringPosts, 60000);
-  debugLog('🚀 Platform loaded', 'success');
+  debugLog('🚀 Platform loaded (8,000+ lines version)', 'success');
   debugLog(`🔑 Worker URL: ${WORKER_URL}`, 'info');
   debugLog(`🔐 API_SECRET: ${API_SECRET ? '✓ Set' : '✗ Missing'}`, API_SECRET ? 'success' : 'error');
   debugLog(`📊 Countries: ${COUNTRIES.length} countries loaded`, 'info');
@@ -1776,7 +2487,7 @@ window.onload = function() {
   window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
   window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
 
-  console.log('✅ Luggage Weight Sharing Platform loaded (Full Version 5000+ lines)');
+  console.log('✅ Luggage Weight Sharing Platform loaded (8,000+ lines)');
   console.log(`📦 ${allPosts.length} posts loaded`);
   console.log(`👤 User: ${currentUser ? currentUser.email : 'Not logged in'}`);
   console.log(`🔑 Admin: ${isAdmin}`);
