@@ -80,7 +80,7 @@
     <div class="container-custom py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-2 text-xl font-bold">
         <i class="fas fa-suitcase-rolling"></i>
-        <span id="appTitle">แบ่งปันน้ำหนักกระเป๋า</span>
+        <span id="appTitle" data-i18n="appTitle">แบ่งปันน้ำหนักกระเป๋า</span>
       </div>
       <div class="flex items-center gap-3 flex-wrap">
         <div class="flex bg-white/20 rounded-full overflow-hidden text-sm backdrop-blur-sm">
@@ -92,9 +92,9 @@
           <span id="userName" class="text-sm font-medium max-w-[100px] truncate"></span>
         </div>
         <button id="loginBtn" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-100 transition shadow-sm">
-          <i class="fab fa-google"></i> <span id="loginText">เข้าสู่ระบบ</span>
+          <i class="fab fa-google"></i> <span id="loginText" data-i18n="login">เข้าสู่ระบบ</span>
         </button>
-        <button id="logoutBtn" class="hidden bg-red-500/80 hover:bg-red-500 px-4 py-1.5 rounded-full font-semibold transition backdrop-blur-sm">ออกจากระบบ</button>
+        <button id="logoutBtn" class="hidden bg-red-500/80 hover:bg-red-500 px-4 py-1.5 rounded-full font-semibold transition backdrop-blur-sm" data-i18n="logout">ออกจากระบบ</button>
         <button id="debugToggleBtn" class="bg-gray-700/50 hover:bg-gray-600 px-3 py-1.5 rounded-full text-xs font-mono transition"><i class="fas fa-bug"></i> Debug</button>
       </div>
     </div>
@@ -105,34 +105,34 @@
 
     <!-- TABS -->
     <div class="flex flex-wrap gap-1 mb-6 border-b pb-2 overflow-x-auto">
-      <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed"><i class="fas fa-list"></i> ประกาศ</button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile"><i class="fas fa-user"></i> โปรไฟล์</button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe"><i class="fas fa-bell"></i> แจ้งเตือน</button>
-      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard"><i class="fas fa-chart-pie"></i> แดชบอร์ด</button>
-      <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin"><i class="fas fa-crown"></i> Admin</button>
+      <button class="tab-btn active px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="feed"><i class="fas fa-list"></i> <span data-i18n="tabFeed">ประกาศ</span></button>
+      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="profile"><i class="fas fa-user"></i> <span data-i18n="tabProfile">โปรไฟล์</span></button>
+      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="subscribe"><i class="fas fa-bell"></i> <span data-i18n="tabSubscribe">แจ้งเตือน</span></button>
+      <button class="tab-btn px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="dashboard"><i class="fas fa-chart-pie"></i> <span data-i18n="tabDashboard">แดชบอร์ด</span></button>
+      <button id="adminTab" class="tab-btn hidden px-4 py-2 font-semibold text-gray-500 hover:text-blue-600" data-tab="admin"><i class="fas fa-crown"></i> <span data-i18n="tabAdmin">Admin</span></button>
     </div>
 
     <!-- ===== TAB: FEED ===== -->
     <div id="tab-feed" class="tab-content">
       <div class="bg-white rounded-xl shadow p-4 md:p-5 mb-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          <div><label class="text-xs font-medium text-gray-500 block mb-1">ต้นทาง</label><select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1">ปลายทาง</label><select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1">วันที่เดินทาง</label><input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1">ช่วงราคา (ต่อ kg)</label><div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
-          <div><label class="text-xs font-medium text-gray-500 block mb-1">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
+          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="fromLabel">ต้นทาง</label><select id="filterFrom" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
+          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="toLabel">ปลายทาง</label><select id="filterTo" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"><option value="">— ทั้งหมด —</option></select></div>
+          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="dateLabel">วันที่เดินทาง</label><input id="filterDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
+          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="priceRangeLabel">ช่วงราคา (ต่อ kg)</label><div class="flex gap-1"><input id="filterPriceMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterPriceMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
+          <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs text-gray-500 font-medium">เรียงลำดับ:</span>
-            <button class="filter-chip active" data-sort="date">วันที่ใกล้สุด</button>
-            <button class="filter-chip" data-sort="price_asc">ราคาต่ำ→สูง</button>
-            <button class="filter-chip" data-sort="price_desc">ราคาสูง→ต่ำ</button>
-            <button class="filter-chip" data-sort="trust">ความน่าเชื่อถือ</button>
+            <span class="text-xs text-gray-500 font-medium" data-i18n="sortLabel">เรียงลำดับ:</span>
+            <button class="filter-chip active" data-sort="date" data-i18n="sortDate">วันที่ใกล้สุด</button>
+            <button class="filter-chip" data-sort="price_asc" data-i18n="sortPriceAsc">ราคาต่ำ→สูง</button>
+            <button class="filter-chip" data-sort="price_desc" data-i18n="sortPriceDesc">ราคาสูง→ต่ำ</button>
+            <button class="filter-chip" data-sort="trust" data-i18n="sortTrust">ความน่าเชื่อถือ</button>
           </div>
           <div class="flex items-center gap-2">
             <button id="toggleMockBtn" class="text-xs px-3 py-1 rounded-full border border-gray-300 hover:bg-gray-100 transition" title="สลับโหมดข้อมูล"><i class="fas fa-database"></i> <span id="mockToggleLabel">Mock</span></button>
-            <button id="searchBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-sm"><i class="fas fa-search"></i> ค้นหา</button>
+            <button id="searchBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-sm"><i class="fas fa-search"></i> <span data-i18n="search">ค้นหา</span></button>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@
 
       <div class="bg-white rounded-xl shadow overflow-hidden">
         <div class="px-5 py-4 border-b flex flex-wrap items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i> รายการประกาศ <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
+          <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i> <span data-i18n="postListTitle">รายการประกาศ</span> <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
           <div class="flex items-center gap-2 text-sm text-gray-500">
             <button id="refreshPostsBtn" class="hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
             <span id="dataModeIndicator" class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700 font-medium">Mock</span>
@@ -149,7 +149,7 @@
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>ผู้ขาย</th><th>เส้นทาง</th><th class="hide-mobile">วันที่</th><th class="hide-mobile">ประเภท</th><th>น้ำหนัก</th><th>ราคา</th><th>Badges</th><th class="text-center">ดำเนินการ</th></tr></thead>
+            <thead><tr><th data-i18n="thSeller">ผู้ขาย</th><th data-i18n="thRoute">เส้นทาง</th><th class="hide-mobile" data-i18n="thDate">วันที่</th><th class="hide-mobile" data-i18n="thType">ประเภท</th><th data-i18n="thWeight">น้ำหนัก</th><th data-i18n="thPrice">ราคา</th><th data-i18n="thBadges">Badges</th><th class="text-center" data-i18n="thActions">ดำเนินการ</th></tr></thead>
             <tbody id="postTableBody"></tbody>
           </table>
         </div>
@@ -163,7 +163,7 @@
       </div>
     </div>
 
-    <!-- ===== TAB: PROFILE ===== (ย่อ) ===== -->
+    <!-- ===== TAB: PROFILE ===== -->
     <div id="tab-profile" class="tab-content hidden">
       <div class="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto">
         <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
@@ -179,84 +179,84 @@
             <div id="profileBadges" class="flex flex-wrap gap-2 mt-3 justify-center md:justify-start"></div>
           </div>
           <div class="grid grid-cols-3 gap-3 text-center">
-            <div class="bg-blue-50 p-3 rounded-lg"><div id="profileRating" class="text-xl font-bold text-blue-600">0.0</div><div class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500"></i> คะแนน</div></div>
-            <div class="bg-green-50 p-3 rounded-lg"><div id="profilePosts" class="text-xl font-bold text-green-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-box"></i> โพสต์</div></div>
-            <div class="bg-purple-50 p-3 rounded-lg"><div id="profileSales" class="text-xl font-bold text-purple-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-handshake"></i> ขายสำเร็จ</div></div>
+            <div class="bg-blue-50 p-3 rounded-lg"><div id="profileRating" class="text-xl font-bold text-blue-600">0.0</div><div class="text-xs text-gray-500"><i class="fas fa-star text-yellow-500"></i> <span data-i18n="ratingLabel">คะแนน</span></div></div>
+            <div class="bg-green-50 p-3 rounded-lg"><div id="profilePosts" class="text-xl font-bold text-green-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-box"></i> <span data-i18n="postsLabel">โพสต์</span></div></div>
+            <div class="bg-purple-50 p-3 rounded-lg"><div id="profileSales" class="text-xl font-bold text-purple-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-handshake"></i> <span data-i18n="salesLabel">ขายสำเร็จ</span></div></div>
           </div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          <div class="stat-card"><div class="num" id="statViews">0</div><div class="label"><i class="fas fa-eye"></i> ผู้เข้าชม</div></div>
-          <div class="stat-card"><div class="num" id="statClicks">0</div><div class="label"><i class="fas fa-mouse-pointer"></i> คลิกติดต่อ</div></div>
-          <div class="stat-card"><div class="num" id="statConversion">0%</div><div class="label"><i class="fas fa-chart-line"></i> อัตราขาย</div></div>
-          <div class="stat-card"><div class="num" id="statBookmarks">0</div><div class="label"><i class="fas fa-bookmark"></i> บันทึกแล้ว</div></div>
+          <div class="stat-card"><div class="num" id="statViews">0</div><div class="label"><i class="fas fa-eye"></i> <span data-i18n="viewsLabel">ผู้เข้าชม</span></div></div>
+          <div class="stat-card"><div class="num" id="statClicks">0</div><div class="label"><i class="fas fa-mouse-pointer"></i> <span data-i18n="clicksLabel">คลิกติดต่อ</span></div></div>
+          <div class="stat-card"><div class="num" id="statConversion">0%</div><div class="label"><i class="fas fa-chart-line"></i> <span data-i18n="conversionLabel">อัตราขาย</span></div></div>
+          <div class="stat-card"><div class="num" id="statBookmarks">0</div><div class="label"><i class="fas fa-bookmark"></i> <span data-i18n="bookmarksLabel">บันทึกแล้ว</span></div></div>
         </div>
-        <h3 class="font-semibold text-lg mb-3"><i class="fas fa-comment-dots text-blue-600"></i> รีวิวจากผู้ซื้อ</h3>
+        <h3 class="font-semibold text-lg mb-3"><i class="fas fa-comment-dots text-blue-600"></i> <span data-i18n="reviewTitle">รีวิวจากผู้ซื้อ</span></h3>
         <div id="reviewsList" class="space-y-3 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold text-lg mt-6 mb-3"><i class="fas fa-history text-blue-600"></i> ประวัติธุรกรรม</h3>
+        <h3 class="font-semibold text-lg mt-6 mb-3"><i class="fas fa-history text-blue-600"></i> <span data-i18n="historyTitle">ประวัติธุรกรรม</span></h3>
         <div id="historyList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
         <div class="mt-6 border-t pt-4">
-          <h4 class="font-medium mb-2"><i class="fas fa-edit"></i> แก้ไขโปรไฟล์</h4>
+          <h4 class="font-medium mb-2"><i class="fas fa-edit"></i> <span data-i18n="editProfile">แก้ไขโปรไฟล์</span></h4>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <input id="editPhone" placeholder="เบอร์โทร" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
             <input id="editFacebook" placeholder="Facebook ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
             <input id="editLine" placeholder="LINE ID" class="border rounded-lg px-3 py-2 text-sm focus:outline-blue-500">
           </div>
-          <button id="updateProfileBtn" class="mt-3 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm"><i class="fas fa-save"></i> อัปเดตโปรไฟล์</button>
+          <button id="updateProfileBtn" class="mt-3 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm"><i class="fas fa-save"></i> <span data-i18n="updateProfile">อัปเดตโปรไฟล์</span></button>
         </div>
       </div>
     </div>
 
-    <!-- ===== TAB: SUBSCRIBE ===== (ย่อ) ===== -->
+    <!-- ===== TAB: SUBSCRIBE ===== -->
     <div id="tab-subscribe" class="tab-content hidden">
       <div class="bg-white rounded-xl shadow p-6 max-w-md mx-auto">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-bell text-blue-600"></i> สมัครรับแจ้งเตือน</h2>
-        <p class="text-gray-600 text-sm mb-4">รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ</p>
+        <h2 class="text-xl font-bold mb-4"><i class="fas fa-bell text-blue-600"></i> <span data-i18n="subTitle">สมัครรับแจ้งเตือน</span></h2>
+        <p class="text-gray-600 text-sm mb-4" data-i18n="subDesc">รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ</p>
         <form id="subscribeForm">
-          <div class="mb-3"><label class="block text-sm font-medium">ต้นทาง</label><select id="subDeparture" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div class="mb-3"><label class="block text-sm font-medium">ปลายทาง</label><select id="subArrival" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div class="mb-4"><label class="block text-sm font-medium">วันที่ (หรือ ANY)</label><input id="subDate" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="YYYY-MM-DD หรือ ANY"></div>
-          <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> สมัครรับแจ้งเตือน</button>
+          <div class="mb-3"><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="subDeparture" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+          <div class="mb-3"><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><select id="subArrival" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+          <div class="mb-4"><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่ (หรือ ANY)</label><input id="subDate" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="YYYY-MM-DD หรือ ANY"></div>
+          <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="subBtn">สมัครรับแจ้งเตือน</span></button>
         </form>
-        <button id="unsubBtn" class="w-full mt-3 text-red-500 hover:underline text-sm">ยกเลิกการรับแจ้งเตือน</button>
+        <button id="unsubBtn" class="w-full mt-3 text-red-500 hover:underline text-sm" data-i18n="unsubBtn">ยกเลิกการรับแจ้งเตือน</button>
       </div>
     </div>
 
-    <!-- ===== TAB: DASHBOARD ===== (ย่อ) ===== -->
+    <!-- ===== TAB: DASHBOARD ===== -->
     <div id="tab-dashboard" class="tab-content hidden">
       <div class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-chart-pie text-blue-600"></i> แดชบอร์ดส่วนตัว</h2>
+        <h2 class="text-xl font-bold mb-4"><i class="fas fa-chart-pie text-blue-600"></i> <span data-i18n="dashboardTitle">แดชบอร์ดส่วนตัว</span></h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="stat-card"><div class="num" id="dashTotalPosts">0</div><div class="label">โพสต์ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="dashActivePosts">0</div><div class="label">โพสต์ที่ใช้งาน</div></div>
-          <div class="stat-card"><div class="num" id="dashTotalViews">0</div><div class="label">ยอดเข้าชม</div></div>
-          <div class="stat-card"><div class="num" id="dashTotalClicks">0</div><div class="label">ยอดคลิกติดต่อ</div></div>
+          <div class="stat-card"><div class="num" id="dashTotalPosts">0</div><div class="label" data-i18n="dashTotalPosts">โพสต์ทั้งหมด</div></div>
+          <div class="stat-card"><div class="num" id="dashActivePosts">0</div><div class="label" data-i18n="dashActivePosts">โพสต์ที่ใช้งาน</div></div>
+          <div class="stat-card"><div class="num" id="dashTotalViews">0</div><div class="label" data-i18n="dashTotalViews">ยอดเข้าชม</div></div>
+          <div class="stat-card"><div class="num" id="dashTotalClicks">0</div><div class="label" data-i18n="dashTotalClicks">ยอดคลิกติดต่อ</div></div>
         </div>
-        <h3 class="font-semibold mb-2"><i class="fas fa-chart-bar text-blue-600"></i> กราฟราคาตลาด (ต่อ kg)</h3>
+        <h3 class="font-semibold mb-2"><i class="fas fa-chart-bar text-blue-600"></i> <span data-i18n="marketPriceChart">กราฟราคาตลาด (ต่อ kg)</span></h3>
         <div class="chart-placeholder" id="marketChartContainer"><canvas id="marketChart" height="160"></canvas></div>
         <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500">ราคาเฉลี่ย:</span> <strong id="dashAvgPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500">ต่ำสุด:</span> <strong id="dashMinPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500">สูงสุด:</span> <strong id="dashMaxPrice">-</strong></div>
-          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500">เส้นทางยอดนิยม:</span> <strong id="dashTopRoute">-</strong></div>
+          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="avgPrice">ราคาเฉลี่ย:</span> <strong id="dashAvgPrice">-</strong></div>
+          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="minPrice">ต่ำสุด:</span> <strong id="dashMinPrice">-</strong></div>
+          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="maxPrice">สูงสุด:</span> <strong id="dashMaxPrice">-</strong></div>
+          <div class="bg-gray-50 p-3 rounded"><span class="text-gray-500" data-i18n="routeCount">เส้นทางยอดนิยม:</span> <strong id="dashTopRoute">-</strong></div>
         </div>
       </div>
     </div>
 
-    <!-- ===== TAB: ADMIN ===== (ย่อ) ===== -->
+    <!-- ===== TAB: ADMIN ===== -->
     <div id="tab-admin" class="tab-content hidden">
       <div class="bg-white rounded-xl shadow p-6">
-        <h2 class="text-xl font-bold mb-4"><i class="fas fa-crown text-yellow-500"></i> แผงควบคุม Admin</h2>
+        <h2 class="text-xl font-bold mb-4"><i class="fas fa-crown text-yellow-500"></i> <span data-i18n="adminTitle">แผงควบคุม Admin</span></h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="stat-card"><div class="num" id="adminTotalPosts">0</div><div class="label">โพสต์ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="adminActivePosts">0</div><div class="label">โพสต์ที่ใช้งาน</div></div>
-          <div class="stat-card"><div class="num" id="adminTotalUsers">0</div><div class="label">ผู้ใช้ทั้งหมด</div></div>
-          <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label">คะแนนเฉลี่ย</div></div>
+          <div class="stat-card"><div class="num" id="adminTotalPosts">0</div><div class="label" data-i18n="adminTotalPosts">โพสต์ทั้งหมด</div></div>
+          <div class="stat-card"><div class="num" id="adminActivePosts">0</div><div class="label" data-i18n="adminActivePosts">โพสต์ที่ใช้งาน</div></div>
+          <div class="stat-card"><div class="num" id="adminTotalUsers">0</div><div class="label" data-i18n="adminTotalUsers">ผู้ใช้ทั้งหมด</div></div>
+          <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label" data-i18n="adminAvgRating">คะแนนเฉลี่ย</div></div>
         </div>
-        <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> จัดการปักหมุด (Sponsor)</h3>
+        <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor)</span></h3>
         <div id="adminPinList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-eye-slash text-red-500"></i> ซ่อน/แสดงโพสต์</h3>
+        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-eye-slash text-red-500"></i> <span data-i18n="adminHideTitle">ซ่อน/แสดงโพสต์</span></h3>
         <div id="adminPostList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
-        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-flag text-red-500"></i> รายงานปัญหา</h3>
+        <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-flag text-red-500"></i> <span data-i18n="adminReportsTitle">รายงานปัญหา</span></h3>
         <div id="adminReportsList" class="space-y-2 max-h-40 overflow-y-auto pr-2 text-sm text-gray-600"></div>
       </div>
     </div>
@@ -270,17 +270,17 @@
   <div id="postModal" class="modal-overlay">
     <div class="modal-box">
       <button class="modal-close" id="closeModal">&times;</button>
-      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-suitcase"></i> ลงประกาศขายพื้นที่</h2>
+      <h2 class="text-2xl font-bold mb-4"><i class="fas fa-suitcase"></i> <span data-i18n="modalPostTitle">ลงประกาศขายพื้นที่</span></h2>
       <form id="postForm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div><label class="block text-sm font-medium">ประเภทกระเป๋า</label><select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
-          <div><label class="block text-sm font-medium">ต้นทาง</label><select id="departure" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-          <div><label class="block text-sm font-medium">ปลายทาง</label><div class="flex gap-2"><select id="arrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="swapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
-          <div><label class="block text-sm font-medium">วันที่เดินทาง</label><input id="flightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
-          <div class="md:col-span-2"><label class="block text-sm font-medium">จุดนัดพบในสนามบิน</label><input id="meetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
-          <div class="md:col-span-2"><label class="block text-sm font-medium">ราคาต่อกิโลแบบขั้นบันได</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2"><input id="tier1" type="number" step="0.01" placeholder="1-5 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier2" type="number" step="0.01" placeholder="6-10 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier3" type="number" step="0.01" placeholder="11-20 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier4" type="number" step="0.01" placeholder="21+ kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"></div></div>
-          <div><label class="block text-sm font-medium">น้ำหนัก (kg)</label><input id="weight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
-          <div><label class="block text-sm font-medium">สกุลเงิน</label><select id="currency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
+          <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
+          <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="departure" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
+          <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="arrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="swapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
+          <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="flightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
+          <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="meetingPointLabel">จุดนัดพบในสนามบิน</label><input id="meetingPoint" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เช่น เคาน์เตอร์ check-in A, Gate 5"></div>
+          <div class="md:col-span-2"><label class="block text-sm font-medium" data-i18n="tieredPriceLabel">ราคาต่อกิโลแบบขั้นบันได</label><div class="grid grid-cols-2 md:grid-cols-4 gap-2"><input id="tier1" type="number" step="0.01" placeholder="1-5 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier2" type="number" step="0.01" placeholder="6-10 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier3" type="number" step="0.01" placeholder="11-20 kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"><input id="tier4" type="number" step="0.01" placeholder="21+ kg" class="border rounded-lg p-2 text-sm focus:outline-blue-500"></div></div>
+          <div><label class="block text-sm font-medium" data-i18n="weightLabel">น้ำหนัก (kg)</label><input id="weight" type="number" step="0.5" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="10" required></div>
+          <div><label class="block text-sm font-medium" data-i18n="currencyLabel">สกุลเงิน</label><select id="currency" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="THB">บาท (THB)</option><option value="MYR">ริงกิต (MYR)</option><option value="IDR">รูปี (IDR)</option><option value="EGP">ปอนด์อียิปต์ (EGP)</option></select></div>
         </div>
         <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
           <input id="phone" class="border rounded-lg p-2 text-sm focus:outline-blue-500" placeholder="เบอร์โทร (WhatsApp)">
@@ -290,8 +290,8 @@
         <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
           <span id="totalPriceDisplay" class="text-lg font-bold">ราคารวม: 0.00</span>
           <div class="flex gap-2">
-            <button type="button" id="calcPriceBtn" class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm"><i class="fas fa-calculator"></i> คำนวณราคา</button>
-            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> เผยแพร่</button>
+            <button type="button" id="calcPriceBtn" class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm"><i class="fas fa-calculator"></i> <span data-i18n="calcPrice">คำนวณราคา</span></button>
+            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="publishBtn">เผยแพร่</span></button>
           </div>
         </div>
       </form>
@@ -301,13 +301,13 @@
   <!-- ===== MODAL: SAFETY ===== -->
   <div id="safetyModal" class="modal-overlay">
     <div class="modal-box max-w-md">
-      <div class="text-center mb-4"><i class="fas fa-shield-halved text-5xl text-yellow-500"></i><h3 class="text-xl font-bold mt-2">⚠️ คำเตือนความปลอดภัย</h3></div>
+      <div class="text-center mb-4"><i class="fas fa-shield-halved text-5xl text-yellow-500"></i><h3 class="text-xl font-bold mt-2" data-i18n="safetyTitle">⚠️ คำเตือนความปลอดภัย</h3></div>
       <ul class="list-disc list-inside text-sm text-gray-700 space-y-2 mb-4">
-        <li>โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน</li>
-        <li>เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย</li>
-        <li>กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ</li>
+        <li data-i18n="safety1">โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน</li>
+        <li data-i18n="safety2">เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย</li>
+        <li data-i18n="safety3">กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ</li>
       </ul>
-      <button id="safetyConfirm" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-check"></i> ฉันเข้าใจและยอมรับ</button>
+      <button id="safetyConfirm" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-check"></i> <span data-i18n="safetyConfirm">ฉันเข้าใจและยอมรับ</span></button>
     </div>
   </div>
 
@@ -334,34 +334,176 @@
   <!-- ================================================================ -->
   <script>
     // ============================================================
-    // 1. I18N — ไทย / มาเลย์
+    // 1. I18N — ไทย / มาเลย์ (สมบูรณ์)
     // ============================================================
     const LANG = {
       th: {
-        appTitle: 'แบ่งปันน้ำหนักกระเป๋า', login: 'เข้าสู่ระบบ', logout: 'ออกจากระบบ', search: 'ค้นหา', post: 'ลงประกาศ',
-        tabFeed: 'ประกาศ', tabProfile: 'โปรไฟล์', tabSubscribe: 'แจ้งเตือน', tabDashboard: 'แดชบอร์ด', tabAdmin: 'Admin',
-        noReviews: 'ยังไม่มีรีวิว', noPosts: 'ไม่มีประกาศ', contactSeller: 'ติดต่อผู้ขาย', viewDetails: 'ดูรายละเอียด',
-        editProfile: 'แก้ไขโปรไฟล์', updateProfile: 'อัปเดตโปรไฟล์', fromLabel: 'ต้นทาง', toLabel: 'ปลายทาง',
-        dateLabel: 'วันที่เดินทาง', priceRangeLabel: 'ช่วงราคา (ต่อ kg)', weightRangeLabel: 'ช่วงน้ำหนัก (kg)',
-        sortLabel: 'เรียงลำดับ:', sortDate: 'วันที่ใกล้สุด', sortPriceAsc: 'ราคาต่ำ→สูง', sortPriceDesc: 'ราคาสูง→ต่ำ',
-        sortTrust: 'ความน่าเชื่อถือ', thSeller: 'ผู้ขาย', thRoute: 'เส้นทาง', thDate: 'วันที่', thType: 'ประเภท',
-        thWeight: 'น้ำหนัก', thPrice: 'ราคา', thBadges: 'Badges', thActions: 'ดำเนินการ',
+        appTitle: 'แบ่งปันน้ำหนักกระเป๋า',
+        login: 'เข้าสู่ระบบ',
+        logout: 'ออกจากระบบ',
+        search: 'ค้นหา',
+        post: 'ลงประกาศ',
+        tabFeed: 'ประกาศ',
+        tabProfile: 'โปรไฟล์',
+        tabSubscribe: 'แจ้งเตือน',
+        tabDashboard: 'แดชบอร์ด',
+        tabAdmin: 'Admin',
+        noReviews: 'ยังไม่มีรีวิว',
+        noPosts: 'ไม่มีประกาศ',
+        contactSeller: 'ติดต่อผู้ขาย',
+        viewDetails: 'ดูรายละเอียด',
+        editProfile: 'แก้ไขโปรไฟล์',
+        updateProfile: 'อัปเดตโปรไฟล์',
+        fromLabel: 'ต้นทาง',
+        toLabel: 'ปลายทาง',
+        dateLabel: 'วันที่เดินทาง',
+        priceRangeLabel: 'ช่วงราคา (ต่อ kg)',
+        weightRangeLabel: 'ช่วงน้ำหนัก (kg)',
+        sortLabel: 'เรียงลำดับ:',
+        sortDate: 'วันที่ใกล้สุด',
+        sortPriceAsc: 'ราคาต่ำ→สูง',
+        sortPriceDesc: 'ราคาสูง→ต่ำ',
+        sortTrust: 'ความน่าเชื่อถือ',
+        thSeller: 'ผู้ขาย',
+        thRoute: 'เส้นทาง',
+        thDate: 'วันที่',
+        thType: 'ประเภท',
+        thWeight: 'น้ำหนัก',
+        thPrice: 'ราคา',
+        thBadges: 'Badges',
+        thActions: 'ดำเนินการ',
         currencyLabels: { THB: 'บาท', MYR: 'ริงกิต', IDR: 'รูปี', EGP: 'ปอนด์อียิปต์' },
         countryNames: { th: 'ไทย', my: 'มาเลเซีย', id: 'อินโดนีเซีย', eg: 'อียิปต์', sa: 'ซาอุดีอาระเบีย', ae: 'ดูไบ', tr: 'ตุรกี', sg: 'สิงคโปร์', bn: 'บรูไน' },
-        chartPlaceholder: 'กราฟจะแสดงเมื่อมีข้อมูลเพียงพอ'
+        chartPlaceholder: 'กราฟจะแสดงเมื่อมีข้อมูลเพียงพอ',
+        dashboardTitle: 'แดชบอร์ดส่วนตัว',
+        dashTotalPosts: 'โพสต์ทั้งหมด',
+        dashActivePosts: 'โพสต์ที่ใช้งาน',
+        dashTotalViews: 'ยอดเข้าชม',
+        dashTotalClicks: 'ยอดคลิกติดต่อ',
+        marketPriceChart: 'กราฟราคาตลาด (ต่อ kg)',
+        avgPrice: 'ราคาเฉลี่ย:',
+        minPrice: 'ต่ำสุด:',
+        maxPrice: 'สูงสุด:',
+        routeCount: 'เส้นทางยอดนิยม:',
+        adminTitle: 'แผงควบคุม Admin',
+        adminTotalPosts: 'โพสต์ทั้งหมด',
+        adminActivePosts: 'โพสต์ที่ใช้งาน',
+        adminTotalUsers: 'ผู้ใช้ทั้งหมด',
+        adminAvgRating: 'คะแนนเฉลี่ย',
+        adminPinTitle: 'จัดการปักหมุด (Sponsor)',
+        adminHideTitle: 'ซ่อน/แสดงโพสต์',
+        adminReportsTitle: 'รายงานปัญหา',
+        modalPostTitle: 'ลงประกาศขายพื้นที่',
+        publishBtn: 'เผยแพร่',
+        safetyTitle: '⚠️ คำเตือนความปลอดภัย',
+        safety1: 'โปรดตรวจสอบรายการสิ่งของต้องห้ามตามข้อกำหนดของสายการบิน',
+        safety2: 'เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย',
+        safety3: 'กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ',
+        safetyConfirm: 'ฉันเข้าใจและยอมรับ',
+        baggageTypeLabel: 'ประเภทกระเป๋า',
+        meetingPointLabel: 'จุดนัดพบในสนามบิน',
+        tieredPriceLabel: 'ราคาต่อกิโลแบบขั้นบันได',
+        weightLabel: 'น้ำหนัก (kg)',
+        currencyLabel: 'สกุลเงิน',
+        calcPrice: 'คำนวณราคา',
+        ratingLabel: 'คะแนน',
+        postsLabel: 'โพสต์',
+        salesLabel: 'ขายสำเร็จ',
+        viewsLabel: 'ผู้เข้าชม',
+        clicksLabel: 'คลิกติดต่อ',
+        conversionLabel: 'อัตราขาย',
+        bookmarksLabel: 'บันทึกแล้ว',
+        reviewTitle: 'รีวิวจากผู้ซื้อ',
+        historyTitle: 'ประวัติธุรกรรม',
+        subTitle: 'สมัครรับแจ้งเตือน',
+        subDesc: 'รับอีเมลเมื่อมีประกาศใหม่ตรงกับเส้นทางที่คุณสนใจ',
+        subBtn: 'สมัครรับแจ้งเตือน',
+        unsubBtn: 'ยกเลิกการรับแจ้งเตือน',
+        postListTitle: 'รายการประกาศ'
       },
       ms: {
-        appTitle: 'Kongsi Berat Bagasi', login: 'Log Masuk', logout: 'Log Keluar', search: 'Cari', post: 'Jual Bagasi',
-        tabFeed: 'Iklan', tabProfile: 'Profil', tabSubscribe: 'Notifikasi', tabDashboard: 'Dashboard', tabAdmin: 'Admin',
-        noReviews: 'Tiada ulasan', noPosts: 'Tiada iklan', contactSeller: 'Hubungi Penjual', viewDetails: 'Lihat Butiran',
-        editProfile: 'Edit Profil', updateProfile: 'Kemas Kini Profil', fromLabel: 'Dari', toLabel: 'Ke',
-        dateLabel: 'Tarikh Penerbangan', priceRangeLabel: 'Julat Harga (per kg)', weightRangeLabel: 'Julat Berat (kg)',
-        sortLabel: 'Susun:', sortDate: 'Tarikh terdekat', sortPriceAsc: 'Harga rendah→tinggi', sortPriceDesc: 'Harga tinggi→rendah',
-        sortTrust: 'Kebolehpercayaan', thSeller: 'Penjual', thRoute: 'Laluan', thDate: 'Tarikh', thType: 'Jenis',
-        thWeight: 'Berat', thPrice: 'Harga', thBadges: 'Lencana', thActions: 'Tindakan',
+        appTitle: 'Kongsi Berat Bagasi',
+        login: 'Log Masuk',
+        logout: 'Log Keluar',
+        search: 'Cari',
+        post: 'Jual Bagasi',
+        tabFeed: 'Iklan',
+        tabProfile: 'Profil',
+        tabSubscribe: 'Notifikasi',
+        tabDashboard: 'Dashboard',
+        tabAdmin: 'Admin',
+        noReviews: 'Tiada ulasan',
+        noPosts: 'Tiada iklan',
+        contactSeller: 'Hubungi Penjual',
+        viewDetails: 'Lihat Butiran',
+        editProfile: 'Edit Profil',
+        updateProfile: 'Kemas Kini Profil',
+        fromLabel: 'Dari',
+        toLabel: 'Ke',
+        dateLabel: 'Tarikh Penerbangan',
+        priceRangeLabel: 'Julat Harga (per kg)',
+        weightRangeLabel: 'Julat Berat (kg)',
+        sortLabel: 'Susun:',
+        sortDate: 'Tarikh terdekat',
+        sortPriceAsc: 'Harga rendah→tinggi',
+        sortPriceDesc: 'Harga tinggi→rendah',
+        sortTrust: 'Kebolehpercayaan',
+        thSeller: 'Penjual',
+        thRoute: 'Laluan',
+        thDate: 'Tarikh',
+        thType: 'Jenis',
+        thWeight: 'Berat',
+        thPrice: 'Harga',
+        thBadges: 'Lencana',
+        thActions: 'Tindakan',
         currencyLabels: { THB: 'Baht', MYR: 'Ringgit', IDR: 'Rupiah', EGP: 'Paun Mesir' },
         countryNames: { th: 'Thailand', my: 'Malaysia', id: 'Indonesia', eg: 'Mesir', sa: 'Arab Saudi', ae: 'Dubai', tr: 'Turki', sg: 'Singapura', bn: 'Brunei' },
-        chartPlaceholder: 'Graf akan dipaparkan apabila data mencukupi'
+        chartPlaceholder: 'Graf akan dipaparkan apabila data mencukupi',
+        dashboardTitle: 'Dashboard Peribadi',
+        dashTotalPosts: 'Jumlah Iklan',
+        dashActivePosts: 'Iklan Aktif',
+        dashTotalViews: 'Jumlah Paparan',
+        dashTotalClicks: 'Jumlah Klik',
+        marketPriceChart: 'Graf Harga Pasaran (per kg)',
+        avgPrice: 'Harga purata:',
+        minPrice: 'Terendah:',
+        maxPrice: 'Tertinggi:',
+        routeCount: 'Laluan popular:',
+        adminTitle: 'Panel Admin',
+        adminTotalPosts: 'Jumlah Iklan',
+        adminActivePosts: 'Iklan Aktif',
+        adminTotalUsers: 'Jumlah Pengguna',
+        adminAvgRating: 'Purata Rating',
+        adminPinTitle: 'Urus Pin (Sponsor)',
+        adminHideTitle: 'Sembunyi/Tunjuk Iklan',
+        adminReportsTitle: 'Laporan Masalah',
+        modalPostTitle: 'Jual Ruang Bagasi',
+        publishBtn: 'Terbitkan',
+        safetyTitle: '⚠️ Amaran Keselamatan',
+        safety1: 'Sila semak senarai barang larangan mengikut peraturan syarikat penerbangan',
+        safety2: 'Laman web ini hanya sebagai perantara, kami tidak bertanggungjawab ke atas urus niaga',
+        safety3: 'Sila sahkan maklumat penjual dan barang sebelum membuat keputusan',
+        safetyConfirm: 'Saya faham dan terima',
+        baggageTypeLabel: 'Jenis Bagasi',
+        meetingPointLabel: 'Tempat Pertemuan di Lapangan Terbang',
+        tieredPriceLabel: 'Harga Berperingkat per kg',
+        weightLabel: 'Berat (kg)',
+        currencyLabel: 'Mata Wang',
+        calcPrice: 'Kira Harga',
+        ratingLabel: 'Rating',
+        postsLabel: 'Iklan',
+        salesLabel: 'Jualan Berjaya',
+        viewsLabel: 'Paparan',
+        clicksLabel: 'Klik',
+        conversionLabel: 'Kadar Jualan',
+        bookmarksLabel: 'Disimpan',
+        reviewTitle: 'Ulasan Pembeli',
+        historyTitle: 'Sejarah Transaksi',
+        subTitle: 'Langganan Notifikasi',
+        subDesc: 'Dapatkan e-mel apabila iklan baru sepadan dengan laluan anda',
+        subBtn: 'Langgan',
+        unsubBtn: 'Berhenti Langganan',
+        postListTitle: 'Senarai Iklan'
       }
     };
 
@@ -380,16 +522,15 @@
       { code:'bn', name:'บรูไน / Brunei', flag:'🇧🇳' }
     ];
 
-    // ===== ✅ แก้ไข WORKER_URL และ API_SECRET ให้ถูกต้อง =====
     const WORKER_URL = 'https://kaikrapao.hem5426.workers.dev';
     const API_SECRET = '####hem._.hacker####';
-    const CLIENT_ID = '952813224851-5grn632tmj3r804622bdolae7mu0ibrr.apps.googleusercontent.com';  // ต้องแก้ไขให้ถูกต้อง
+    const CLIENT_ID = '952813224851-5grn632tmj3r804622bdolae7mu0ibrr.apps.googleusercontent.com';
 
     let currentLang = 'th';
     let currentUser = null;
     let allPosts = [];
     let isAdmin = false;
-    let useMock = true;  // เริ่มต้นใช้ Mock Data
+    let useMock = true;
     let currentSort = 'date';
     let currentPage = 1;
     const PER_PAGE = 10;
@@ -439,11 +580,11 @@
     // ============================================================
     function generateMockPosts() {
       const sellers = [
-        { name: 'สมชาย ใจดี', email: 'somchai@email.com', phone: '0812345678', fb: 'somchai.j' },
-        { name: 'มาเรีย บินไกล', email: 'maria@email.com', phone: '0987654321', fb: 'maria.fly' },
-        { name: 'อาลี อิบราฮิม', email: 'ali@email.com', phone: '0551234567', fb: 'ali.ibrahim' },
-        { name: 'จอห์น วิลเลี่ยม', email: 'john@email.com', phone: '0623456789', fb: 'john.w' },
-        { name: 'ฟาติมา ซูไลมาน', email: 'fatima@email.com', phone: '0712345678', fb: 'fatima.s' }
+        { name: 'สมชาย ใจดี', email: 'somchai@email.com', phone: '0812345678', fb: 'somchai.j', line: 'somchai_line' },
+        { name: 'มาเรีย บินไกล', email: 'maria@email.com', phone: '0987654321', fb: 'maria.fly', line: 'maria_line' },
+        { name: 'อาลี อิบราฮิม', email: 'ali@email.com', phone: '0551234567', fb: 'ali.ibrahim', line: 'ali_line' },
+        { name: 'จอห์น วิลเลี่ยม', email: 'john@email.com', phone: '0623456789', fb: 'john.w', line: 'john_line' },
+        { name: 'ฟาติมา ซูไลมาน', email: 'fatima@email.com', phone: '0712345678', fb: 'fatima.s', line: 'fatima_line' }
       ];
       const routes = [
         ['th','my'], ['sg','ae'], ['eg','sa'], ['tr','sg'], ['bn','my'],
@@ -471,7 +612,7 @@
           seller_email: seller.email,
           seller_phone: seller.phone,
           seller_facebook: seller.fb,
-          seller_line: '',
+          seller_line: seller.line,
           departure_airport: route[0],
           arrival_airport: route[1],
           flight_date: date.toISOString().split('T')[0],
@@ -543,7 +684,6 @@
         return;
       }
 
-      // Real API
       try {
         const params = new URLSearchParams();
         const from = $('filterFrom').value;
@@ -582,7 +722,6 @@
       } catch (e) {
         showToast('โหลดประกาศล้มเหลว: ' + e.message, 'error');
         debugLog(`❌ loadPosts error: ${e.message}`, 'error');
-        // Fallback to Mock
         if (!useMock) {
           useMock = true;
           showToast('⚠️ สลับไปใช้ Mock Data อัตโนมัติ', 'warning');
@@ -616,6 +755,11 @@
         const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
         const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
         const isBookmarked = bookmarks.includes(p.post_id);
+        // ตรวจสอบว่ามีช่องทางติดต่อ
+        const hasPhone = p.seller_phone && p.seller_phone.length > 0;
+        const hasFB = p.seller_facebook && p.seller_facebook.length > 0;
+        const hasLine = p.seller_line && p.seller_line.length > 0;
+        const contactTitle = hasPhone ? 'WhatsApp' : hasFB ? 'Messenger' : hasLine ? 'LINE' : t.contactSeller;
         return `<tr class="hover:bg-gray-50 transition cursor-pointer" onclick="viewPost('${p.post_id}')">
           <td class="font-medium">${p.seller_name}</td>
           <td><span class="text-xs">${fromLabel}</span> → <span class="text-xs">${toLabel}</span></td>
@@ -626,7 +770,7 @@
           <td>${badgeHtml||'-'}</td>
           <td class="text-center">
             <div class="flex items-center justify-center gap-1 flex-wrap">
-              <button onclick="event.stopPropagation();contactSeller('${p.seller_phone}','${p.seller_facebook}','${p.seller_name}')" class="text-green-600 hover:text-green-800 text-sm" title="${t.contactSeller}"><i class="fas fa-comment"></i></button>
+              <button onclick="event.stopPropagation();contactSeller('${p.seller_phone}','${p.seller_facebook}','${p.seller_line}','${p.seller_name}')" class="text-green-600 hover:text-green-800 text-sm" title="${contactTitle}"><i class="fas fa-comment"></i></button>
               <button onclick="event.stopPropagation();sharePost('${p.post_id}','${p.seller_name}','${p.departure_airport}','${p.arrival_airport}')" class="text-purple-600 hover:text-purple-800 text-sm" title="แชร์"><i class="fas fa-share-alt"></i></button>
               <button onclick="event.stopPropagation();toggleBookmark('${p.post_id}')" class="bookmark-btn ${isBookmarked?'active':''}" title="บันทึก"><i class="fas fa-bookmark"></i></button>
               <button onclick="event.stopPropagation();reportUser('${p.seller_email}','${p.post_id}')" class="text-red-400 hover:text-red-600 text-sm" title="แจ้งปัญหา"><i class="fas fa-flag"></i></button>
@@ -652,12 +796,18 @@
         const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
         const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
         const currencyLabel = t.currencyLabels[p.currency] || p.currency;
+        const badges = (p.trust_badges||'').split(',').filter(Boolean);
+        const badgeHtml = badges.map(b => {
+          const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':'trusted';
+          const icon = b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':'fa-star';
+          return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i></span>`;
+        }).join(' ');
         return `<div class="bg-white rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition">
           <div class="flex items-center gap-2"><i class="fas fa-crown text-yellow-500"></i><span class="font-bold">${p.seller_name}</span></div>
           <div class="text-sm text-gray-600">${fromLabel} → ${toLabel}</div>
           <div class="text-sm">${p.flight_date||'-'}</div>
           <div class="text-sm font-semibold text-blue-600">${p.price_per_kg} ${currencyLabel}/kg</div>
-          <div class="text-xs text-gray-400">${p.available_weight} kg</div>
+          <div class="text-xs text-gray-400 flex items-center gap-1">${badgeHtml} ${p.available_weight} kg</div>
         </div>`;
       }).join('');
     }
@@ -701,11 +851,17 @@
     // ============================================================
     // 10. CONTACT, SHARE, BOOKMARK, REPORT
     // ============================================================
-    function contactSeller(phone, facebook, name) {
+    function contactSeller(phone, facebook, line, name) {
       safetyCallback = () => {
-        if (phone) window.open(`https://wa.me/${phone}`,'_blank');
-        else if (facebook) window.open(`https://m.me/${facebook}`,'_blank');
-        else showToast('ไม่พบข้อมูลการติดต่อ','error');
+        if (phone && phone.length > 0) {
+          window.open(`https://wa.me/${phone}`,'_blank');
+        } else if (facebook && facebook.length > 0) {
+          window.open(`https://m.me/${facebook}`,'_blank');
+        } else if (line && line.length > 0) {
+          window.open(`https://line.me/ti/p/~${line}`,'_blank');
+        } else {
+          showToast('ไม่พบข้อมูลการติดต่อ','error');
+        }
       };
       $('safetyModal').classList.add('active');
     }
@@ -992,6 +1148,7 @@
             <div class="flex items-center gap-2">
               <input type="number" class="w-16 border rounded px-2 py-1 text-sm" value="${p.pin_order||0}" data-postid="${p.post_id}">
               <button onclick="updatePin('${p.post_id}', this)" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">อัปเดต</button>
+              <button onclick="togglePinStatus('${p.post_id}', this)" class="${p.is_pinned==='TRUE'?'bg-red-500':'bg-green-500'} text-white px-2 py-1 rounded text-sm">${p.is_pinned==='TRUE'?'ยกเลิก':'ปักหมุด'}</button>
             </div>
           </div>
         `).join('');
@@ -1003,6 +1160,15 @@
       try {
         await apiCall('/admin/set-pin', { method:'POST', body: JSON.stringify({ post_id: postId, pin_order: pinOrder }) });
         showToast('อัปเดตปักหมุดสำเร็จ','success');
+        loadAdminPins(); loadPosts();
+      } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+    };
+    window.togglePinStatus = async function(postId, btn) {
+      const current = btn.textContent === 'ยกเลิก' ? 'TRUE' : 'FALSE';
+      const newStatus = current === 'TRUE' ? 'FALSE' : 'TRUE';
+      try {
+        await apiCall('/admin/set-pin', { method:'POST', body: JSON.stringify({ post_id: postId, is_pinned: newStatus==='TRUE' }) });
+        showToast(newStatus==='TRUE' ? 'ปักหมุดแล้ว' : 'ยกเลิกปักหมุดแล้ว','success');
         loadAdminPins(); loadPosts();
       } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
     };
@@ -1089,12 +1255,23 @@
     function setLanguage(code) {
       currentLang = code;
       const t = LANG[code];
+      // อัปเดตทุกองค์ประกอบที่มี data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      // Dynamic
       $('appTitle').textContent = t.appTitle;
       $('loginText').textContent = t.login;
       $('logoutBtn').textContent = t.logout;
       populateCountryDropdowns();
       renderPosts(filteredPosts.length ? filteredPosts : allPosts);
       renderSponsors(allPosts);
+      // อัปเดตตัวกรองข้อความ
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
     }
     $('langTh').addEventListener('click',()=>setLanguage('th'));
     $('langMs').addEventListener('click',()=>setLanguage('ms'));
