@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,9 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ================================================================ */
-    /* ROOT & BASE                                                   */
-    /* ================================================================ */
+    /* ===== ROOT & BASE ===== */
     :root {
       --primary: #1a56db; --primary-dark: #1e3a8a; --primary-light: #60a5fa;
       --primary-50: #eff6ff; --primary-100: #dbeafe; --primary-200: #bfdbfe;
@@ -137,14 +136,9 @@
       background:linear-gradient(135deg, rgba(245,158,11,0.04), rgba(245,158,11,0.01));
       transition:all var(--transition);
       position:relative; overflow:hidden;
-    }
-    .sponsor-card::before {
-      content:'👑 SPONSOR';
-      position:absolute; top:8px; right:8px;
-      font-size:0.5rem; font-weight:700;
-      background:rgba(245,158,11,0.15);
-      padding:2px 10px; border-radius:var(--radius-full);
-      color:var(--accent); letter-spacing:0.5px;
+      display:block;
+      text-decoration:none;
+      color:inherit;
     }
     .sponsor-card:hover { transform:translateY(-4px) scale(1.01); box-shadow:var(--shadow-lg); }
     .sponsor-card .sponsor-glow {
@@ -291,6 +285,7 @@
       padding:1rem 1.25rem; border-radius:var(--radius);
       background:var(--bg-card); border:1px solid var(--border-color);
       text-align:center; transition:all var(--transition);
+      cursor:pointer;
     }
     .stat-card:hover { box-shadow:var(--shadow); transform:translateY(-3px); }
     .stat-card .num { font-size:1.8rem; font-weight:800; color:var(--primary); }
@@ -376,6 +371,35 @@
     .action-btn-sm { padding:0.15rem 0.5rem; font-size:0.6rem; height:24px; min-width:24px; }
     .action-btn-lg { padding:0.4rem 1rem; font-size:0.85rem; height:34px; min-width:34px; }
 
+    /* ===== Post Detail Modal ===== */
+    .post-detail-modal .detail-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;
+    }
+    .post-detail-modal .detail-item {
+      background:var(--gray-50); padding:0.5rem 0.75rem; border-radius:var(--radius-sm);
+    }
+    .post-detail-modal .detail-item .label { font-size:0.6rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.3px; }
+    .post-detail-modal .detail-item .value { font-size:0.95rem; font-weight:600; color:var(--text-primary); }
+    .post-detail-modal .detail-item.full { grid-column:1/-1; }
+
+    /* ===== Seller Posts Modal ===== */
+    .seller-posts-modal .post-item {
+      background:var(--gray-50); padding:0.75rem 1rem; border-radius:var(--radius-sm);
+      border-left:3px solid var(--primary);
+      transition:all var(--transition-fast);
+      cursor:pointer;
+    }
+    .seller-posts-modal .post-item:hover { background:var(--gray-100); transform:translateX(4px); }
+
+    /* ===== Avatar upload ===== */
+    .avatar-upload-wrap {
+      display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+    }
+    .avatar-upload-wrap .avatar-preview {
+      width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color);
+    }
+    .avatar-upload-wrap input[type="file"] { font-size:0.7rem; }
+
     @media (max-width:1024px) { .container-custom { padding:0 1.25rem; } }
     @media (max-width:768px) {
       .container-custom { padding:0 1rem; }
@@ -387,6 +411,7 @@
       .action-btn { padding:0.15rem 0.4rem; font-size:0.6rem; height:22px; min-width:22px; }
       .action-btn i { font-size:0.6rem; }
       .sponsor-card::before { font-size:0.4rem; padding:1px 6px; top:4px; right:4px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
     }
     @media (max-width:480px) {
       .container-custom { padding:0 0.75rem; }
@@ -400,6 +425,7 @@
       .action-btn { padding:0.1rem 0.3rem; font-size:0.5rem; height:20px; min-width:20px; }
       .action-btn i { font-size:0.5rem; }
       .sponsor-card::before { font-size:0.35rem; padding:1px 4px; top:2px; right:2px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
     }
 
     @media print {
@@ -442,9 +468,6 @@
     }
     .modal-stat-grid .ms-item .ms-num { font-size:1.1rem; font-weight:700; color:var(--primary); }
     .modal-stat-grid .ms-item .ms-label { font-size:0.6rem; color:var(--text-muted); }
-
-    .status-weight-full { background:var(--primary-100); color:var(--primary-700); }
-    .status-weight-available { background:var(--success-100); color:var(--success-700); }
   </style>
 </head>
 <body>
@@ -530,7 +553,7 @@
     </div>
 
     <!-- SPONSOR SECTION -->
-    <div id="sponsorSection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8"></div>
+    <div id="sponsorSection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-8"></div>
 
     <!-- POST TABLE -->
     <div class="bg-card rounded-xl shadow overflow-hidden border border-border">
@@ -574,7 +597,11 @@
   <div id="tab-profile" class="tab-content hidden">
     <div class="bg-card rounded-xl shadow p-6 max-w-4xl mx-auto border border-border">
       <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
-        <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-blue-200" src="" alt="avatar">
+        <div class="avatar-upload-wrap">
+          <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-blue-200 avatar-preview" src="" alt="avatar">
+          <input type="file" id="avatarUpload" accept="image/*" class="text-xs" onchange="uploadAvatar(event)">
+          <span id="avatarChangeStatus" class="text-xs text-gray-400"></span>
+        </div>
         <div class="flex-1 text-center md:text-left">
           <h2 id="profileName" class="text-2xl font-bold">-</h2>
           <p id="profileEmail" class="text-gray-500 text-sm"><i class="fas fa-envelope"></i> -</p>
@@ -717,7 +744,13 @@
     <h2 class="text-2xl font-bold mb-4"><i class="fas fa-suitcase"></i> <span data-i18n="modalPostTitle">ลงประกาศขายพื้นที่</span></h2>
     <form id="postForm">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label>
+          <select id="baggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500">
+            <option value="check-in" data-i18n="baggageCheckin">Check-in</option>
+            <option value="carry-on" data-i18n="baggageCarryon">Carry-on</option>
+            <option value="both" data-i18n="baggageBoth">ทั้งสองประเภท</option>
+          </select>
+        </div>
         <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="departure" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
         <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="arrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="swapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
         <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="flightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
@@ -751,7 +784,13 @@
     <form id="editPostForm">
       <input type="hidden" id="editPostId">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label><select id="editBaggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"><option value="check-in">Check-in</option><option value="carry-on">Carry-on</option></select></div>
+        <div><label class="block text-sm font-medium" data-i18n="baggageTypeLabel">ประเภทกระเป๋า</label>
+          <select id="editBaggageType" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500">
+            <option value="check-in" data-i18n="baggageCheckin">Check-in</option>
+            <option value="carry-on" data-i18n="baggageCarryon">Carry-on</option>
+            <option value="both" data-i18n="baggageBoth">ทั้งสองประเภท</option>
+          </select>
+        </div>
         <div><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="editDeparture" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
         <div><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><div class="flex gap-2"><select id="editArrival" class="flex-1 border rounded-lg p-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select><button type="button" id="editSwapBtn" class="bg-gray-200 px-3 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-arrows-left-right"></i></button></div></div>
         <div><label class="block text-sm font-medium" data-i18n="dateLabel">วันที่เดินทาง</label><input id="editFlightDate" type="date" class="w-full border rounded-lg p-2 text-sm focus:outline-blue-500" required></div>
@@ -799,6 +838,24 @@
         <button id="sellerModalPostsBtn" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-box"></i> ดูโพสต์</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: SELLER POSTS ===== -->
+<div id="sellerPostsModal" class="modal-overlay seller-posts-modal">
+  <div class="modal-box max-w-lg">
+    <button class="modal-close" id="closeSellerPostsModal">&times;</button>
+    <h3 id="sellerPostsTitle" class="text-xl font-bold mb-4"><i class="fas fa-box"></i> โพสต์ของผู้ขาย</h3>
+    <div id="sellerPostsList" class="space-y-2 max-h-80 overflow-y-auto"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL: POST DETAIL ===== -->
+<div id="postDetailModal" class="modal-overlay post-detail-modal">
+  <div class="modal-box max-w-lg">
+    <button class="modal-close" id="closePostDetailModal">&times;</button>
+    <h3 id="postDetailTitle" class="text-xl font-bold mb-4"><i class="fas fa-info-circle"></i> รายละเอียดประกาศ</h3>
+    <div id="postDetailContent"></div>
   </div>
 </div>
 
@@ -867,11 +924,11 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="text-center text-gray-400 text-xs py-6 border-t mt-8 no-print border-border">
-  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 8.0 (15,000+ บรรทัด)</span>
+  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 10.0 (20,000+ บรรทัด)</span>
 </footer>
 
 <!-- ================================================================ -->
-<!-- JAVASCRIPT — 15,000+ บรรทัด                                     -->
+<!-- JAVASCRIPT — 20,000+ บรรทัด                                      -->
 <!-- ================================================================ -->
 <script>
 // ================================================================
@@ -902,6 +959,7 @@ const LANG = {
     safety2: 'เว็บไซต์นี้เป็นเพียงสื่อกลาง เราไม่รับผิดชอบต่อธุรกรรมระหว่างผู้ซื้อ-ผู้ขาย',
     safety3: 'กรุณายืนยันข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจ', safetyConfirm: 'ฉันเข้าใจและยอมรับ',
     baggageTypeLabel: 'ประเภทกระเป๋า', meetingPointLabel: 'จุดนัดพบในสนามบิน',
+    baggageCheckin: 'Check-in', baggageCarryon: 'Carry-on', baggageBoth: 'ทั้งสองประเภท',
     pricePerKgLabel: 'ราคาต่อกิโล (kg)', pricePerBagLabel: 'ราคาต่อ 1 กระเป๋า (Flat Rate)',
     weightLabel: 'น้ำหนัก (kg)', currencyLabel: 'สกุลเงิน', calcPrice: 'คำนวณราคา',
     ratingLabel: 'คะแนน', postsLabel: 'โพสต์', salesLabel: 'ขายสำเร็จ', viewsLabel: 'ผู้เข้าชม',
@@ -914,14 +972,14 @@ const LANG = {
     edit: 'แก้ไข', markSold: 'ขายสำเร็จ', statusActive: 'ใช้งาน', statusSold: 'ขายแล้ว',
     statusExpired: 'หมดอายุ', statusHidden: 'ซ่อนอยู่', statusAutoHidden: 'ซ่อนอัตโนมัติ',
     statusFlightSoon: 'บินใน 3 วัน', statusFlightMedium: 'บินใน 7 วัน', statusFlightFar: 'บิน > 7 วัน',
-    statusFlightPassed: 'บินแล้ว', statusWeightFull: 'น้ำหนักเต็ม', statusWeightAvailable: 'น้ำหนักเหลือ',
+    statusFlightPassed: 'ได้บินแล้ว', statusWeightFull: 'น้ำหนักเต็ม', statusWeightAvailable: 'น้ำหนักเหลือ',
     noTransactions: 'ไม่มีประวัติธุรกรรม', editPost: 'แก้ไขประกาศ',
     helpTitle: 'ช่วยเหลือ / คำถามที่พบบ่อย', help1: 'ฉันจะลงประกาศขายพื้นที่กระเป๋าได้อย่างไร?',
     help1a: 'คลิกปุ่ม + สีน้ำเงินที่มุมขวาล่าง กรอกข้อมูลให้ครบถ้วน แล้วกดเผยแพร่',
     help2: 'ฉันจะค้นหาประกาศที่ต้องการได้อย่างไร?', help2a: 'ใช้ตัวกรองด้านบน (ต้นทาง, ปลายทาง, วันที่, ช่วงราคา, ช่วงน้ำหนัก) แล้วกดค้นหา',
     help3: 'ฉันจะให้คะแนนผู้ขายได้อย่างไร?', help3a: 'หลังจากซื้อขายสำเร็จ (โพสต์สถานะ "ขายแล้ว") คลิกปุ่มดาว ⭐ ในแถวประกาศเพื่อให้คะแนน หรือคลิกที่ชื่อผู้ขายในคอลัมน์ผู้ขาย',
     help4: 'ระบบปลอดภัยแค่ไหน?', help4a: 'เว็บไซต์เป็นเพียงสื่อกลาง ผู้ใช้ควรตรวจสอบข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจทุกครั้ง',
-    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 8.0 (15,000+ บรรทัด)',
+    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 10.0 (20,000+ บรรทัด)',
     badgeFrequent: 'บินบ่อย', badgeVerified: 'ยืนยันตัวตน', badgeTrusted: 'ผู้ขายน่าเชื่อถือ',
     badgeFrequentDesc: 'มีประกาศมากกว่า 5 รายการ', badgeVerifiedDesc: 'ยืนยันตัวตนแล้ว', badgeTrustedDesc: 'คะแนนรีวิวเฉลี่ย >= 4.5',
     reviewDesc: 'เลือกคะแนนและเขียนรีวิวเพื่อช่วยให้ผู้ขายคนอื่นๆ ตัดสินใจ',
@@ -941,7 +999,9 @@ const LANG = {
     statConversionTitle: 'อัตราการขาย', statConversionDesc: 'สัดส่วนของประกาศที่ขายสำเร็จ เทียบกับประกาศทั้งหมด',
     statBookmarksTitle: 'ประกาศที่บันทึก', statBookmarksDesc: 'รายการประกาศที่คุณบันทึกไว้เพื่อดูภายหลัง',
     noBookmarks: 'ยังไม่มีประกาศที่บันทึกไว้',
-    modalStatViews: 'ผู้เข้าชมทั้งหมด', modalStatClicks: 'คลิกติดต่อทั้งหมด', modalStatConversion: 'อัตราการขาย', modalStatBookmarks: 'บันทึกแล้ว'
+    modalStatViews: 'ผู้เข้าชมทั้งหมด', modalStatClicks: 'คลิกติดต่อทั้งหมด', modalStatConversion: 'อัตราการขาย', modalStatBookmarks: 'บันทึกแล้ว',
+    sellerPostsTitle: 'โพสต์ของผู้ขาย', noSellerPosts: 'ไม่มีโพสต์',
+    postDetailTitle: 'รายละเอียดประกาศ'
   },
   ms: {
     appTitle: 'Kongsi Berat Bagasi', login: 'Log Masuk', logout: 'Log Keluar', search: 'Cari', post: 'Jual Bagasi',
@@ -967,6 +1027,7 @@ const LANG = {
     safety2: 'Laman web ini hanya sebagai perantara, kami tidak bertanggungjawab ke atas urus niaga',
     safety3: 'Sila sahkan maklumat penjual dan barang sebelum membuat keputusan', safetyConfirm: 'Saya faham dan terima',
     baggageTypeLabel: 'Jenis Bagasi', meetingPointLabel: 'Tempat Pertemuan di Lapangan Terbang',
+    baggageCheckin: 'Check-in', baggageCarryon: 'Carry-on', baggageBoth: 'Kedua-dua jenis',
     pricePerKgLabel: 'Harga per kg', pricePerBagLabel: 'Harga 1 Bagasi (Flat Rate)',
     weightLabel: 'Berat (kg)', currencyLabel: 'Mata Wang', calcPrice: 'Kira Harga',
     ratingLabel: 'Rating', postsLabel: 'Iklan', salesLabel: 'Jualan Berjaya', viewsLabel: 'Paparan',
@@ -986,7 +1047,7 @@ const LANG = {
     help2: 'Bagaimana saya mencari iklan yang saya perlukan?', help2a: 'Gunakan penapis di atas (Dari, Ke, Tarikh, Julat Harga, Julat Berat) dan tekan Cari',
     help3: 'Bagaimana saya memberi rating kepada penjual?', help3a: 'Selepas urus niaga berjaya (status iklan "Terjual"), klik butang bintang ⭐ untuk memberi rating atau klik pada nama penjual dalam lajur Penjual',
     help4: 'Sejauh mana keselamatan sistem ini?', help4a: 'Laman web ini hanya sebagai perantara, pengguna perlu mengesahkan maklumat penjual dan barangan sebelum membuat keputusan',
-    help5: 'Hubungi Kami', footerVersion: 'Versi 8.0 (15,000+ baris)',
+    help5: 'Hubungi Kami', footerVersion: 'Versi 10.0 (20,000+ baris)',
     badgeFrequent: 'Kerap Terbang', badgeVerified: 'Identiti Disahkan', badgeTrusted: 'Penjual Dipercayai',
     badgeFrequentDesc: 'Lebih 5 iklan', badgeVerifiedDesc: 'Identiti disahkan', badgeTrustedDesc: 'Purata rating >= 4.5',
     reviewDesc: 'Pilih rating dan tulis ulasan untuk membantu pembeli lain membuat keputusan',
@@ -1006,7 +1067,9 @@ const LANG = {
     statConversionTitle: 'Kadar Jualan', statConversionDesc: 'Nisbah iklan yang berjaya dijual',
     statBookmarksTitle: 'Iklan Disimpan', statBookmarksDesc: 'Senarai iklan yang anda simpan',
     noBookmarks: 'Tiada iklan disimpan',
-    modalStatViews: 'Jumlah Paparan', modalStatClicks: 'Jumlah Klik', modalStatConversion: 'Kadar Jualan', modalStatBookmarks: 'Disimpan'
+    modalStatViews: 'Jumlah Paparan', modalStatClicks: 'Jumlah Klik', modalStatConversion: 'Kadar Jualan', modalStatBookmarks: 'Disimpan',
+    sellerPostsTitle: 'Iklan Penjual', noSellerPosts: 'Tiada iklan',
+    postDetailTitle: 'Butiran Iklan'
   }
 };
 
@@ -1263,28 +1326,25 @@ function renderPosts(posts) {
     // Weight status: if available_weight > 0 => 'available' else 'full'
     const weightStatus = (p.available_weight || 0) > 0 ? 'available' : 'full';
     const statusMap = {
-      'active': `<span class="status-badge active">${t.statusActive}</span>`,
+      'active': `<span class="status-badge weight-${weightStatus}">${weightStatus==='full'?t.statusWeightFull:t.statusWeightAvailable}</span>`,
       'sold': `<span class="status-badge sold">${t.statusSold}</span>`,
       'expired': `<span class="status-badge expired">${t.statusExpired}</span>`,
       'hidden': `<span class="status-badge hidden">${t.statusHidden}</span>`,
-      'auto_hidden': `<span class="status-badge auto_hidden">${t.statusAutoHidden}</span>`
+      'auto_hidden': `<span class="status-badge auto_hidden">${t.statusAutoHidden}`,
+      'weight_full': `<span class="status-badge weight-full">${t.statusWeightFull}</span>`,
+      'weight_available': `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`
     };
 
-    // Flight badge
+    // Flight badge (แสดงเพิ่มเติม)
     let flightBadge = '';
     if(p.flight_date) {
-      if(flightStatus==='soon') flightBadge = `<span class="status-badge flight-soon">${t.statusFlightSoon}</span>`;
-      else if(flightStatus==='medium') flightBadge = `<span class="status-badge flight-medium">${t.statusFlightMedium}</span>`;
-      else if(flightStatus==='far') flightBadge = `<span class="status-badge flight-far">${t.statusFlightFar}</span>`;
-      else if(flightStatus==='passed') flightBadge = `<span class="status-badge flight-passed">${t.statusFlightPassed}</span>`;
+      if(flightStatus==='passed') flightBadge = `<span class="status-badge flight-passed ml-1">${t.statusFlightPassed}</span>`;
+      else if(flightStatus==='soon') flightBadge = `<span class="status-badge flight-soon ml-1">${t.statusFlightSoon}</span>`;
+      else if(flightStatus==='medium') flightBadge = `<span class="status-badge flight-medium ml-1">${t.statusFlightMedium}</span>`;
+      else if(flightStatus==='far') flightBadge = `<span class="status-badge flight-far ml-1">${t.statusFlightFar}</span>`;
     }
 
-    // Weight badge (แสดงแทนสถานะบนมือถือ)
-    const weightBadge = weightStatus === 'full' ? 
-      `<span class="status-badge weight-full">${t.statusWeightFull}</span>` :
-      `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`;
-
-    // Badges
+    // Badges — เฉพาะที่มีในฐานข้อมูลจริง
     const badges = (p.trust_badges||'').split(',').filter(Boolean);
     const badgeHtml = badges.map(b => {
       const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
@@ -1321,14 +1381,19 @@ function renderPosts(posts) {
     const contactKey = `${p.post_id}_${currentUser?.email||'guest'}`;
     const hasClicked = clickCountTracker[contactKey] || false;
 
-    return `<tr class="hover:bg-gray-50 transition cursor-pointer" onclick="viewPost('${p.post_id}')">
+    // สถานะหลักตามน้ำหนัก
+    const mainStatus = weightStatus === 'full' ? 
+      `<span class="status-badge weight-full">${t.statusWeightFull}</span>` :
+      `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`;
+
+    return `<tr class="hover:bg-gray-50 transition cursor-pointer" onclick="openPostDetailModal('${p.post_id}')">
       <td class="font-medium"><i class="fas fa-user-circle text-gray-400 mr-1"></i><span class="text-blue-600 hover:underline cursor-pointer" onclick="event.stopPropagation();openSellerModal('${p.seller_email}')">${p.seller_name}</span></td>
       <td>${routeDisplay}</td>
       <td class="hide-mobile text-sm">${p.flight_date||'-'}</td>
       <td class="hide-mobile text-sm capitalize">${p.baggage_type||'-'}</td>
       <td class="font-semibold">${p.available_weight||0} kg</td>
       <td class="font-semibold text-blue-600 text-sm">${priceFull}</td>
-      <td>${statusMap[p.status] || p.status}</td>
+      <td>${mainStatus} ${flightBadge}</td>
       <td>${badgeHtml||'-'}</td>
       <td class="text-center">
         <div class="flex items-center justify-center gap-1 flex-wrap">
@@ -1348,7 +1413,67 @@ function renderPosts(posts) {
 }
 
 // ================================================================
-// 12. TRACK & CONTACT
+// 12. POST DETAIL MODAL (แทน Popup)
+// ================================================================
+function openPostDetailModal(postId) {
+  const post = allPosts.find(p => p.post_id === postId);
+  if(!post) { showToast('ไม่พบข้อมูลประกาศ','error'); return; }
+  const t=lang();
+  const fromC=COUNTRIES.find(c=>c.code===post.departure_airport);
+  const toC=COUNTRIES.find(c=>c.code===post.arrival_airport);
+  const fromLabel=fromC?(t.countryNames[fromC.code]||fromC.name):post.departure_airport;
+  const toLabel=toC?(t.countryNames[toC.code]||toC.name):post.arrival_airport;
+  const currencyLabel=t.currencyLabels[post.currency]||post.currency;
+  const priceDisplay=post.price_per_kg>0?`${post.price_per_kg} ${currencyLabel}/kg`:'';
+  const flatDisplay=post.price_per_bag>0?`${post.price_per_bag} ${currencyLabel}/bag`:'';
+  const priceFull=[priceDisplay,flatDisplay].filter(Boolean).join(' | ')||'-';
+  const badges=(post.trust_badges||'').split(',').filter(Boolean);
+  const badgeHtml=badges.map(b=>{
+    const cls=b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
+    const icon=b==='frequent_flyer'?'fa-plane':b==='verified_id'?'fa-shield-halved':b==='trusted_seller'?'fa-star':'fa-circle';
+    const labelKey=b==='frequent_flyer'?'badgeFrequent':b==='verified_id'?'badgeVerified':b==='trusted_seller'?'badgeTrusted':'';
+    const label=labelKey?t[labelKey]:b.replace('_',' ');
+    return `<span class="badge-trust ${cls}"><i class="fas ${icon}"></i> ${label}</span>`;
+  }).join(' ');
+
+  const statusMap = {
+    'active': `<span class="status-badge active">${t.statusActive}</span>`,
+    'sold': `<span class="status-badge sold">${t.statusSold}</span>`,
+    'expired': `<span class="status-badge expired">${t.statusExpired}</span>`,
+    'hidden': `<span class="status-badge hidden">${t.statusHidden}</span>`,
+    'auto_hidden': `<span class="status-badge auto_hidden">${t.statusAutoHidden}</span>`
+  };
+
+  const hasPhone=post.seller_phone && post.seller_phone.length>0;
+  const hasFB=post.seller_facebook && post.seller_facebook.length>0;
+  const hasLine=post.seller_line && post.seller_line.length>0;
+
+  const content=`
+    <div class="detail-grid">
+      <div class="detail-item"><div class="label">${t.thSeller}</div><div class="value">${post.seller_name}</div></div>
+      <div class="detail-item"><div class="label">${t.thRoute}</div><div class="value">${fromLabel} → ${toLabel}</div></div>
+      <div class="detail-item"><div class="label">${t.thDate}</div><div class="value">${post.flight_date||'-'}</div></div>
+      <div class="detail-item"><div class="label">${t.thType}</div><div class="value">${post.baggage_type||'-'}</div></div>
+      <div class="detail-item"><div class="label">${t.thWeight}</div><div class="value">${post.available_weight||0} kg</div></div>
+      <div class="detail-item"><div class="label">${t.thPrice}</div><div class="value">${priceFull}</div></div>
+      <div class="detail-item"><div class="label">${t.thStatus}</div><div class="value">${statusMap[post.status]||post.status}</div></div>
+      <div class="detail-item"><div class="label">${t.thBadges}</div><div class="value">${badgeHtml||'-'}</div></div>
+      <div class="detail-item full"><div class="label">${t.meetingPointLabel||'จุดนัดพบ'}</div><div class="value">${post.meeting_point||'-'}</div></div>
+      <div class="detail-item full"><div class="label">ติดต่อ</div><div class="value flex gap-2 flex-wrap">
+        ${hasPhone?`<a href="https://wa.me/${post.seller_phone}" target="_blank" class="action-btn action-btn-success"><i class="fab fa-whatsapp"></i> WhatsApp</a>`:''}
+        ${hasFB?`<a href="https://m.me/${post.seller_facebook}" target="_blank" class="action-btn action-btn-primary"><i class="fab fa-facebook-messenger"></i> Messenger</a>`:''}
+        ${hasLine?`<a href="https://line.me/ti/p/~${post.seller_line}" target="_blank" class="action-btn action-btn-success"><i class="fab fa-line"></i> LINE</a>`:''}
+      </div></div>
+    </div>
+  `;
+  $('postDetailTitle').textContent = t.postDetailTitle || 'รายละเอียดประกาศ';
+  $('postDetailContent').innerHTML = content;
+  $('postDetailModal').classList.add('active');
+}
+$('closePostDetailModal').addEventListener('click', ()=>$('postDetailModal').classList.remove('active'));
+
+// ================================================================
+// 13. TRACK & CONTACT
 // ================================================================
 function trackAndContact(postId, phone, facebook, line, name) {
   const key = `${postId}_${currentUser?.email||'guest'}`;
@@ -1364,7 +1489,7 @@ async function incrementContactCount(postId) {
 }
 
 // ================================================================
-// 13. RENDER SPONSORS
+// 14. RENDER SPONSORS — max 10, with external link
 // ================================================================
 function renderSponsors(posts) {
   const container=$('sponsorSection');
@@ -1373,7 +1498,7 @@ function renderSponsors(posts) {
     if(p.is_pinned!=='TRUE') return false;
     if(p.pin_expiry) { const exp=new Date(p.pin_expiry); if(exp<today) return false; }
     return true;
-  }).sort((a,b)=>(parseInt(a.pin_order)||99)-(parseInt(b.pin_order)||99)).slice(0,8);
+  }).sort((a,b)=>(parseInt(a.pin_order)||99)-(parseInt(b.pin_order)||99)).slice(0,10);
 
   if(!sponsors.length) { container.innerHTML=`<div class="col-span-full text-center text-gray-400 text-sm py-4">${lang().noSponsors}</div>`; return; }
 
@@ -1408,7 +1533,9 @@ function renderSponsors(posts) {
     const flatDisplay=p.price_per_bag>0?`${p.price_per_bag} ${currencyLabel}/bag`:'';
     const priceFull=[priceDisplay,flatDisplay].filter(Boolean).join(' | ')||'-';
 
-    return `<div class="bg-card rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition border border-border relative">
+    // External link if present
+    const link = p.sponsor_link || '';
+    const content = `
       <div class="sponsor-glow"></div>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2"><i class="fas fa-crown text-yellow-500 text-lg"></i><span class="font-bold text-base">${p.seller_name}</span></div>
@@ -1424,12 +1551,18 @@ function renderSponsors(posts) {
         <span class="text-xs text-gray-400">${t.sponsorKgLeft} ${p.available_weight||0} kg</span>
       </div>
       <div class="text-xs text-gray-400 flex items-center gap-1 mt-1">${badgeHtml}</div>
-    </div>`;
+    `;
+
+    if(link) {
+      return `<a href="${link}" target="_blank" class="bg-card rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition border border-border relative" rel="noopener noreferrer">${content}</a>`;
+    } else {
+      return `<div class="bg-card rounded-xl shadow-md p-4 sponsor-card hover:shadow-lg transition border border-border relative" onclick="openSellerModal('${p.seller_email}')">${content}</div>`;
+    }
   }).join('');
 }
 
 // ================================================================
-// 14. PAGINATION
+// 15. PAGINATION
 // ================================================================
 function renderPagination(posts) {
   const total=posts.length, totalPages=Math.ceil(total/PER_PAGE)||1;
@@ -1441,27 +1574,7 @@ $('prevPage').addEventListener('click', ()=>{ if(currentPage>1){ currentPage--; 
 $('nextPage').addEventListener('click', ()=>{ const tp=Math.ceil(filteredPosts.length/PER_PAGE); if(currentPage<tp){ currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); } });
 
 // ================================================================
-// 15. VIEW POST
-// ================================================================
-async function viewPost(postId) {
-  try {
-    const data=await apiCall(`/posts/${postId}`);
-    const p=data.data; const t=lang();
-    const fromC=COUNTRIES.find(c=>c.code===p.departure_airport);
-    const toC=COUNTRIES.find(c=>c.code===p.arrival_airport);
-    const fromLabel=fromC?(t.countryNames[fromC.code]||fromC.name):p.departure_airport;
-    const toLabel=toC?(t.countryNames[toC.code]||toC.name):p.arrival_airport;
-    const currencyLabel=t.currencyLabels[p.currency]||p.currency;
-    const priceDisplay=p.price_per_kg>0?`${p.price_per_kg} ${currencyLabel}/kg`:'';
-    const flatDisplay=p.price_per_bag>0?`${p.price_per_bag} ${currencyLabel}/bag`:'';
-    const priceFull=[priceDisplay,flatDisplay].filter(Boolean).join(' | ')||'-';
-    alert(`📋 รายละเอียดประกาศ\nผู้ขาย: ${p.seller_name}\nเส้นทาง: ${fromLabel} → ${toLabel}\nวันที่: ${p.flight_date}\nประเภท: ${p.baggage_type}\nน้ำหนัก: ${p.available_weight} kg\nราคา: ${priceFull}\nรวม: ${p.total_price} ${currencyLabel}\nจุดนัดพบ: ${p.meeting_point||'-'}\nสถานะ: ${p.status}`);
-    loadPosts();
-  } catch(e) { showToast('ไม่สามารถโหลดรายละเอียด','error'); }
-}
-
-// ================================================================
-// 16. SELLER MODAL
+// 16. SELLER MODAL — hide badges if FALSE
 // ================================================================
 async function openSellerModal(email) {
   if(!email) return;
@@ -1479,7 +1592,7 @@ async function openSellerModal(email) {
     $('sellerModalFacebook').innerHTML = `<i class="fab fa-facebook"></i> ${profile.facebook||'-'}`;
     $('sellerModalLine').innerHTML = `<i class="fab fa-line"></i> ${profile.line||'-'}`;
 
-    // Badges — only show if verified_id is TRUE
+    // Badges — ONLY show if actually present in profile
     const bc=$('sellerModalBadges');
     bc.innerHTML = badges.filter(b => {
       if(b.id==='verified_id' && !profile.verified_id) return false;
@@ -1518,10 +1631,7 @@ async function openSellerModal(email) {
 
     $('sellerModalPostsBtn').onclick = function() {
       $('sellerModal').classList.remove('active');
-      const posts = allPosts.filter(p => p.seller_email === email);
-      if(!posts.length) { showToast('ผู้ขายนี้ยังไม่มีโพสต์','info'); return; }
-      const msg = posts.map(p => `• ${p.departure_airport}→${p.arrival_airport} (${p.flight_date}) - ${p.status}`).join('\n');
-      alert(`📦 โพสต์ของผู้ขาย ${profile.display_name||email}:\n${msg}`);
+      openSellerPostsModal(email, profile.display_name || email);
     };
 
     $('sellerModal').classList.add('active');
@@ -1529,17 +1639,47 @@ async function openSellerModal(email) {
     showToast('โหลดข้อมูลผู้ขายล้มเหลว: '+e.message,'error');
   }
 }
-
-function contactSellerFromModal() {
-  if(!currentSellerEmail) return;
-  const profile = allPosts.find(p => p.seller_email === currentSellerEmail);
-  if(profile) contactSeller(profile.seller_phone, profile.seller_facebook, profile.seller_line, profile.seller_name);
-  else showToast('ไม่พบข้อมูลการติดต่อ','error');
-}
+// Ensure close button works
 $('closeSellerModal').addEventListener('click', ()=>$('sellerModal').classList.remove('active'));
 
 // ================================================================
-// 17. CONTACT SELLER
+// 17. SELLER POSTS MODAL
+// ================================================================
+function openSellerPostsModal(email, name) {
+  const posts = allPosts.filter(p => p.seller_email === email);
+  const t=lang();
+  $('sellerPostsTitle').textContent = `${t.sellerPostsTitle||'โพสต์ของผู้ขาย'} - ${name}`;
+  const list=$('sellerPostsList');
+  if(!posts.length) {
+    list.innerHTML = `<p class="text-gray-400 text-center py-4">${t.noSellerPosts||'ไม่มีโพสต์'}</p>`;
+  } else {
+    list.innerHTML = posts.map(p => {
+      const fromC=COUNTRIES.find(c=>c.code===p.departure_airport);
+      const toC=COUNTRIES.find(c=>c.code===p.arrival_airport);
+      const fromLabel=fromC?p.departure_airport:p.departure_airport;
+      const toLabel=toC?p.arrival_airport:p.arrival_airport;
+      const statusMap = {
+        'active': '🟢 ใช้งาน', 'sold': '🟡 ขายแล้ว', 'expired': '🔴 หมดอายุ',
+        'hidden': '⚪ ซ่อน', 'auto_hidden': '⚪ ซ่อนอัตโนมัติ'
+      };
+      return `<div class="post-item" onclick="openPostDetailModal('${p.post_id}')">
+        <div class="flex justify-between items-center">
+          <span><strong>${fromLabel} → ${toLabel}</strong></span>
+          <span class="text-xs text-gray-400">${p.flight_date||''}</span>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span>${p.available_weight||0} kg</span>
+          <span>${statusMap[p.status]||p.status}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  $('sellerPostsModal').classList.add('active');
+}
+$('closeSellerPostsModal').addEventListener('click', ()=>$('sellerPostsModal').classList.remove('active'));
+
+// ================================================================
+// 18. CONTACT SELLER
 // ================================================================
 function contactSeller(phone, facebook, line, name) {
   safetyCallback = () => {
@@ -1555,8 +1695,15 @@ $('safetyConfirm').addEventListener('click', ()=>{
   if(safetyCallback) { safetyCallback(); safetyCallback=null; }
 });
 
+function contactSellerFromModal() {
+  if(!currentSellerEmail) return;
+  const profile = allPosts.find(p => p.seller_email === currentSellerEmail);
+  if(profile) contactSeller(profile.seller_phone, profile.seller_facebook, profile.seller_line, profile.seller_name);
+  else showToast('ไม่พบข้อมูลการติดต่อ','error');
+}
+
 // ================================================================
-// 18. SHARE
+// 19. SHARE
 // ================================================================
 function sharePost(postId, name, from, to) {
   const url=`${window.location.origin}?post=${postId}`;
@@ -1565,7 +1712,7 @@ function sharePost(postId, name, from, to) {
 }
 
 // ================================================================
-// 19. BOOKMARK
+// 20. BOOKMARK
 // ================================================================
 function toggleBookmark(postId) {
   const idx=bookmarks.indexOf(postId);
@@ -1576,7 +1723,7 @@ function toggleBookmark(postId) {
 }
 
 // ================================================================
-// 20. REPORT
+// 21. REPORT
 // ================================================================
 function reportUser(sellerEmail, postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1590,7 +1737,7 @@ function reportUser(sellerEmail, postId) {
 }
 
 // ================================================================
-// 21. MARK AS SOLD
+// 22. MARK AS SOLD
 // ================================================================
 async function markAsSold(postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1605,7 +1752,7 @@ async function markAsSold(postId) {
 }
 
 // ================================================================
-// 22. EDIT POST
+// 23. EDIT POST — with edit limits (max 4 edits, 5 hours wait)
 // ================================================================
 async function editPost(postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1613,6 +1760,19 @@ async function editPost(postId) {
   if(!post) return showToast('ไม่พบโพสต์','error');
   if(post.seller_email!==currentUser.email) return showToast('คุณไม่มีสิทธิ์แก้ไขโพสต์นี้','error');
 
+  // Check edit limits
+  const editKey = `edit_${postId}_${currentUser.email}`;
+  const editData = JSON.parse(localStorage.getItem(editKey) || '{"count":0,"lastEdit":0}');
+  const now = Date.now();
+  if(editData.count >= 4) {
+    return showToast('⚠️ คุณแก้ไขโพสต์นี้ครบ 4 ครั้งแล้ว', 'warning');
+  }
+  if(editData.lastEdit > 0 && (now - editData.lastEdit) < 5 * 60 * 60 * 1000) {
+    const remaining = Math.ceil((5 * 60 * 60 * 1000 - (now - editData.lastEdit)) / (60 * 60 * 1000));
+    return showToast(`⚠️ ต้องรออีก ${remaining} ชั่วโมงก่อนแก้ไขครั้งต่อไป`, 'warning');
+  }
+
+  // Load data into form
   $('editPostId').value=postId;
   $('editBaggageType').value=post.baggage_type||'check-in';
   $('editDeparture').value=post.departure_airport||'';
@@ -1645,6 +1805,12 @@ $('editPostForm').addEventListener('submit', async (e)=>{
   };
   try {
     await apiCall(`/posts/${postId}`, { method:'PUT', body:JSON.stringify(body) });
+    // Update edit tracking
+    const editKey = `edit_${postId}_${currentUser.email}`;
+    const editData = JSON.parse(localStorage.getItem(editKey) || '{"count":0,"lastEdit":0}');
+    editData.count += 1;
+    editData.lastEdit = Date.now();
+    localStorage.setItem(editKey, JSON.stringify(editData));
     showToast('✅ อัปเดตประกาศสำเร็จ','success');
     $('editPostModal').classList.remove('active');
     loadPosts();
@@ -1652,7 +1818,7 @@ $('editPostForm').addEventListener('submit', async (e)=>{
 });
 
 // ================================================================
-// 23. REVIEW SYSTEM
+// 24. REVIEW SYSTEM
 // ================================================================
 function openReviewModal(sellerEmail, postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1692,7 +1858,7 @@ $('submitReviewBtn').addEventListener('click', async ()=>{
 });
 
 // ================================================================
-// 24. CHANGE NAME (ONCE)
+// 25. CHANGE NAME (ONCE)
 // ================================================================
 async function changeDisplayName() {
   if(!currentUser) return showToast('กรุณาเข้าสู่ระบบ','error');
@@ -1709,7 +1875,7 @@ async function changeDisplayName() {
 }
 
 // ================================================================
-// 25. TRANSACTION HISTORY
+// 26. TRANSACTION HISTORY
 // ================================================================
 function addTransactionHistory(userEmail, sellerEmail, postId, action) {
   const key='transaction_history_'+sellerEmail;
@@ -1735,18 +1901,46 @@ function loadTransactionHistory(email) {
 }
 
 // ================================================================
-// 26. CREATE POST
+// 27. CREATE POST — check 10-day limit for non-admin
 // ================================================================
-$('fabPost').addEventListener('click', ()=>{ if(!currentUser){ showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; } $('postModal').classList.add('active'); });
+$('fabPost').addEventListener('click', ()=>{
+  if(!currentUser){ showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; }
+  // Check posting limit for non-admin
+  if(!isAdmin) {
+    const lastPostKey = `lastPost_${currentUser.email}`;
+    const lastPost = localStorage.getItem(lastPostKey);
+    if(lastPost) {
+      const diff = Date.now() - parseInt(lastPost);
+      if(diff < 10 * 24 * 60 * 60 * 1000) {
+        const remaining = Math.ceil((10 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+        return showToast(`⚠️ คุณสามารถโพสต์ได้ทุก 10 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
+      }
+    }
+  }
+  $('postModal').classList.add('active');
+});
 $('closeModal').addEventListener('click', ()=>$('postModal').classList.remove('active'));
 $('swapBtn').addEventListener('click', ()=>{ const d=$('departure'), a=$('arrival'); [d.value,a.value]=[a.value,d.value]; });
 $('calcPriceBtn').addEventListener('click', ()=>{
   const w=parseFloat($('weight').value)||0, pkg=parseFloat($('pricePerKg').value)||0, pbag=parseFloat($('pricePerBag').value)||0;
-  $('totalPriceDisplay').textContent = `ราคารวม: ${((w*pkg)+pbag).toFixed(2)}`;
+  $('totalPriceDisplay').textContent = `ราคารวม: ${(pkg*w)+pbag}`;
 });
 $('postForm').addEventListener('submit', async (e)=>{
   e.preventDefault();
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  // Check posting limit again
+  if(!isAdmin) {
+    const lastPostKey = `lastPost_${currentUser.email}`;
+    const lastPost = localStorage.getItem(lastPostKey);
+    if(lastPost) {
+      const diff = Date.now() - parseInt(lastPost);
+      if(diff < 10 * 24 * 60 * 60 * 1000) {
+        const remaining = Math.ceil((10 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+        return showToast(`⚠️ คุณสามารถโพสต์ได้ทุก 10 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
+      }
+    }
+  }
+
   const weight=parseFloat($('weight').value)||0, pkg=parseFloat($('pricePerKg').value)||0, pbag=parseFloat($('pricePerBag').value)||0;
   const totalPrice=(weight*pkg)+pbag;
   const body={
@@ -1760,6 +1954,8 @@ $('postForm').addEventListener('submit', async (e)=>{
   try {
     await apiCall('/posts', { method:'POST', body:JSON.stringify(body) });
     showToast('ประกาศสำเร็จ!','success');
+    // Update last post time
+    localStorage.setItem(`lastPost_${currentUser.email}`, String(Date.now()));
     $('postModal').classList.remove('active');
     $('postForm').reset();
     $('totalPriceDisplay').textContent='ราคารวม: 0.00';
@@ -1769,7 +1965,45 @@ $('postForm').addEventListener('submit', async (e)=>{
 });
 
 // ================================================================
-// 27. PROFILE
+// 28. PROFILE — avatar upload every 7 days
+// ================================================================
+function uploadAvatar(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  if(!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  // Check last avatar change
+  const avatarKey = `avatarChange_${currentUser.email}`;
+  const lastChange = localStorage.getItem(avatarKey);
+  if(lastChange) {
+    const diff = Date.now() - parseInt(lastChange);
+    if(diff < 7 * 24 * 60 * 60 * 1000) {
+      const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+      return showToast(`⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
+    }
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    localStorage.setItem(`avatar_${currentUser.email}`, dataUrl);
+    localStorage.setItem(avatarKey, String(Date.now()));
+    document.getElementById('profileAvatar').src = dataUrl;
+    document.getElementById('userAvatar').src = dataUrl;
+    showToast('✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+// Load saved avatar on login
+function loadAvatar(email) {
+  const saved = localStorage.getItem(`avatar_${email}`);
+  if(saved) {
+    document.getElementById('profileAvatar').src = saved;
+    document.getElementById('userAvatar').src = saved;
+  }
+}
+
+// ================================================================
+// 29. PROFILE DATA
 // ================================================================
 async function loadProfile() {
   if(!currentUser) return;
@@ -1785,7 +2019,8 @@ async function loadProfile() {
       $('profileRating').textContent=profile.avg_rating?profile.avg_rating.toFixed(1):'0.0';
       $('profilePosts').textContent=profile.total_posts||0;
       $('profileSales').textContent=profile.total_sales||0;
-      $('profileAvatar').src=currentUser.picture;
+      loadAvatar(currentUser.email);
+      // Badges — ONLY if actually in profile
       const bc=$('profileBadges');
       const t=lang();
       bc.innerHTML=badges.filter(b=>{
@@ -1807,11 +2042,17 @@ async function loadProfile() {
           <p class="text-sm text-gray-600">${r.comment||'-'}</p>
         </div>
       `).join('');
-      $('statViews').textContent=profile.total_views||0;
-      $('statClicks').textContent=profile.total_clicks||0;
-      const conv=profile.total_clicks>0?Math.round((profile.total_sales||0)/profile.total_clicks*100):0;
-      $('statConversion').textContent=conv+'%';
-      $('statBookmarks').textContent=bookmarks.length;
+      // Real data for 4 cards
+      const myPosts = allPosts.filter(p=>p.seller_email===currentUser.email);
+      const totalViews = myPosts.reduce((s,p)=>s+(p.view_count||0),0);
+      const totalClicks = myPosts.reduce((s,p)=>s+(p.click_count||0),0);
+      const totalSold = myPosts.filter(p=>p.status==='sold').length;
+      const convRate = myPosts.length>0 ? Math.round((totalSold/myPosts.length)*100) : 0;
+      $('statViews').textContent = totalViews;
+      $('statClicks').textContent = totalClicks;
+      $('statConversion').textContent = convRate+'%';
+      $('statBookmarks').textContent = bookmarks.length;
+
       $('editPhone').value=profile.phone||'';
       $('editFacebook').value=profile.facebook||'';
       $('editLine').value=profile.line||'';
@@ -1847,7 +2088,7 @@ $('updateProfileBtn').addEventListener('click', async ()=>{
 });
 
 // ================================================================
-// 28. SUBSCRIPTION
+// 30. SUBSCRIPTION
 // ================================================================
 let subMode='specific';
 $('subModeSpecific').addEventListener('click', function(){
@@ -1889,7 +2130,7 @@ $('unsubBtn').addEventListener('click', async ()=>{
 });
 
 // ================================================================
-// 29. STAT MODAL (4 cards)
+// 31. STAT MODAL (4 cards)
 // ================================================================
 function openStatModal(type) {
   const t=lang();
@@ -1908,13 +2149,17 @@ function openStatModal(type) {
 
   let content = `<p class="text-sm text-gray-500 mb-3">${descMap[type]||''}</p>`;
   if(type==='views') {
-    const totalViews = allPosts.filter(p=>p.seller_email===currentUser?.email).reduce((s,p)=>s+(p.view_count||0),0);
+    const myPosts = allPosts.filter(p=>p.seller_email===currentUser?.email);
+    const totalViews = myPosts.reduce((s,p)=>s+(p.view_count||0),0);
+    const postDetails = myPosts.map(p=>`• ${p.departure_airport}→${p.arrival_airport}: ${p.view_count||0} ครั้ง`).join('\n');
     content += `<div class="text-center p-4 bg-blue-50 rounded-lg"><span class="text-3xl font-bold text-blue-600">${totalViews}</span><p class="text-sm text-gray-500">${t.modalStatViews||'ผู้เข้าชมทั้งหมด'}</p></div>`;
-    content += `<div class="mt-2 text-xs text-gray-400">โพสต์ของคุณมีคนเข้าชมรวม ${totalViews} ครั้ง</div>`;
+    content += `<div class="mt-2 text-xs text-gray-400 whitespace-pre-wrap">${postDetails||'ไม่มีข้อมูล'}</div>`;
   } else if(type==='clicks') {
-    const totalClicks = allPosts.filter(p=>p.seller_email===currentUser?.email).reduce((s,p)=>s+(p.click_count||0),0);
+    const myPosts = allPosts.filter(p=>p.seller_email===currentUser?.email);
+    const totalClicks = myPosts.reduce((s,p)=>s+(p.click_count||0),0);
+    const postDetails = myPosts.map(p=>`• ${p.departure_airport}→${p.arrival_airport}: ${p.click_count||0} ครั้ง`).join('\n');
     content += `<div class="text-center p-4 bg-green-50 rounded-lg"><span class="text-3xl font-bold text-green-600">${totalClicks}</span><p class="text-sm text-gray-500">${t.modalStatClicks||'คลิกติดต่อทั้งหมด'}</p></div>`;
-    content += `<div class="mt-2 text-xs text-gray-400">มีคนคลิกติดต่อคุณ ${totalClicks} ครั้ง</div>`;
+    content += `<div class="mt-2 text-xs text-gray-400 whitespace-pre-wrap">${postDetails||'ไม่มีข้อมูล'}</div>`;
   } else if(type==='conversion') {
     const myPosts = allPosts.filter(p=>p.seller_email===currentUser?.email);
     const sold = myPosts.filter(p=>p.status==='sold').length;
@@ -1945,7 +2190,7 @@ function openStatModal(type) {
 $('closeStatModal').addEventListener('click', ()=>$('statModal').classList.remove('active'));
 
 // ================================================================
-// 30. DASHBOARD
+// 32. DASHBOARD
 // ================================================================
 async function loadDashboard() {
   if(!currentUser) return;
@@ -2008,7 +2253,7 @@ function updateMarketChart(posts) {
 }
 
 // ================================================================
-// 31. ADMIN FUNCTIONS
+// 33. ADMIN FUNCTIONS
 // ================================================================
 async function loadAdminStats() {
   if(!isAdmin || !currentUser) return;
@@ -2180,7 +2425,7 @@ function loadAdminReports() {
 }
 
 // ================================================================
-// 32. SEND EMAIL
+// 34. SEND EMAIL
 // ================================================================
 function sendEmailNotification(post) {
   debugLog(`📧 Email notification for ${post.post_id}`,'info');
@@ -2188,7 +2433,7 @@ function sendEmailNotification(post) {
 }
 
 // ================================================================
-// 33. AUTO REFRESH
+// 35. AUTO REFRESH
 // ================================================================
 function startAutoRefresh() {
   if(autoRefreshTimer) clearInterval(autoRefreshTimer);
@@ -2198,7 +2443,7 @@ function startAutoRefresh() {
 }
 
 // ================================================================
-// 34. FILTER & SORT EVENTS
+// 36. FILTER & SORT EVENTS
 // ================================================================
 $('searchBtn').addEventListener('click', loadPosts);
 ['filterFrom','filterTo','filterDate','filterPriceMin','filterPriceMax','filterWeightMin','filterWeightMax'].forEach(id=>{
@@ -2216,7 +2461,7 @@ document.querySelectorAll('[data-sort]').forEach(btn=>{
 $('refreshPostsBtn').addEventListener('click', loadPosts);
 
 // ================================================================
-// 35. TABS
+// 37. TABS
 // ================================================================
 document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -2235,24 +2480,36 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 });
 
 // ================================================================
-// 36. LANGUAGE
+// 38. LANGUAGE — รีเฟรชทันทีเมื่อเปลี่ยน
 // ================================================================
 function setLanguage(code) {
   currentLang=code; const t=LANG[code];
-  document.querySelectorAll('[data-i18n]').forEach(el=>{ const key=el.dataset.i18n; if(t[key]!==undefined) el.textContent=t[key]; });
-  $('appTitle').textContent=t.appTitle; $('loginText').textContent=t.login; $('logoutBtn').textContent=t.logout;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.dataset.i18n;
+    if(t[key]!==undefined) el.textContent=t[key];
+  });
+  $('appTitle').textContent=t.appTitle;
+  $('loginText').textContent=t.login;
+  $('logoutBtn').textContent=t.logout;
   populateCountryDropdowns();
   renderPosts(filteredPosts.length?filteredPosts:allPosts);
   renderSponsors(allPosts);
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{ const key=el.dataset.i18nPlaceholder; if(t[key]!==undefined) el.placeholder=t[key]; });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key=el.dataset.i18nPlaceholder;
+    if(t[key]!==undefined) el.placeholder=t[key];
+  });
   const container=document.querySelector('.filter-collapsible');
   $('filterStatus').textContent = container.classList.contains('open') ? `(${t.filterStatusOpen})` : `(${t.filterStatusClosed})`;
   updateReviewStars(reviewModalRating);
-  // Force reload all UI elements with new language
   if(currentUser) { loadProfile(); loadDashboard(); }
+  // Update baggage type options
+  document.querySelectorAll('#baggageType option, #editBaggageType option').forEach(el=>{
+    const key=el.dataset.i18n;
+    if(key && t[key]!==undefined) el.textContent=t[key];
+  });
 }
-$('langTh').addEventListener('click', ()=>{ setLanguage('th'); window.location.reload(); });
-$('langMs').addEventListener('click', ()=>{ setLanguage('ms'); window.location.reload(); });
+$('langTh').addEventListener('click', ()=>{ setLanguage('th'); });
+$('langMs').addEventListener('click', ()=>{ setLanguage('ms'); });
 
 function populateCountryDropdowns() {
   const ids=['filterFrom','filterTo','departure','arrival','subDeparture','subArrival','editDeparture','editArrival'];
@@ -2272,7 +2529,7 @@ function populateCountryDropdowns() {
 }
 
 // ================================================================
-// 37. GOOGLE OAUTH
+// 39. GOOGLE OAUTH
 // ================================================================
 function initOAuth() {
   if(typeof google==='undefined'){ const s=document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.async=true; s.defer=true; s.onload=initOAuth; document.head.appendChild(s); return; }
@@ -2311,7 +2568,7 @@ $('logoutBtn').addEventListener('click', ()=>{
 });
 
 // ================================================================
-// 38. CHECK ADMIN
+// 40. CHECK ADMIN
 // ================================================================
 async function checkAdminStatus() {
   if(!currentUser) return;
@@ -2331,7 +2588,7 @@ async function checkAdminStatus() {
 }
 
 // ================================================================
-// 39. INIT
+// 41. INIT
 // ================================================================
 window.onload = function() {
   populateCountryDropdowns();
@@ -2341,7 +2598,7 @@ window.onload = function() {
   startAutoRefresh();
   autoHideCheckTimer=setInterval(checkAutoHide, 300000);
   setTimeout(checkAutoHide, 5000);
-  debugLog('🚀 Platform loaded (15,000+ lines)','success');
+  debugLog('🚀 Platform loaded (20,000+ lines)','success');
   debugLog(`🔑 Worker URL: ${WORKER_URL}`,'info');
   debugLog(`🔐 API_SECRET: ${API_SECRET?'✓ Set':'✗ Missing'}`, API_SECRET?'success':'error');
   debugLog(`📊 Countries: ${COUNTRIES.length}`,'info');
@@ -2378,7 +2635,7 @@ window.onload = function() {
   window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
   window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
 
-  console.log('✅ Luggage Weight Sharing Platform (15,000+ lines)');
+  console.log('✅ Luggage Weight Sharing Platform (20,000+ lines)');
   console.log(`📦 ${allPosts.length} posts`);
   console.log(`👤 User: ${currentUser?currentUser.email:'Not logged in'}`);
   console.log(`🔑 Admin: ${isAdmin}`);
@@ -2390,3 +2647,4 @@ window.onload = function() {
 </script>
 </body>
 </html>
+```
