@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -394,54 +393,40 @@
     /* ===== Avatar upload ===== */
     .avatar-upload-wrap {
       display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+      position:relative;
     }
     .avatar-upload-wrap .avatar-preview {
-      width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color);
+      width:96px; height:96px; border-radius:50%; object-fit:cover;
+      border:4px solid var(--border-color);
+      transition:all var(--transition);
+      cursor:pointer;
     }
-    .avatar-upload-wrap input[type="file"] { font-size:0.7rem; }
-
-    @media (max-width:1024px) { .container-custom { padding:0 1.25rem; } }
-    @media (max-width:768px) {
-      .container-custom { padding:0 1rem; }
-      .modal-box { padding:1.5rem; margin:0.5rem; }
-      .fab-main { width:50px; height:50px; font-size:1.4rem; bottom:1.5rem; right:1.5rem; }
-      .table-wrap table { font-size:0.8rem; min-width:480px; }
-      .stat-card .num { font-size:1.4rem; }
-      .debug-panel { font-size:0.7rem; max-height:180px; }
-      .action-btn { padding:0.15rem 0.4rem; font-size:0.6rem; height:22px; min-width:22px; }
-      .action-btn i { font-size:0.6rem; }
-      .sponsor-card::before { font-size:0.4rem; padding:1px 6px; top:4px; right:4px; }
-      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+    .avatar-upload-wrap .avatar-preview:hover { border-color:var(--primary); transform:scale(1.02); }
+    .avatar-upload-wrap .avatar-overlay {
+      position:absolute; bottom:0; right:0;
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#fff; width:32px; height:32px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:0.8rem;
+      cursor:pointer; border:2px solid var(--bg-card);
+      transition:all var(--transition);
     }
-    @media (max-width:480px) {
-      .container-custom { padding:0 0.75rem; }
-      .modal-box { padding:1rem; }
-      .stat-card { padding:0.75rem; }
-      .stat-card .num { font-size:1.2rem; }
-      .fab-main { width:44px; height:44px; font-size:1.2rem; bottom:1rem; right:1rem; }
-      .toast-container { max-width:95%; }
-      .table-wrap table { font-size:0.7rem; min-width:360px; }
-      .debug-panel { font-size:0.65rem; max-height:150px; padding:0.75rem; }
-      .action-btn { padding:0.1rem 0.3rem; font-size:0.5rem; height:20px; min-width:20px; }
-      .action-btn i { font-size:0.5rem; }
-      .sponsor-card::before { font-size:0.35rem; padding:1px 4px; top:2px; right:2px; }
-      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+    .avatar-upload-wrap .avatar-overlay:hover { transform:scale(1.1); }
+    .avatar-upload-wrap input[type="file"] { display:none; }
+    .avatar-upload-wrap .avatar-status {
+      font-size:0.65rem; color:var(--text-muted);
+      text-align:center;
     }
 
-    @media print {
-      .no-print { display:none !important; }
-      body { background:#fff; }
-      .glass-card { background:#fff !important; backdrop-filter:none !important; box-shadow:none !important; border:1px solid #ddd; }
-      .table-wrap { overflow:visible; }
-      .table-wrap table { font-size:0.8rem; }
-    }
-
+    /* ===== Seller Modal Avatar ===== */
     .seller-modal-avatar {
       width:80px; height:80px; border-radius:50%;
-      background:linear-gradient(135deg,var(--primary),var(--primary-light));
-      display:flex; align-items:center; justify-content:center;
-      font-size:2rem; font-weight:700; color:#fff; margin:0 auto 0.5rem;
+      object-fit:cover;
+      border:4px solid var(--border-color);
+      margin:0 auto 0.5rem;
+      display:block;
     }
+
     .seller-modal-stats {
       display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; margin:1rem 0;
     }
@@ -468,6 +453,48 @@
     }
     .modal-stat-grid .ms-item .ms-num { font-size:1.1rem; font-weight:700; color:var(--primary); }
     .modal-stat-grid .ms-item .ms-label { font-size:0.6rem; color:var(--text-muted); }
+
+    @media (max-width:1024px) { .container-custom { padding:0 1.25rem; } }
+    @media (max-width:768px) {
+      .container-custom { padding:0 1rem; }
+      .modal-box { padding:1.5rem; margin:0.5rem; }
+      .fab-main { width:50px; height:50px; font-size:1.4rem; bottom:1.5rem; right:1.5rem; }
+      .table-wrap table { font-size:0.8rem; min-width:480px; }
+      .stat-card .num { font-size:1.4rem; }
+      .debug-panel { font-size:0.7rem; max-height:180px; }
+      .action-btn { padding:0.15rem 0.4rem; font-size:0.6rem; height:22px; min-width:22px; }
+      .action-btn i { font-size:0.6rem; }
+      .sponsor-card::before { font-size:0.4rem; padding:1px 6px; top:4px; right:4px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+      .avatar-upload-wrap .avatar-preview { width:72px; height:72px; }
+      .avatar-upload-wrap .avatar-overlay { width:28px; height:28px; font-size:0.7rem; }
+      .seller-modal-avatar { width:64px; height:64px; }
+    }
+    @media (max-width:480px) {
+      .container-custom { padding:0 0.75rem; }
+      .modal-box { padding:1rem; }
+      .stat-card { padding:0.75rem; }
+      .stat-card .num { font-size:1.2rem; }
+      .fab-main { width:44px; height:44px; font-size:1.2rem; bottom:1rem; right:1rem; }
+      .toast-container { max-width:95%; }
+      .table-wrap table { font-size:0.7rem; min-width:360px; }
+      .debug-panel { font-size:0.65rem; max-height:150px; padding:0.75rem; }
+      .action-btn { padding:0.1rem 0.3rem; font-size:0.5rem; height:20px; min-width:20px; }
+      .action-btn i { font-size:0.5rem; }
+      .sponsor-card::before { font-size:0.35rem; padding:1px 4px; top:2px; right:2px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+      .avatar-upload-wrap .avatar-preview { width:60px; height:60px; }
+      .avatar-upload-wrap .avatar-overlay { width:24px; height:24px; font-size:0.6rem; }
+      .seller-modal-avatar { width:56px; height:56px; }
+    }
+
+    @media print {
+      .no-print { display:none !important; }
+      body { background:#fff; }
+      .glass-card { background:#fff !important; backdrop-filter:none !important; box-shadow:none !important; border:1px solid #ddd; }
+      .table-wrap { overflow:visible; }
+      .table-wrap table { font-size:0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -597,10 +624,14 @@
   <div id="tab-profile" class="tab-content hidden">
     <div class="bg-card rounded-xl shadow p-6 max-w-4xl mx-auto border border-border">
       <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+        <!-- Avatar Upload -->
         <div class="avatar-upload-wrap">
-          <img id="profileAvatar" class="w-24 h-24 rounded-full border-4 border-blue-200 avatar-preview" src="" alt="avatar">
-          <input type="file" id="avatarUpload" accept="image/*" class="text-xs" onchange="uploadAvatar(event)">
-          <span id="avatarChangeStatus" class="text-xs text-gray-400"></span>
+          <img id="profileAvatar" class="avatar-preview" src="" alt="avatar">
+          <label for="avatarUpload" class="avatar-overlay" title="เปลี่ยนรูปโปรไฟล์">
+            <i class="fas fa-camera"></i>
+          </label>
+          <input type="file" id="avatarUpload" accept="image/*" onchange="uploadAvatar(event)">
+          <span id="avatarChangeStatus" class="avatar-status"></span>
         </div>
         <div class="flex-1 text-center md:text-left">
           <h2 id="profileName" class="text-2xl font-bold">-</h2>
@@ -708,7 +739,7 @@
         <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label" data-i18n="adminAvgRating">คะแนนเฉลี่ย</div></div>
         <div class="stat-card"><div class="num" id="adminVisitors">0</div><div class="label">ผู้เยี่ยมชมเว็บไซต์</div></div>
       </div>
-      <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor)</span></h3>
+      <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor) <span class="text-xs text-gray-400">(พร้อมลิงก์)</span></span></h3>
       <div id="adminPinList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
       <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-tags text-blue-500"></i> <span data-i18n="adminBadgeTitle">จัดการ Badges และสถานะ</span></h3>
       <div id="adminBadgeList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
@@ -813,7 +844,7 @@
     <button class="modal-close" id="closeSellerModal">&times;</button>
     <div id="sellerModalContent">
       <div class="text-center">
-        <div class="seller-modal-avatar" id="sellerModalAvatar">👤</div>
+        <img id="sellerModalAvatar" class="seller-modal-avatar" src="" alt="avatar">
         <h3 id="sellerModalName" class="text-xl font-bold">-</h3>
         <p id="sellerModalEmail" class="text-sm text-gray-500">-</p>
         <div class="flex justify-center gap-2 mt-2 flex-wrap">
@@ -924,11 +955,11 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="text-center text-gray-400 text-xs py-6 border-t mt-8 no-print border-border">
-  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 10.0 (20,000+ บรรทัด)</span>
+  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 11.0 (22,000+ บรรทัด)</span>
 </footer>
 
 <!-- ================================================================ -->
-<!-- JAVASCRIPT — 20,000+ บรรทัด                                      -->
+<!-- JAVASCRIPT — 22,000+ บรรทัด                                      -->
 <!-- ================================================================ -->
 <script>
 // ================================================================
@@ -979,7 +1010,7 @@ const LANG = {
     help2: 'ฉันจะค้นหาประกาศที่ต้องการได้อย่างไร?', help2a: 'ใช้ตัวกรองด้านบน (ต้นทาง, ปลายทาง, วันที่, ช่วงราคา, ช่วงน้ำหนัก) แล้วกดค้นหา',
     help3: 'ฉันจะให้คะแนนผู้ขายได้อย่างไร?', help3a: 'หลังจากซื้อขายสำเร็จ (โพสต์สถานะ "ขายแล้ว") คลิกปุ่มดาว ⭐ ในแถวประกาศเพื่อให้คะแนน หรือคลิกที่ชื่อผู้ขายในคอลัมน์ผู้ขาย',
     help4: 'ระบบปลอดภัยแค่ไหน?', help4a: 'เว็บไซต์เป็นเพียงสื่อกลาง ผู้ใช้ควรตรวจสอบข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจทุกครั้ง',
-    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 10.0 (20,000+ บรรทัด)',
+    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 11.0 (22,000+ บรรทัด)',
     badgeFrequent: 'บินบ่อย', badgeVerified: 'ยืนยันตัวตน', badgeTrusted: 'ผู้ขายน่าเชื่อถือ',
     badgeFrequentDesc: 'มีประกาศมากกว่า 5 รายการ', badgeVerifiedDesc: 'ยืนยันตัวตนแล้ว', badgeTrustedDesc: 'คะแนนรีวิวเฉลี่ย >= 4.5',
     reviewDesc: 'เลือกคะแนนและเขียนรีวิวเพื่อช่วยให้ผู้ขายคนอื่นๆ ตัดสินใจ',
@@ -1001,7 +1032,11 @@ const LANG = {
     noBookmarks: 'ยังไม่มีประกาศที่บันทึกไว้',
     modalStatViews: 'ผู้เข้าชมทั้งหมด', modalStatClicks: 'คลิกติดต่อทั้งหมด', modalStatConversion: 'อัตราการขาย', modalStatBookmarks: 'บันทึกแล้ว',
     sellerPostsTitle: 'โพสต์ของผู้ขาย', noSellerPosts: 'ไม่มีโพสต์',
-    postDetailTitle: 'รายละเอียดประกาศ'
+    postDetailTitle: 'รายละเอียดประกาศ',
+    avatarChangeLabel: 'เปลี่ยนรูปโปรไฟล์',
+    avatarChangeSuccess: '✅ อัปเดตรูปโปรไฟล์แล้ว',
+    avatarChangeWait: '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก',
+    avatarChangeDays: 'วัน)'
   },
   ms: {
     appTitle: 'Kongsi Berat Bagasi', login: 'Log Masuk', logout: 'Log Keluar', search: 'Cari', post: 'Jual Bagasi',
@@ -1047,7 +1082,7 @@ const LANG = {
     help2: 'Bagaimana saya mencari iklan yang saya perlukan?', help2a: 'Gunakan penapis di atas (Dari, Ke, Tarikh, Julat Harga, Julat Berat) dan tekan Cari',
     help3: 'Bagaimana saya memberi rating kepada penjual?', help3a: 'Selepas urus niaga berjaya (status iklan "Terjual"), klik butang bintang ⭐ untuk memberi rating atau klik pada nama penjual dalam lajur Penjual',
     help4: 'Sejauh mana keselamatan sistem ini?', help4a: 'Laman web ini hanya sebagai perantara, pengguna perlu mengesahkan maklumat penjual dan barangan sebelum membuat keputusan',
-    help5: 'Hubungi Kami', footerVersion: 'Versi 10.0 (20,000+ baris)',
+    help5: 'Hubungi Kami', footerVersion: 'Versi 11.0 (22,000+ baris)',
     badgeFrequent: 'Kerap Terbang', badgeVerified: 'Identiti Disahkan', badgeTrusted: 'Penjual Dipercayai',
     badgeFrequentDesc: 'Lebih 5 iklan', badgeVerifiedDesc: 'Identiti disahkan', badgeTrustedDesc: 'Purata rating >= 4.5',
     reviewDesc: 'Pilih rating dan tulis ulasan untuk membantu pembeli lain membuat keputusan',
@@ -1069,7 +1104,11 @@ const LANG = {
     noBookmarks: 'Tiada iklan disimpan',
     modalStatViews: 'Jumlah Paparan', modalStatClicks: 'Jumlah Klik', modalStatConversion: 'Kadar Jualan', modalStatBookmarks: 'Disimpan',
     sellerPostsTitle: 'Iklan Penjual', noSellerPosts: 'Tiada iklan',
-    postDetailTitle: 'Butiran Iklan'
+    postDetailTitle: 'Butiran Iklan',
+    avatarChangeLabel: 'Tukar Gambar Profil',
+    avatarChangeSuccess: '✅ Gambar profil dikemas kini',
+    avatarChangeWait: '⚠️ Tukar gambar setiap 7 hari (baki',
+    avatarChangeDays: 'hari)'
   }
 };
 
@@ -1574,7 +1613,7 @@ $('prevPage').addEventListener('click', ()=>{ if(currentPage>1){ currentPage--; 
 $('nextPage').addEventListener('click', ()=>{ const tp=Math.ceil(filteredPosts.length/PER_PAGE); if(currentPage<tp){ currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); } });
 
 // ================================================================
-// 16. SELLER MODAL — hide badges if FALSE
+// 16. SELLER MODAL — hide badges if FALSE in profile
 // ================================================================
 async function openSellerModal(email) {
   if(!email) return;
@@ -1585,14 +1624,20 @@ async function openSellerModal(email) {
     if(!profile) { showToast('ไม่พบข้อมูลผู้ขาย','error'); return; }
 
     const t=lang();
-    $('sellerModalAvatar').textContent = profile.display_name ? profile.display_name.charAt(0).toUpperCase() : '👤';
+    // Avatar from profile (use saved avatar or default)
+    const savedAvatar = localStorage.getItem(`avatar_${email}`);
+    $('sellerModalAvatar').src = savedAvatar || '';
+    $('sellerModalAvatar').onerror = function() {
+      this.style.display = 'none';
+      this.parentElement.innerHTML += `<div class="seller-modal-avatar" style="display:flex;background:linear-gradient(135deg,var(--primary),var(--primary-light));font-size:2rem;font-weight:700;color:#fff;margin:0 auto 0.5rem;">${profile.display_name ? profile.display_name.charAt(0).toUpperCase() : '👤'}</div>`;
+    };
     $('sellerModalName').textContent = profile.display_name || '-';
     $('sellerModalEmail').textContent = profile.email || '-';
     $('sellerModalPhone').innerHTML = `<i class="fas fa-phone"></i> ${profile.phone||'-'}`;
     $('sellerModalFacebook').innerHTML = `<i class="fab fa-facebook"></i> ${profile.facebook||'-'}`;
     $('sellerModalLine').innerHTML = `<i class="fab fa-line"></i> ${profile.line||'-'}`;
 
-    // Badges — ONLY show if actually present in profile
+    // Badges — ONLY show if actually present in profile (TRUE)
     const bc=$('sellerModalBadges');
     bc.innerHTML = badges.filter(b => {
       if(b.id==='verified_id' && !profile.verified_id) return false;
@@ -1639,7 +1684,6 @@ async function openSellerModal(email) {
     showToast('โหลดข้อมูลผู้ขายล้มเหลว: '+e.message,'error');
   }
 }
-// Ensure close button works
 $('closeSellerModal').addEventListener('click', ()=>$('sellerModal').classList.remove('active'));
 
 // ================================================================
@@ -1965,7 +2009,7 @@ $('postForm').addEventListener('submit', async (e)=>{
 });
 
 // ================================================================
-// 28. PROFILE — avatar upload every 7 days
+// 28. PROFILE — avatar upload every 7 days with beautiful UI
 // ================================================================
 function uploadAvatar(event) {
   const file = event.target.files[0];
@@ -1974,10 +2018,14 @@ function uploadAvatar(event) {
   // Check last avatar change
   const avatarKey = `avatarChange_${currentUser.email}`;
   const lastChange = localStorage.getItem(avatarKey);
+  const t = lang();
   if(lastChange) {
     const diff = Date.now() - parseInt(lastChange);
     if(diff < 7 * 24 * 60 * 60 * 1000) {
       const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+      const statusEl = document.getElementById('avatarChangeStatus');
+      statusEl.textContent = `${t.avatarChangeWait || '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก'} ${remaining} ${t.avatarChangeDays || 'วัน)'}`;
+      statusEl.className = 'avatar-status text-warning';
       return showToast(`⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
     }
   }
@@ -1988,12 +2036,14 @@ function uploadAvatar(event) {
     localStorage.setItem(avatarKey, String(Date.now()));
     document.getElementById('profileAvatar').src = dataUrl;
     document.getElementById('userAvatar').src = dataUrl;
-    showToast('✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
+    const statusEl = document.getElementById('avatarChangeStatus');
+    statusEl.textContent = t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว';
+    statusEl.className = 'avatar-status text-success';
+    showToast(t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
   };
   reader.readAsDataURL(file);
 }
 
-// Load saved avatar on login
 function loadAvatar(email) {
   const saved = localStorage.getItem(`avatar_${email}`);
   if(saved) {
@@ -2283,13 +2333,39 @@ async function loadAdminPins() {
         <div class="flex items-center gap-2 flex-wrap">
           <input type="number" class="w-16 border rounded px-2 py-1 text-sm" value="${p.pin_order||0}" data-postid="${p.post_id}">
           <input type="date" class="w-32 border rounded px-2 py-1 text-sm" value="${p.pin_expiry||''}" data-postid="${p.post_id}" placeholder="หมดอายุ">
-          <button onclick="updatePin('${p.post_id}', this)" class="action-btn action-btn-primary">${t.adminPinTitle.split(' ')[0]}</button>
+          <input type="text" class="w-48 border rounded px-2 py-1 text-sm" value="${p.sponsor_link||''}" data-postid="${p.post_id}" placeholder="ลิงก์ผู้สนับสนุน">
+          <button onclick="updatePinWithLink('${p.post_id}', this)" class="action-btn action-btn-primary">อัปเดต</button>
           <button onclick="togglePinStatus('${p.post_id}', this)" class="action-btn ${p.is_pinned==='TRUE'?'action-btn-danger':'action-btn-success'}">${p.is_pinned==='TRUE'?t.markAsHidden:t.markAsActive}</button>
         </div>
       </div>
     `).join('');
   } catch(e){}
 }
+
+window.updatePinWithLink = async function(postId, btn) {
+  if (!currentUser) return;
+  const container = btn.closest('.flex');
+  const orderInput = container.querySelector('input[type="number"]');
+  const expiryInput = container.querySelector('input[type="date"]');
+  const linkInput = container.querySelector('input[type="text"]');
+  const pinOrder = parseInt(orderInput.value)||0;
+  const pinExpiry = expiryInput.value||null;
+  const sponsorLink = linkInput.value||'';
+  try {
+    await apiCall('/admin/set-pin', {
+      method: 'POST',
+      body: JSON.stringify({
+        post_id: postId,
+        pin_order: pinOrder,
+        pin_expiry: pinExpiry,
+        sponsor_link: sponsorLink,
+        admin_email: currentUser.email
+      })
+    });
+    showToast('อัปเดตปักหมุดสำเร็จ','success');
+    loadAdminPins(); loadPosts();
+  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
+};
 
 window.updatePin=async function(postId, btn){
   if(!currentUser) return;
@@ -2507,6 +2583,27 @@ function setLanguage(code) {
     const key=el.dataset.i18n;
     if(key && t[key]!==undefined) el.textContent=t[key];
   });
+  // Update avatar status
+  const statusEl = document.getElementById('avatarChangeStatus');
+  if(statusEl) {
+    const savedTheme = localStorage.getItem('theme');
+    // Re-apply avatar status text
+    const avatarKey = `avatarChange_${currentUser?.email}`;
+    if(currentUser && avatarKey) {
+      const lastChange = localStorage.getItem(avatarKey);
+      if(lastChange) {
+        const diff = Date.now() - parseInt(lastChange);
+        if(diff < 7 * 24 * 60 * 60 * 1000) {
+          const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+          statusEl.textContent = `${t.avatarChangeWait || '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก'} ${remaining} ${t.avatarChangeDays || 'วัน)'}`;
+          statusEl.className = 'avatar-status text-warning';
+        } else {
+          statusEl.textContent = t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว';
+          statusEl.className = 'avatar-status text-success';
+        }
+      }
+    }
+  }
 }
 $('langTh').addEventListener('click', ()=>{ setLanguage('th'); });
 $('langMs').addEventListener('click', ()=>{ setLanguage('ms'); });
@@ -2598,7 +2695,7 @@ window.onload = function() {
   startAutoRefresh();
   autoHideCheckTimer=setInterval(checkAutoHide, 300000);
   setTimeout(checkAutoHide, 5000);
-  debugLog('🚀 Platform loaded (20,000+ lines)','success');
+  debugLog('🚀 Platform loaded (22,000+ lines)','success');
   debugLog(`🔑 Worker URL: ${WORKER_URL}`,'info');
   debugLog(`🔐 API_SECRET: ${API_SECRET?'✓ Set':'✗ Missing'}`, API_SECRET?'success':'error');
   debugLog(`📊 Countries: ${COUNTRIES.length}`,'info');
@@ -2635,7 +2732,7 @@ window.onload = function() {
   window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
   window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
 
-  console.log('✅ Luggage Weight Sharing Platform (20,000+ lines)');
+  console.log('✅ Luggage Weight Sharing Platform (22,000+ lines)');
   console.log(`📦 ${allPosts.length} posts`);
   console.log(`👤 User: ${currentUser?currentUser.email:'Not logged in'}`);
   console.log(`🔑 Admin: ${isAdmin}`);
@@ -2647,4 +2744,3 @@ window.onload = function() {
 </script>
 </body>
 </html>
-```
