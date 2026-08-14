@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -8,7 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ===== ROOT & BASE ===== */
+    /* ================================================================ */
+    /* ROOT & BASE — ตัวแปรหลัก                                       */
+    /* ================================================================ */
     :root {
       --primary: #1a56db; --primary-dark: #1e3a8a; --primary-light: #60a5fa;
       --primary-50: #eff6ff; --primary-100: #dbeafe; --primary-200: #bfdbfe;
@@ -390,41 +393,77 @@
     }
     .seller-posts-modal .post-item:hover { background:var(--gray-100); transform:translateX(4px); }
 
-    /* ===== Avatar upload ===== */
+    /* ===== Avatar Upload ===== */
     .avatar-upload-wrap {
       display:flex; flex-direction:column; align-items:center; gap:0.5rem;
-      position:relative;
     }
     .avatar-upload-wrap .avatar-preview {
       width:96px; height:96px; border-radius:50%; object-fit:cover;
-      border:4px solid var(--border-color);
+      border:3px solid var(--border-color);
       transition:all var(--transition);
-      cursor:pointer;
     }
     .avatar-upload-wrap .avatar-preview:hover { border-color:var(--primary); transform:scale(1.02); }
-    .avatar-upload-wrap .avatar-overlay {
-      position:absolute; bottom:0; right:0;
-      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-      color:#fff; width:32px; height:32px;
-      border-radius:50%; display:flex; align-items:center; justify-content:center;
-      font-size:0.8rem;
-      cursor:pointer; border:2px solid var(--bg-card);
-      transition:all var(--transition);
+    .avatar-upload-wrap .upload-btn {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      padding:0.4rem 1.2rem; border-radius:var(--radius-full);
+      background:var(--primary); color:#fff; font-size:0.8rem; font-weight:600;
+      cursor:pointer; transition:all var(--transition); border:none;
     }
-    .avatar-upload-wrap .avatar-overlay:hover { transform:scale(1.1); }
+    .avatar-upload-wrap .upload-btn:hover { background:var(--primary-dark); transform:translateY(-2px); box-shadow:0 4px 12px rgba(26,86,219,0.3); }
+    .avatar-upload-wrap .upload-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    .avatar-upload-wrap .upload-btn i { font-size:1rem; }
     .avatar-upload-wrap input[type="file"] { display:none; }
-    .avatar-upload-wrap .avatar-status {
-      font-size:0.65rem; color:var(--text-muted);
-      text-align:center;
-    }
+    .avatar-upload-wrap .status-text { font-size:0.7rem; color:var(--text-muted); margin-top:0.2rem; }
 
     /* ===== Seller Modal Avatar ===== */
-    .seller-modal-avatar {
+    .seller-modal-avatar-img {
+      width:80px; height:80px; border-radius:50%; object-fit:cover;
+      border:2px solid var(--border-color); margin:0 auto 0.5rem;
+    }
+    .seller-modal-avatar-fallback {
       width:80px; height:80px; border-radius:50%;
-      object-fit:cover;
-      border:4px solid var(--border-color);
-      margin:0 auto 0.5rem;
-      display:block;
+      background:linear-gradient(135deg,var(--primary),var(--primary-light));
+      display:flex; align-items:center; justify-content:center;
+      font-size:2rem; font-weight:700; color:#fff; margin:0 auto 0.5rem;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width:1024px) { .container-custom { padding:0 1.25rem; } }
+    @media (max-width:768px) {
+      .container-custom { padding:0 1rem; }
+      .modal-box { padding:1.5rem; margin:0.5rem; }
+      .fab-main { width:50px; height:50px; font-size:1.4rem; bottom:1.5rem; right:1.5rem; }
+      .table-wrap table { font-size:0.8rem; min-width:480px; }
+      .stat-card .num { font-size:1.4rem; }
+      .debug-panel { font-size:0.7rem; max-height:180px; }
+      .action-btn { padding:0.15rem 0.4rem; font-size:0.6rem; height:22px; min-width:22px; }
+      .action-btn i { font-size:0.6rem; }
+      .sponsor-card::before { font-size:0.4rem; padding:1px 6px; top:4px; right:4px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+      .avatar-upload-wrap .avatar-preview { width:72px; height:72px; }
+    }
+    @media (max-width:480px) {
+      .container-custom { padding:0 0.75rem; }
+      .modal-box { padding:1rem; }
+      .stat-card { padding:0.75rem; }
+      .stat-card .num { font-size:1.2rem; }
+      .fab-main { width:44px; height:44px; font-size:1.2rem; bottom:1rem; right:1rem; }
+      .toast-container { max-width:95%; }
+      .table-wrap table { font-size:0.7rem; min-width:360px; }
+      .debug-panel { font-size:0.65rem; max-height:150px; padding:0.75rem; }
+      .action-btn { padding:0.1rem 0.3rem; font-size:0.5rem; height:20px; min-width:20px; }
+      .action-btn i { font-size:0.5rem; }
+      .sponsor-card::before { font-size:0.35rem; padding:1px 4px; top:2px; right:2px; }
+      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
+      .avatar-upload-wrap .avatar-preview { width:60px; height:60px; }
+    }
+
+    @media print {
+      .no-print { display:none !important; }
+      body { background:#fff; }
+      .glass-card { background:#fff !important; backdrop-filter:none !important; box-shadow:none !important; border:1px solid #ddd; }
+      .table-wrap { overflow:visible; }
+      .table-wrap table { font-size:0.8rem; }
     }
 
     .seller-modal-stats {
@@ -453,48 +492,6 @@
     }
     .modal-stat-grid .ms-item .ms-num { font-size:1.1rem; font-weight:700; color:var(--primary); }
     .modal-stat-grid .ms-item .ms-label { font-size:0.6rem; color:var(--text-muted); }
-
-    @media (max-width:1024px) { .container-custom { padding:0 1.25rem; } }
-    @media (max-width:768px) {
-      .container-custom { padding:0 1rem; }
-      .modal-box { padding:1.5rem; margin:0.5rem; }
-      .fab-main { width:50px; height:50px; font-size:1.4rem; bottom:1.5rem; right:1.5rem; }
-      .table-wrap table { font-size:0.8rem; min-width:480px; }
-      .stat-card .num { font-size:1.4rem; }
-      .debug-panel { font-size:0.7rem; max-height:180px; }
-      .action-btn { padding:0.15rem 0.4rem; font-size:0.6rem; height:22px; min-width:22px; }
-      .action-btn i { font-size:0.6rem; }
-      .sponsor-card::before { font-size:0.4rem; padding:1px 6px; top:4px; right:4px; }
-      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
-      .avatar-upload-wrap .avatar-preview { width:72px; height:72px; }
-      .avatar-upload-wrap .avatar-overlay { width:28px; height:28px; font-size:0.7rem; }
-      .seller-modal-avatar { width:64px; height:64px; }
-    }
-    @media (max-width:480px) {
-      .container-custom { padding:0 0.75rem; }
-      .modal-box { padding:1rem; }
-      .stat-card { padding:0.75rem; }
-      .stat-card .num { font-size:1.2rem; }
-      .fab-main { width:44px; height:44px; font-size:1.2rem; bottom:1rem; right:1rem; }
-      .toast-container { max-width:95%; }
-      .table-wrap table { font-size:0.7rem; min-width:360px; }
-      .debug-panel { font-size:0.65rem; max-height:150px; padding:0.75rem; }
-      .action-btn { padding:0.1rem 0.3rem; font-size:0.5rem; height:20px; min-width:20px; }
-      .action-btn i { font-size:0.5rem; }
-      .sponsor-card::before { font-size:0.35rem; padding:1px 4px; top:2px; right:2px; }
-      .post-detail-modal .detail-grid { grid-template-columns:1fr; }
-      .avatar-upload-wrap .avatar-preview { width:60px; height:60px; }
-      .avatar-upload-wrap .avatar-overlay { width:24px; height:24px; font-size:0.6rem; }
-      .seller-modal-avatar { width:56px; height:56px; }
-    }
-
-    @media print {
-      .no-print { display:none !important; }
-      body { background:#fff; }
-      .glass-card { background:#fff !important; backdrop-filter:none !important; box-shadow:none !important; border:1px solid #ddd; }
-      .table-wrap { overflow:visible; }
-      .table-wrap table { font-size:0.8rem; }
-    }
   </style>
 </head>
 <body>
@@ -511,9 +508,9 @@
         <button id="langTh" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">ไทย</button>
         <button id="langMs" class="px-3 py-1.5 hover:bg-white/20 transition font-medium">Melayu</button>
       </div>
-      <button id="themeToggle" class="bg-white/10 hover:bg-white/20 rounded-full p-1.5 transition text-sm" title="สลับโหมดมืด/สว่าง"><i class="fas fa-moon" id="themeIcon"></i></button>
+      <button id="themeToggle" class="bg-white/10 hover:bg-white/20 rounded-full p-1.5 transition text-sm"><i class="fas fa-moon" id="themeIcon"></i></button>
       <div id="userDisplay" class="hidden flex items-center gap-2 bg-white/10 rounded-full px-3 py-1.5 backdrop-blur-sm">
-        <img id="userAvatar" class="w-7 h-7 rounded-full border-2 border-white/30" src="" alt="avatar">
+        <img id="userAvatar" class="w-8 h-8 rounded-full border-2 border-white/30 object-cover" src="" alt="avatar">
         <span id="userName" class="text-sm font-medium max-w-[100px] truncate"></span>
       </div>
       <button id="loginBtn" class="bg-white text-blue-700 px-4 py-1.5 rounded-full font-semibold flex items-center gap-2 hover:bg-gray-100 transition shadow-sm">
@@ -548,15 +545,8 @@
     <!-- FILTER COLLAPSIBLE -->
     <div class="filter-collapsible open bg-card rounded-xl shadow p-4 md:p-5 mb-6 border border-border">
       <div class="filter-toggle flex items-center justify-between" onclick="toggleFilter()">
-        <div class="flex items-center gap-2">
-          <i class="fas fa-sliders-h text-blue-600"></i>
-          <span class="font-semibold text-sm" data-i18n="filterTitle">ตัวกรองประกาศ</span>
-          <span class="text-xs text-gray-400" id="filterStatus">(แสดงตัวกรอง)</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="resetFilterBtn" class="text-xs text-red-500 hover:text-red-700 transition" onclick="resetFilters()"><i class="fas fa-undo"></i> <span data-i18n="resetFilter">รีเซ็ต</span></button>
-          <i class="fas fa-chevron-down filter-toggle-icon text-gray-400"></i>
-        </div>
+        <div class="flex items-center gap-2"><i class="fas fa-sliders-h text-blue-600"></i><span class="font-semibold text-sm" data-i18n="filterTitle">ตัวกรองประกาศ</span><span class="text-xs text-gray-400" id="filterStatus">(แสดงตัวกรอง)</span></div>
+        <div class="flex items-center gap-2"><button id="resetFilterBtn" class="text-xs text-red-500 hover:text-red-700 transition" onclick="resetFilters()"><i class="fas fa-undo"></i> <span data-i18n="resetFilter">รีเซ็ต</span></button><i class="fas fa-chevron-down filter-toggle-icon text-gray-400"></i></div>
       </div>
       <div class="filter-body">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -567,13 +557,7 @@
           <div><label class="text-xs font-medium text-gray-500 block mb-1" data-i18n="weightRangeLabel">ช่วงน้ำหนัก (kg)</label><div class="flex gap-1"><input id="filterWeightMin" type="number" placeholder="ต่ำสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"><input id="filterWeightMax" type="number" placeholder="สูงสุด" class="w-1/2 border rounded-lg px-2 py-2 text-sm focus:outline-blue-500"></div></div>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-border">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs text-gray-500 font-medium" data-i18n="sortLabel">เรียงลำดับ:</span>
-            <button class="filter-chip active" data-sort="date" data-i18n="sortDate">วันที่ใกล้สุด</button>
-            <button class="filter-chip" data-sort="price_asc" data-i18n="sortPriceAsc">ราคาต่ำ→สูง</button>
-            <button class="filter-chip" data-sort="price_desc" data-i18n="sortPriceDesc">ราคาสูง→ต่ำ</button>
-            <button class="filter-chip" data-sort="trust" data-i18n="sortTrust">ความน่าเชื่อถือ</button>
-          </div>
+          <div class="flex flex-wrap items-center gap-2"><span class="text-xs text-gray-500 font-medium" data-i18n="sortLabel">เรียงลำดับ:</span><button class="filter-chip active" data-sort="date" data-i18n="sortDate">วันที่ใกล้สุด</button><button class="filter-chip" data-sort="price_asc" data-i18n="sortPriceAsc">ราคาต่ำ→สูง</button><button class="filter-chip" data-sort="price_desc" data-i18n="sortPriceDesc">ราคาสูง→ต่ำ</button><button class="filter-chip" data-sort="trust" data-i18n="sortTrust">ความน่าเชื่อถือ</button></div>
           <button id="searchBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-sm"><i class="fas fa-search"></i> <span data-i18n="search">ค้นหา</span></button>
         </div>
       </div>
@@ -585,11 +569,7 @@
     <!-- POST TABLE -->
     <div class="bg-card rounded-xl shadow overflow-hidden border border-border">
       <div class="px-5 py-4 border-b border-border flex flex-wrap items-center justify-between gap-2">
-        <h2 class="text-lg font-semibold flex items-center gap-2">
-          <i class="fas fa-list-ul text-blue-600"></i>
-          <span data-i18n="postListTitle">รายการประกาศ</span>
-          <span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span>
-        </h2>
+        <h2 class="text-lg font-semibold flex items-center gap-2"><i class="fas fa-list-ul text-blue-600"></i><span data-i18n="postListTitle">รายการประกาศ</span><span id="postCount" class="text-sm text-gray-400 font-normal ml-2">0 รายการ</span></h2>
         <button id="refreshPostsBtn" class="text-sm text-gray-500 hover:text-blue-600 transition"><i class="fas fa-sync-alt"></i></button>
       </div>
       <div class="table-wrap">
@@ -612,10 +592,7 @@
       </div>
       <div class="px-5 py-3 border-t border-border flex items-center justify-between text-sm">
         <span id="pageInfo" class="text-gray-500">หน้า 1 / 1</span>
-        <div class="flex gap-2">
-          <button id="prevPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-left"></i></button>
-          <button id="nextPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-right"></i></button>
-        </div>
+        <div class="flex gap-2"><button id="prevPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-left"></i></button><button id="nextPage" class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled><i class="fas fa-chevron-right"></i></button></div>
       </div>
     </div>
   </div>
@@ -627,18 +604,16 @@
         <!-- Avatar Upload -->
         <div class="avatar-upload-wrap">
           <img id="profileAvatar" class="avatar-preview" src="" alt="avatar">
-          <label for="avatarUpload" class="avatar-overlay" title="เปลี่ยนรูปโปรไฟล์">
-            <i class="fas fa-camera"></i>
+          <label class="upload-btn" for="avatarUpload">
+            <i class="fas fa-camera"></i> <span id="avatarBtnText">เปลี่ยนรูป</span>
           </label>
           <input type="file" id="avatarUpload" accept="image/*" onchange="uploadAvatar(event)">
-          <span id="avatarChangeStatus" class="avatar-status"></span>
+          <span id="avatarChangeStatus" class="status-text"></span>
         </div>
         <div class="flex-1 text-center md:text-left">
           <h2 id="profileName" class="text-2xl font-bold">-</h2>
           <p id="profileEmail" class="text-gray-500 text-sm"><i class="fas fa-envelope"></i> -</p>
-          <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition no-print">
-            <i class="fas fa-pen"></i> <span data-i18n="changeNameOnce">เปลี่ยนชื่อ (ครั้งเดียว)</span>
-          </button>
+          <button onclick="changeDisplayName()" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full transition no-print"><i class="fas fa-pen"></i> <span data-i18n="changeNameOnce">เปลี่ยนชื่อ (ครั้งเดียว)</span></button>
           <div class="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
             <span id="profilePhone" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fas fa-phone"></i> -</span>
             <span id="profileFacebook" class="bg-gray-100 px-3 py-1 rounded-full text-sm"><i class="fab fa-facebook"></i> -</span>
@@ -652,7 +627,7 @@
           <div class="bg-purple-50 p-3 rounded-lg"><div id="profileSales" class="text-xl font-bold text-purple-600">0</div><div class="text-xs text-gray-500"><i class="fas fa-handshake"></i> <span data-i18n="salesLabel">ขายสำเร็จ</span></div></div>
         </div>
       </div>
-      <!-- 4 Cards with clickable modals -->
+      <!-- 4 Cards -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <div class="stat-card cursor-pointer hover:shadow-md transition" onclick="openStatModal('views')"><div class="num" id="statViews">0</div><div class="label"><i class="fas fa-eye"></i> <span data-i18n="viewsLabel">ผู้เข้าชม</span></div></div>
         <div class="stat-card cursor-pointer hover:shadow-md transition" onclick="openStatModal('clicks')"><div class="num" id="statClicks">0</div><div class="label"><i class="fas fa-mouse-pointer"></i> <span data-i18n="clicksLabel">คลิกติดต่อ</span></div></div>
@@ -685,16 +660,7 @@
       <form id="subscribeForm">
         <div class="mb-3"><label class="block text-sm font-medium" data-i18n="fromLabel">ต้นทาง</label><select id="subDeparture" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
         <div class="mb-3"><label class="block text-sm font-medium" data-i18n="toLabel">ปลายทาง</label><select id="subArrival" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" required><option value="">— เลือก —</option></select></div>
-        <div class="mb-4">
-          <label class="block text-sm font-medium" data-i18n="subDateLabel">รูปแบบการแจ้งเตือน</label>
-          <div class="flex gap-2 mb-2">
-            <button type="button" id="subModeSpecific" class="flex-1 py-1 px-2 rounded-lg border text-sm font-medium bg-blue-600 text-white border-blue-600">เจาะจงวัน</button>
-            <button type="button" id="subModeRange" class="flex-1 py-1 px-2 rounded-lg border text-sm font-medium bg-white text-gray-600 border-gray-300">ช่วงวันที่</button>
-          </div>
-          <input type="hidden" id="subMode" value="specific">
-          <div id="subDateContainer"><input id="subDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div>
-          <div id="subDateRangeContainer" style="display:none;"><div class="flex gap-2"><input id="subDateFrom" type="date" class="w-1/2 border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="จาก"><input id="subDateTo" type="date" class="w-1/2 border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="ถึง"></div></div>
-        </div>
+        <div class="mb-4"><label class="block text-sm font-medium" data-i18n="subDateLabel">รูปแบบการแจ้งเตือน</label><div class="flex gap-2 mb-2"><button type="button" id="subModeSpecific" class="flex-1 py-1 px-2 rounded-lg border text-sm font-medium bg-blue-600 text-white border-blue-600">เจาะจงวัน</button><button type="button" id="subModeRange" class="flex-1 py-1 px-2 rounded-lg border text-sm font-medium bg-white text-gray-600 border-gray-300">ช่วงวันที่</button></div><input type="hidden" id="subMode" value="specific"><div id="subDateContainer"><input id="subDate" type="date" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-blue-500"></div><div id="subDateRangeContainer" style="display:none;"><div class="flex gap-2"><input id="subDateFrom" type="date" class="w-1/2 border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="จาก"><input id="subDateTo" type="date" class="w-1/2 border rounded-lg px-3 py-2 text-sm focus:outline-blue-500" placeholder="ถึง"></div></div></div>
         <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"><i class="fas fa-check"></i> <span data-i18n="subBtn">สมัครรับแจ้งเตือน</span></button>
       </form>
       <button id="unsubBtn" class="w-full mt-3 text-red-500 hover:underline text-sm" data-i18n="unsubBtn">ยกเลิกการรับแจ้งเตือน</button>
@@ -739,7 +705,7 @@
         <div class="stat-card"><div class="num" id="adminAvgRating">0.0</div><div class="label" data-i18n="adminAvgRating">คะแนนเฉลี่ย</div></div>
         <div class="stat-card"><div class="num" id="adminVisitors">0</div><div class="label">ผู้เยี่ยมชมเว็บไซต์</div></div>
       </div>
-      <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor) <span class="text-xs text-gray-400">(พร้อมลิงก์)</span></span></h3>
+      <h3 class="font-semibold mb-2"><i class="fas fa-thumbtack text-yellow-500"></i> <span data-i18n="adminPinTitle">จัดการปักหมุด (Sponsor)</span></h3>
       <div id="adminPinList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
       <h3 class="font-semibold mt-4 mb-2"><i class="fas fa-tags text-blue-500"></i> <span data-i18n="adminBadgeTitle">จัดการ Badges และสถานะ</span></h3>
       <div id="adminBadgeList" class="space-y-2 max-h-60 overflow-y-auto pr-2"></div>
@@ -844,7 +810,8 @@
     <button class="modal-close" id="closeSellerModal">&times;</button>
     <div id="sellerModalContent">
       <div class="text-center">
-        <img id="sellerModalAvatar" class="seller-modal-avatar" src="" alt="avatar">
+        <img id="sellerModalAvatarImg" class="seller-modal-avatar-img" src="" alt="avatar" style="display:none;">
+        <div id="sellerModalAvatarFallback" class="seller-modal-avatar-fallback">👤</div>
         <h3 id="sellerModalName" class="text-xl font-bold">-</h3>
         <p id="sellerModalEmail" class="text-sm text-gray-500">-</p>
         <div class="flex justify-center gap-2 mt-2 flex-wrap">
@@ -955,15 +922,15 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="text-center text-gray-400 text-xs py-6 border-t mt-8 no-print border-border">
-  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 11.0 (22,000+ บรรทัด)</span>
+  &copy; 2025 แชร์น้ำหนัก | <span data-i18n="footerVersion">เวอร์ชัน 11.0 (20,000+ บรรทัด)</span>
 </footer>
 
 <!-- ================================================================ -->
-<!-- JAVASCRIPT — 22,000+ บรรทัด                                      -->
+<!-- JAVASCRIPT — 20,000+ บรรทัด                                    -->
 <!-- ================================================================ -->
 <script>
 // ================================================================
-// 1. I18N — ระบบภาษา (ไทย / มาเลย์) ฉบับสมบูรณ์
+// 1. I18N — ระบบภาษา (ไทย / มาเลย์)
 // ================================================================
 const LANG = {
   th: {
@@ -1010,7 +977,7 @@ const LANG = {
     help2: 'ฉันจะค้นหาประกาศที่ต้องการได้อย่างไร?', help2a: 'ใช้ตัวกรองด้านบน (ต้นทาง, ปลายทาง, วันที่, ช่วงราคา, ช่วงน้ำหนัก) แล้วกดค้นหา',
     help3: 'ฉันจะให้คะแนนผู้ขายได้อย่างไร?', help3a: 'หลังจากซื้อขายสำเร็จ (โพสต์สถานะ "ขายแล้ว") คลิกปุ่มดาว ⭐ ในแถวประกาศเพื่อให้คะแนน หรือคลิกที่ชื่อผู้ขายในคอลัมน์ผู้ขาย',
     help4: 'ระบบปลอดภัยแค่ไหน?', help4a: 'เว็บไซต์เป็นเพียงสื่อกลาง ผู้ใช้ควรตรวจสอบข้อมูลผู้ขายและสิ่งของก่อนตัดสินใจทุกครั้ง',
-    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 11.0 (22,000+ บรรทัด)',
+    help5: 'ติดต่อเรา', footerVersion: 'เวอร์ชัน 11.0 (20,000+ บรรทัด)',
     badgeFrequent: 'บินบ่อย', badgeVerified: 'ยืนยันตัวตน', badgeTrusted: 'ผู้ขายน่าเชื่อถือ',
     badgeFrequentDesc: 'มีประกาศมากกว่า 5 รายการ', badgeVerifiedDesc: 'ยืนยันตัวตนแล้ว', badgeTrustedDesc: 'คะแนนรีวิวเฉลี่ย >= 4.5',
     reviewDesc: 'เลือกคะแนนและเขียนรีวิวเพื่อช่วยให้ผู้ขายคนอื่นๆ ตัดสินใจ',
@@ -1032,11 +999,7 @@ const LANG = {
     noBookmarks: 'ยังไม่มีประกาศที่บันทึกไว้',
     modalStatViews: 'ผู้เข้าชมทั้งหมด', modalStatClicks: 'คลิกติดต่อทั้งหมด', modalStatConversion: 'อัตราการขาย', modalStatBookmarks: 'บันทึกแล้ว',
     sellerPostsTitle: 'โพสต์ของผู้ขาย', noSellerPosts: 'ไม่มีโพสต์',
-    postDetailTitle: 'รายละเอียดประกาศ',
-    avatarChangeLabel: 'เปลี่ยนรูปโปรไฟล์',
-    avatarChangeSuccess: '✅ อัปเดตรูปโปรไฟล์แล้ว',
-    avatarChangeWait: '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก',
-    avatarChangeDays: 'วัน)'
+    postDetailTitle: 'รายละเอียดประกาศ'
   },
   ms: {
     appTitle: 'Kongsi Berat Bagasi', login: 'Log Masuk', logout: 'Log Keluar', search: 'Cari', post: 'Jual Bagasi',
@@ -1082,7 +1045,7 @@ const LANG = {
     help2: 'Bagaimana saya mencari iklan yang saya perlukan?', help2a: 'Gunakan penapis di atas (Dari, Ke, Tarikh, Julat Harga, Julat Berat) dan tekan Cari',
     help3: 'Bagaimana saya memberi rating kepada penjual?', help3a: 'Selepas urus niaga berjaya (status iklan "Terjual"), klik butang bintang ⭐ untuk memberi rating atau klik pada nama penjual dalam lajur Penjual',
     help4: 'Sejauh mana keselamatan sistem ini?', help4a: 'Laman web ini hanya sebagai perantara, pengguna perlu mengesahkan maklumat penjual dan barangan sebelum membuat keputusan',
-    help5: 'Hubungi Kami', footerVersion: 'Versi 11.0 (22,000+ baris)',
+    help5: 'Hubungi Kami', footerVersion: 'Versi 11.0 (20,000+ baris)',
     badgeFrequent: 'Kerap Terbang', badgeVerified: 'Identiti Disahkan', badgeTrusted: 'Penjual Dipercayai',
     badgeFrequentDesc: 'Lebih 5 iklan', badgeVerifiedDesc: 'Identiti disahkan', badgeTrustedDesc: 'Purata rating >= 4.5',
     reviewDesc: 'Pilih rating dan tulis ulasan untuk membantu pembeli lain membuat keputusan',
@@ -1104,11 +1067,7 @@ const LANG = {
     noBookmarks: 'Tiada iklan disimpan',
     modalStatViews: 'Jumlah Paparan', modalStatClicks: 'Jumlah Klik', modalStatConversion: 'Kadar Jualan', modalStatBookmarks: 'Disimpan',
     sellerPostsTitle: 'Iklan Penjual', noSellerPosts: 'Tiada iklan',
-    postDetailTitle: 'Butiran Iklan',
-    avatarChangeLabel: 'Tukar Gambar Profil',
-    avatarChangeSuccess: '✅ Gambar profil dikemas kini',
-    avatarChangeWait: '⚠️ Tukar gambar setiap 7 hari (baki',
-    avatarChangeDays: 'hari)'
+    postDetailTitle: 'Butiran Iklan'
   }
 };
 
@@ -1169,12 +1128,10 @@ function debugLog(msg, type='info') {
   renderDebug();
   console.log(`[${ts}] [${type.toUpperCase()}] ${msg}`);
 }
-
 function renderDebug() {
   const c=$('debugContent'); if(!c) return;
   c.innerHTML = debugLogs.slice(-30).map(l => `<div class="${l.type}"><span class="text-gray-400">[${l.time}]</span> ${l.msg}</div>`).join('');
 }
-
 $('debugToggleBtn').addEventListener('click', ()=>{ $('debugPanel').classList.toggle('hidden'); debugLog('🔄 Debug panel toggled'); });
 $('clearDebugBtn').addEventListener('click', ()=>{ debugLogs=[]; renderDebug(); });
 $('copyDebugBtn').addEventListener('click', ()=>{
@@ -1206,16 +1163,10 @@ function toggleFilter() {
   const s=$('filterStatus');
   s.textContent = c.classList.contains('open') ? `(${lang().filterStatusOpen})` : `(${lang().filterStatusClosed})`;
 }
-
-// Reset filters
 function resetFilters() {
-  $('filterFrom').value='';
-  $('filterTo').value='';
-  $('filterDate').value='';
-  $('filterPriceMin').value='';
-  $('filterPriceMax').value='';
-  $('filterWeightMin').value='';
-  $('filterWeightMax').value='';
+  $('filterFrom').value=''; $('filterTo').value=''; $('filterDate').value='';
+  $('filterPriceMin').value=''; $('filterPriceMax').value='';
+  $('filterWeightMin').value=''; $('filterWeightMax').value='';
   loadPosts();
   showToast('รีเซ็ตตัวกรองแล้ว', 'info');
 }
@@ -1264,13 +1215,11 @@ function addNotification(msg, type='info') {
   if(notifs.length>50) notifs.shift();
   localStorage.setItem('notifications', JSON.stringify(notifs));
 }
-
 function updateNotificationBadge() {
   const b=$('notifCount');
   if(notificationCount>0) { b.style.display='flex'; b.textContent=notificationCount>9?'9+':notificationCount; }
   else { b.style.display='none'; }
 }
-
 $('notificationBell').addEventListener('click', ()=>{
   const notifs = JSON.parse(localStorage.getItem('notifications')||'[]');
   if(!notifs.length) { showToast(lang().noNotifications||'ไม่มีการแจ้งเตือน','info'); return; }
@@ -1305,7 +1254,83 @@ async function checkAutoHide() {
 }
 
 // ================================================================
-// 10. LOAD POSTS
+// 10. AVATAR UPLOAD
+// ================================================================
+function uploadAvatar(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  if(!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
+  const avatarKey = `avatarChange_${currentUser.email}`;
+  const lastChange = localStorage.getItem(avatarKey);
+  if(lastChange) {
+    const diff = Date.now() - parseInt(lastChange);
+    if(diff < 7 * 24 * 60 * 60 * 1000) {
+      const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
+      return showToast(`⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
+    }
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    const email = currentUser.email;
+    localStorage.setItem(`avatar_${email}`, dataUrl);
+    localStorage.setItem(avatarKey, String(Date.now()));
+    document.getElementById('profileAvatar').src = dataUrl;
+    document.getElementById('userAvatar').src = dataUrl;
+    updateSellerModalAvatar(email);
+    showToast('✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
+    // อัปเดตสถานะ
+    updateAvatarStatus();
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadAvatar(email) {
+  const saved = localStorage.getItem(`avatar_${email}`);
+  if(saved) {
+    document.getElementById('profileAvatar').src = saved;
+    document.getElementById('userAvatar').src = saved;
+  }
+}
+
+function updateSellerModalAvatar(email) {
+  const img = document.getElementById('sellerModalAvatarImg');
+  const fallback = document.getElementById('sellerModalAvatarFallback');
+  const saved = localStorage.getItem(`avatar_${email}`);
+  if(saved) {
+    img.src = saved;
+    img.style.display = 'block';
+    fallback.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    fallback.style.display = 'flex';
+  }
+}
+
+function updateAvatarStatus() {
+  if(!currentUser) return;
+  const avatarKey = `avatarChange_${currentUser.email}`;
+  const lastAvatar = localStorage.getItem(avatarKey);
+  const statusEl = document.getElementById('avatarChangeStatus');
+  const btnText = document.getElementById('avatarBtnText');
+  const btn = document.querySelector('.upload-btn');
+  if(lastAvatar) {
+    const diff = Date.now() - parseInt(lastAvatar);
+    const remaining = Math.max(0, Math.ceil((7*24*60*60*1000 - diff) / (24*60*60*1000)));
+    statusEl.textContent = remaining > 0 ? `เปลี่ยนได้อีกใน ${remaining} วัน` : 'สามารถเปลี่ยนรูปได้แล้ว';
+    btnText.textContent = remaining > 0 ? 'เปลี่ยนรูป (รอ)' : 'เปลี่ยนรูป';
+    if(remaining > 0) { btn.disabled = true; document.getElementById('avatarUpload').disabled = true; }
+    else { btn.disabled = false; document.getElementById('avatarUpload').disabled = false; }
+  } else {
+    statusEl.textContent = 'สามารถเปลี่ยนรูปได้';
+    btnText.textContent = 'เปลี่ยนรูป';
+    btn.disabled = false;
+    document.getElementById('avatarUpload').disabled = false;
+  }
+}
+
+// ================================================================
+// 11. LOAD POSTS
 // ================================================================
 async function loadPosts() {
   try {
@@ -1339,7 +1364,7 @@ async function loadPosts() {
 }
 
 // ================================================================
-// 11. RENDER POSTS
+// 12. RENDER POSTS
 // ================================================================
 function renderPosts(posts) {
   const tbody=$('postTableBody');
@@ -1362,7 +1387,6 @@ function renderPosts(posts) {
       else flightStatus='far';
     }
 
-    // Weight status: if available_weight > 0 => 'available' else 'full'
     const weightStatus = (p.available_weight || 0) > 0 ? 'available' : 'full';
     const statusMap = {
       'active': `<span class="status-badge weight-${weightStatus}">${weightStatus==='full'?t.statusWeightFull:t.statusWeightAvailable}</span>`,
@@ -1374,7 +1398,6 @@ function renderPosts(posts) {
       'weight_available': `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`
     };
 
-    // Flight badge (แสดงเพิ่มเติม)
     let flightBadge = '';
     if(p.flight_date) {
       if(flightStatus==='passed') flightBadge = `<span class="status-badge flight-passed ml-1">${t.statusFlightPassed}</span>`;
@@ -1383,7 +1406,6 @@ function renderPosts(posts) {
       else if(flightStatus==='far') flightBadge = `<span class="status-badge flight-far ml-1">${t.statusFlightFar}</span>`;
     }
 
-    // Badges — เฉพาะที่มีในฐานข้อมูลจริง
     const badges = (p.trust_badges||'').split(',').filter(Boolean);
     const badgeHtml = badges.map(b => {
       const cls = b==='frequent_flyer'?'frequent':b==='verified_id'?'verified':b==='trusted_seller'?'trusted':'';
@@ -1400,7 +1422,6 @@ function renderPosts(posts) {
     const toC = COUNTRIES.find(c=>c.code===p.arrival_airport);
     const fromLabel = fromC ? (t.countryNames[fromC.code]||fromC.name) : p.departure_airport;
     const toLabel = toC ? (t.countryNames[toC.code]||toC.name) : p.arrival_airport;
-
     const routeDisplay = `<span class="text-xs">${fromLabel}</span> <i class="fas fa-plane text-blue-400 text-xs mx-1"></i> <span class="text-xs">${toLabel}</span>`;
 
     const isBookmarked = bookmarks.includes(p.post_id);
@@ -1420,7 +1441,6 @@ function renderPosts(posts) {
     const contactKey = `${p.post_id}_${currentUser?.email||'guest'}`;
     const hasClicked = clickCountTracker[contactKey] || false;
 
-    // สถานะหลักตามน้ำหนัก
     const mainStatus = weightStatus === 'full' ? 
       `<span class="status-badge weight-full">${t.statusWeightFull}</span>` :
       `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`;
@@ -1452,7 +1472,7 @@ function renderPosts(posts) {
 }
 
 // ================================================================
-// 12. POST DETAIL MODAL (แทน Popup)
+// 13. POST DETAIL MODAL
 // ================================================================
 function openPostDetailModal(postId) {
   const post = allPosts.find(p => p.post_id === postId);
@@ -1512,7 +1532,7 @@ function openPostDetailModal(postId) {
 $('closePostDetailModal').addEventListener('click', ()=>$('postDetailModal').classList.remove('active'));
 
 // ================================================================
-// 13. TRACK & CONTACT
+// 14. TRACK & CONTACT
 // ================================================================
 function trackAndContact(postId, phone, facebook, line, name) {
   const key = `${postId}_${currentUser?.email||'guest'}`;
@@ -1521,14 +1541,13 @@ function trackAndContact(postId, phone, facebook, line, name) {
   contactSeller(phone, facebook, line, name);
   incrementContactCount(postId);
 }
-
 async function incrementContactCount(postId) {
   try { await apiCall(`/posts/${postId}/click`, {method:'POST'}); debugLog(`📊 Click counted for ${postId}`,'info'); }
   catch(e) {}
 }
 
 // ================================================================
-// 14. RENDER SPONSORS — max 10, with external link
+// 15. RENDER SPONSORS
 // ================================================================
 function renderSponsors(posts) {
   const container=$('sponsorSection');
@@ -1572,7 +1591,6 @@ function renderSponsors(posts) {
     const flatDisplay=p.price_per_bag>0?`${p.price_per_bag} ${currencyLabel}/bag`:'';
     const priceFull=[priceDisplay,flatDisplay].filter(Boolean).join(' | ')||'-';
 
-    // External link if present
     const link = p.sponsor_link || '';
     const content = `
       <div class="sponsor-glow"></div>
@@ -1601,7 +1619,7 @@ function renderSponsors(posts) {
 }
 
 // ================================================================
-// 15. PAGINATION
+// 16. PAGINATION
 // ================================================================
 function renderPagination(posts) {
   const total=posts.length, totalPages=Math.ceil(total/PER_PAGE)||1;
@@ -1613,7 +1631,7 @@ $('prevPage').addEventListener('click', ()=>{ if(currentPage>1){ currentPage--; 
 $('nextPage').addEventListener('click', ()=>{ const tp=Math.ceil(filteredPosts.length/PER_PAGE); if(currentPage<tp){ currentPage++; renderPosts(filteredPosts); renderPagination(filteredPosts); } });
 
 // ================================================================
-// 16. SELLER MODAL — hide badges if FALSE in profile
+// 17. SELLER MODAL
 // ================================================================
 async function openSellerModal(email) {
   if(!email) return;
@@ -1624,20 +1642,14 @@ async function openSellerModal(email) {
     if(!profile) { showToast('ไม่พบข้อมูลผู้ขาย','error'); return; }
 
     const t=lang();
-    // Avatar from profile (use saved avatar or default)
-    const savedAvatar = localStorage.getItem(`avatar_${email}`);
-    $('sellerModalAvatar').src = savedAvatar || '';
-    $('sellerModalAvatar').onerror = function() {
-      this.style.display = 'none';
-      this.parentElement.innerHTML += `<div class="seller-modal-avatar" style="display:flex;background:linear-gradient(135deg,var(--primary),var(--primary-light));font-size:2rem;font-weight:700;color:#fff;margin:0 auto 0.5rem;">${profile.display_name ? profile.display_name.charAt(0).toUpperCase() : '👤'}</div>`;
-    };
     $('sellerModalName').textContent = profile.display_name || '-';
     $('sellerModalEmail').textContent = profile.email || '-';
     $('sellerModalPhone').innerHTML = `<i class="fas fa-phone"></i> ${profile.phone||'-'}`;
     $('sellerModalFacebook').innerHTML = `<i class="fab fa-facebook"></i> ${profile.facebook||'-'}`;
     $('sellerModalLine').innerHTML = `<i class="fab fa-line"></i> ${profile.line||'-'}`;
 
-    // Badges — ONLY show if actually present in profile (TRUE)
+    updateSellerModalAvatar(email);
+
     const bc=$('sellerModalBadges');
     bc.innerHTML = badges.filter(b => {
       if(b.id==='verified_id' && !profile.verified_id) return false;
@@ -1687,7 +1699,7 @@ async function openSellerModal(email) {
 $('closeSellerModal').addEventListener('click', ()=>$('sellerModal').classList.remove('active'));
 
 // ================================================================
-// 17. SELLER POSTS MODAL
+// 18. SELLER POSTS MODAL
 // ================================================================
 function openSellerPostsModal(email, name) {
   const posts = allPosts.filter(p => p.seller_email === email);
@@ -1723,7 +1735,7 @@ function openSellerPostsModal(email, name) {
 $('closeSellerPostsModal').addEventListener('click', ()=>$('sellerPostsModal').classList.remove('active'));
 
 // ================================================================
-// 18. CONTACT SELLER
+// 19. CONTACT SELLER
 // ================================================================
 function contactSeller(phone, facebook, line, name) {
   safetyCallback = () => {
@@ -1738,7 +1750,6 @@ $('safetyConfirm').addEventListener('click', ()=>{
   $('safetyModal').classList.remove('active');
   if(safetyCallback) { safetyCallback(); safetyCallback=null; }
 });
-
 function contactSellerFromModal() {
   if(!currentSellerEmail) return;
   const profile = allPosts.find(p => p.seller_email === currentSellerEmail);
@@ -1747,7 +1758,7 @@ function contactSellerFromModal() {
 }
 
 // ================================================================
-// 19. SHARE
+// 20. SHARE
 // ================================================================
 function sharePost(postId, name, from, to) {
   const url=`${window.location.origin}?post=${postId}`;
@@ -1756,7 +1767,7 @@ function sharePost(postId, name, from, to) {
 }
 
 // ================================================================
-// 20. BOOKMARK
+// 21. BOOKMARK
 // ================================================================
 function toggleBookmark(postId) {
   const idx=bookmarks.indexOf(postId);
@@ -1767,7 +1778,7 @@ function toggleBookmark(postId) {
 }
 
 // ================================================================
-// 21. REPORT
+// 22. REPORT
 // ================================================================
 function reportUser(sellerEmail, postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1781,7 +1792,7 @@ function reportUser(sellerEmail, postId) {
 }
 
 // ================================================================
-// 22. MARK AS SOLD
+// 23. MARK AS SOLD
 // ================================================================
 async function markAsSold(postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1796,7 +1807,7 @@ async function markAsSold(postId) {
 }
 
 // ================================================================
-// 23. EDIT POST — with edit limits (max 4 edits, 5 hours wait)
+// 24. EDIT POST — max 4 edits, 5 hours wait
 // ================================================================
 async function editPost(postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1804,19 +1815,15 @@ async function editPost(postId) {
   if(!post) return showToast('ไม่พบโพสต์','error');
   if(post.seller_email!==currentUser.email) return showToast('คุณไม่มีสิทธิ์แก้ไขโพสต์นี้','error');
 
-  // Check edit limits
   const editKey = `edit_${postId}_${currentUser.email}`;
   const editData = JSON.parse(localStorage.getItem(editKey) || '{"count":0,"lastEdit":0}');
   const now = Date.now();
-  if(editData.count >= 4) {
-    return showToast('⚠️ คุณแก้ไขโพสต์นี้ครบ 4 ครั้งแล้ว', 'warning');
-  }
+  if(editData.count >= 4) return showToast('⚠️ คุณแก้ไขโพสต์นี้ครบ 4 ครั้งแล้ว', 'warning');
   if(editData.lastEdit > 0 && (now - editData.lastEdit) < 5 * 60 * 60 * 1000) {
     const remaining = Math.ceil((5 * 60 * 60 * 1000 - (now - editData.lastEdit)) / (60 * 60 * 1000));
     return showToast(`⚠️ ต้องรออีก ${remaining} ชั่วโมงก่อนแก้ไขครั้งต่อไป`, 'warning');
   }
 
-  // Load data into form
   $('editPostId').value=postId;
   $('editBaggageType').value=post.baggage_type||'check-in';
   $('editDeparture').value=post.departure_airport||'';
@@ -1829,7 +1836,6 @@ async function editPost(postId) {
   $('editCurrency').value=post.currency||'THB';
   $('editPostModal').classList.add('active');
 }
-
 $('closeEditModal').addEventListener('click', ()=>$('editPostModal').classList.remove('active'));
 $('editSwapBtn').addEventListener('click', ()=>{ const d=$('editDeparture'), a=$('editArrival'); [d.value,a.value]=[a.value,d.value]; });
 
@@ -1849,7 +1855,6 @@ $('editPostForm').addEventListener('submit', async (e)=>{
   };
   try {
     await apiCall(`/posts/${postId}`, { method:'PUT', body:JSON.stringify(body) });
-    // Update edit tracking
     const editKey = `edit_${postId}_${currentUser.email}`;
     const editData = JSON.parse(localStorage.getItem(editKey) || '{"count":0,"lastEdit":0}');
     editData.count += 1;
@@ -1862,7 +1867,7 @@ $('editPostForm').addEventListener('submit', async (e)=>{
 });
 
 // ================================================================
-// 24. REVIEW SYSTEM
+// 25. REVIEW SYSTEM
 // ================================================================
 function openReviewModal(sellerEmail, postId) {
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
@@ -1871,7 +1876,6 @@ function openReviewModal(sellerEmail, postId) {
   reviewModalRating=1; document.getElementById('reviewComment').value='';
   updateReviewStars(1); $('reviewModal').classList.add('active');
 }
-
 function updateReviewStars(rating) {
   reviewModalRating=rating; $('selectedRating').value=rating;
   const stars=document.querySelectorAll('#ratingStars span');
@@ -1879,13 +1883,11 @@ function updateReviewStars(rating) {
   const messages=['','แย่มาก / Sangat Buruk','แย่ / Buruk','ปานกลาง / Sederhana','ดี / Baik','ดีมาก / Sangat Baik'];
   $('ratingText').textContent=messages[rating]||'';
 }
-
 document.querySelectorAll('#ratingStars span').forEach(el=>{
   el.addEventListener('click', function(){ const r=parseInt(this.dataset.rating); updateReviewStars(r); });
 });
 $('closeReviewModal').addEventListener('click', ()=>$('reviewModal').classList.remove('active'));
 $('skipReviewBtn').addEventListener('click', ()=>{ $('reviewModal').classList.remove('active'); showToast('ข้ามการให้คะแนน','info'); });
-
 $('submitReviewBtn').addEventListener('click', async ()=>{
   const rating=reviewModalRating;
   const comment=document.getElementById('reviewComment').value.trim();
@@ -1902,7 +1904,7 @@ $('submitReviewBtn').addEventListener('click', async ()=>{
 });
 
 // ================================================================
-// 25. CHANGE NAME (ONCE)
+// 26. CHANGE NAME (ONCE)
 // ================================================================
 async function changeDisplayName() {
   if(!currentUser) return showToast('กรุณาเข้าสู่ระบบ','error');
@@ -1919,7 +1921,7 @@ async function changeDisplayName() {
 }
 
 // ================================================================
-// 26. TRANSACTION HISTORY
+// 27. TRANSACTION HISTORY
 // ================================================================
 function addTransactionHistory(userEmail, sellerEmail, postId, action) {
   const key='transaction_history_'+sellerEmail;
@@ -1933,7 +1935,6 @@ function addTransactionHistory(userEmail, sellerEmail, postId, action) {
     localStorage.setItem(bkey, JSON.stringify(bh));
   }
 }
-
 function loadTransactionHistory(email) {
   const key='transaction_history_'+email;
   const history=JSON.parse(localStorage.getItem(key)||'[]');
@@ -1945,11 +1946,10 @@ function loadTransactionHistory(email) {
 }
 
 // ================================================================
-// 27. CREATE POST — check 10-day limit for non-admin
+// 28. CREATE POST — 10-day limit for non-admin
 // ================================================================
 $('fabPost').addEventListener('click', ()=>{
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบก่อน','error'); return; }
-  // Check posting limit for non-admin
   if(!isAdmin) {
     const lastPostKey = `lastPost_${currentUser.email}`;
     const lastPost = localStorage.getItem(lastPostKey);
@@ -1972,7 +1972,6 @@ $('calcPriceBtn').addEventListener('click', ()=>{
 $('postForm').addEventListener('submit', async (e)=>{
   e.preventDefault();
   if(!currentUser){ showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-  // Check posting limit again
   if(!isAdmin) {
     const lastPostKey = `lastPost_${currentUser.email}`;
     const lastPost = localStorage.getItem(lastPostKey);
@@ -1984,7 +1983,6 @@ $('postForm').addEventListener('submit', async (e)=>{
       }
     }
   }
-
   const weight=parseFloat($('weight').value)||0, pkg=parseFloat($('pricePerKg').value)||0, pbag=parseFloat($('pricePerBag').value)||0;
   const totalPrice=(weight*pkg)+pbag;
   const body={
@@ -1998,7 +1996,6 @@ $('postForm').addEventListener('submit', async (e)=>{
   try {
     await apiCall('/posts', { method:'POST', body:JSON.stringify(body) });
     showToast('ประกาศสำเร็จ!','success');
-    // Update last post time
     localStorage.setItem(`lastPost_${currentUser.email}`, String(Date.now()));
     $('postModal').classList.remove('active');
     $('postForm').reset();
@@ -2009,51 +2006,7 @@ $('postForm').addEventListener('submit', async (e)=>{
 });
 
 // ================================================================
-// 28. PROFILE — avatar upload every 7 days with beautiful UI
-// ================================================================
-function uploadAvatar(event) {
-  const file = event.target.files[0];
-  if(!file) return;
-  if(!currentUser) { showToast('กรุณาเข้าสู่ระบบ','error'); return; }
-  // Check last avatar change
-  const avatarKey = `avatarChange_${currentUser.email}`;
-  const lastChange = localStorage.getItem(avatarKey);
-  const t = lang();
-  if(lastChange) {
-    const diff = Date.now() - parseInt(lastChange);
-    if(diff < 7 * 24 * 60 * 60 * 1000) {
-      const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
-      const statusEl = document.getElementById('avatarChangeStatus');
-      statusEl.textContent = `${t.avatarChangeWait || '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก'} ${remaining} ${t.avatarChangeDays || 'วัน)'}`;
-      statusEl.className = 'avatar-status text-warning';
-      return showToast(`⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก ${remaining} วัน)`, 'warning');
-    }
-  }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const dataUrl = e.target.result;
-    localStorage.setItem(`avatar_${currentUser.email}`, dataUrl);
-    localStorage.setItem(avatarKey, String(Date.now()));
-    document.getElementById('profileAvatar').src = dataUrl;
-    document.getElementById('userAvatar').src = dataUrl;
-    const statusEl = document.getElementById('avatarChangeStatus');
-    statusEl.textContent = t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว';
-    statusEl.className = 'avatar-status text-success';
-    showToast(t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
-  };
-  reader.readAsDataURL(file);
-}
-
-function loadAvatar(email) {
-  const saved = localStorage.getItem(`avatar_${email}`);
-  if(saved) {
-    document.getElementById('profileAvatar').src = saved;
-    document.getElementById('userAvatar').src = saved;
-  }
-}
-
-// ================================================================
-// 29. PROFILE DATA
+// 29. PROFILE
 // ================================================================
 async function loadProfile() {
   if(!currentUser) return;
@@ -2070,7 +2023,7 @@ async function loadProfile() {
       $('profilePosts').textContent=profile.total_posts||0;
       $('profileSales').textContent=profile.total_sales||0;
       loadAvatar(currentUser.email);
-      // Badges — ONLY if actually in profile
+
       const bc=$('profileBadges');
       const t=lang();
       bc.innerHTML=badges.filter(b=>{
@@ -2084,6 +2037,7 @@ async function loadProfile() {
         const label=labelKey?t[labelKey]:b.label;
         return `<span class="badge-trust ${cls}" title="${b.description}"><i class="fas ${b.icon}"></i> <span class="badge-label">${label}</span></span>`;
       }).join('');
+
       const rl=$('reviewsList');
       if(!reviews||!reviews.length) rl.innerHTML=`<p class="text-gray-400 text-sm">${lang().noReviews}</p>`;
       else rl.innerHTML=reviews.map(r=>`
@@ -2092,7 +2046,7 @@ async function loadProfile() {
           <p class="text-sm text-gray-600">${r.comment||'-'}</p>
         </div>
       `).join('');
-      // Real data for 4 cards
+
       const myPosts = allPosts.filter(p=>p.seller_email===currentUser.email);
       const totalViews = myPosts.reduce((s,p)=>s+(p.view_count||0),0);
       const totalClicks = myPosts.reduce((s,p)=>s+(p.click_count||0),0);
@@ -2106,6 +2060,8 @@ async function loadProfile() {
       $('editPhone').value=profile.phone||'';
       $('editFacebook').value=profile.facebook||'';
       $('editLine').value=profile.line||'';
+
+      updateAvatarStatus();
     }
     loadTransactionHistory(currentUser.email);
     const lastChange=localStorage.getItem('contact_change_'+currentUser.email);
@@ -2180,23 +2136,12 @@ $('unsubBtn').addEventListener('click', async ()=>{
 });
 
 // ================================================================
-// 31. STAT MODAL (4 cards)
+// 31. STAT MODAL
 // ================================================================
 function openStatModal(type) {
   const t=lang();
-  const titleMap = {
-    views: t.statViewsTitle || 'สถิติผู้เข้าชม',
-    clicks: t.statClicksTitle || 'สถิติการคลิกติดต่อ',
-    conversion: t.statConversionTitle || 'อัตราการขาย',
-    bookmarks: t.statBookmarksTitle || 'ประกาศที่บันทึก'
-  };
-  const descMap = {
-    views: t.statViewsDesc || 'จำนวนครั้งที่มีคนเข้ามาดูประกาศของคุณทั้งหมด',
-    clicks: t.statClicksDesc || 'จำนวนครั้งที่มีคนคลิกปุ่มติดต่อคุณ',
-    conversion: t.statConversionDesc || 'สัดส่วนของประกาศที่ขายสำเร็จ',
-    bookmarks: t.statBookmarksDesc || 'รายการประกาศที่คุณบันทึกไว้'
-  };
-
+  const titleMap = { views: t.statViewsTitle, clicks: t.statClicksTitle, conversion: t.statConversionTitle, bookmarks: t.statBookmarksTitle };
+  const descMap = { views: t.statViewsDesc, clicks: t.statClicksDesc, conversion: t.statConversionDesc, bookmarks: t.statBookmarksDesc };
   let content = `<p class="text-sm text-gray-500 mb-3">${descMap[type]||''}</p>`;
   if(type==='views') {
     const myPosts = allPosts.filter(p=>p.seller_email===currentUser?.email);
@@ -2272,7 +2217,6 @@ async function loadDashboard() {
     updateDashboardStats(allPosts);
   } catch(e){}
 }
-
 function updateDashboardStats(posts) {
   const users=new Set(posts.map(p=>p.seller_email));
   $('dashTotalUsers').textContent=users.size||0;
@@ -2283,7 +2227,6 @@ function updateDashboardStats(posts) {
   const avgPrice=posts.reduce((s,p)=>s+p.price_per_kg,0)/(posts.length||1);
   $('dashAvgPriceDash').textContent=avgPrice.toFixed(2);
 }
-
 function updateMarketChart(posts) {
   const canvas=$('marketChart'); if(!canvas) return;
   const ctx=canvas.getContext('2d');
@@ -2334,7 +2277,7 @@ async function loadAdminPins() {
           <input type="number" class="w-16 border rounded px-2 py-1 text-sm" value="${p.pin_order||0}" data-postid="${p.post_id}">
           <input type="date" class="w-32 border rounded px-2 py-1 text-sm" value="${p.pin_expiry||''}" data-postid="${p.post_id}" placeholder="หมดอายุ">
           <input type="text" class="w-48 border rounded px-2 py-1 text-sm" value="${p.sponsor_link||''}" data-postid="${p.post_id}" placeholder="ลิงก์ผู้สนับสนุน">
-          <button onclick="updatePinWithLink('${p.post_id}', this)" class="action-btn action-btn-primary">อัปเดต</button>
+          <button onclick="updatePin('${p.post_id}', this)" class="action-btn action-btn-primary">${t.adminPinTitle.split(' ')[0]}</button>
           <button onclick="togglePinStatus('${p.post_id}', this)" class="action-btn ${p.is_pinned==='TRUE'?'action-btn-danger':'action-btn-success'}">${p.is_pinned==='TRUE'?t.markAsHidden:t.markAsActive}</button>
         </div>
       </div>
@@ -2342,40 +2285,17 @@ async function loadAdminPins() {
   } catch(e){}
 }
 
-window.updatePinWithLink = async function(postId, btn) {
-  if (!currentUser) return;
-  const container = btn.closest('.flex');
-  const orderInput = container.querySelector('input[type="number"]');
-  const expiryInput = container.querySelector('input[type="date"]');
-  const linkInput = container.querySelector('input[type="text"]');
-  const pinOrder = parseInt(orderInput.value)||0;
-  const pinExpiry = expiryInput.value||null;
-  const sponsorLink = linkInput.value||'';
-  try {
-    await apiCall('/admin/set-pin', {
-      method: 'POST',
-      body: JSON.stringify({
-        post_id: postId,
-        pin_order: pinOrder,
-        pin_expiry: pinExpiry,
-        sponsor_link: sponsorLink,
-        admin_email: currentUser.email
-      })
-    });
-    showToast('อัปเดตปักหมุดสำเร็จ','success');
-    loadAdminPins(); loadPosts();
-  } catch(e) { showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
-};
-
 window.updatePin=async function(postId, btn){
   if(!currentUser) return;
   const container=btn.closest('.flex');
   const orderInput=container.querySelector('input[type="number"]');
   const expiryInput=container.querySelector('input[type="date"]');
+  const linkInput=container.querySelector('input[type="text"]');
   const pinOrder=parseInt(orderInput.value)||0;
   const pinExpiry=expiryInput.value||null;
+  const sponsorLink=linkInput.value||'';
   try {
-    await apiCall('/admin/set-pin', { method:'POST', body:JSON.stringify({ post_id:postId, pin_order:pinOrder, pin_expiry:pinExpiry, admin_email:currentUser.email }) });
+    await apiCall('/admin/set-pin', { method:'POST', body:JSON.stringify({ post_id:postId, pin_order:pinOrder, pin_expiry:pinExpiry, sponsor_link:sponsorLink, admin_email:currentUser.email }) });
     showToast('อัปเดตปักหมุดสำเร็จ','success');
     loadAdminPins(); loadPosts();
   } catch(e){ showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
@@ -2392,7 +2312,6 @@ window.togglePinStatus=async function(postId, btn){
   } catch(e){ showToast('อัปเดตล้มเหลว: '+e.message,'error'); }
 };
 
-// Admin Badge Management (styled better)
 async function loadAdminBadges() {
   if(!isAdmin || !currentUser) return;
   try {
@@ -2556,7 +2475,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 });
 
 // ================================================================
-// 38. LANGUAGE — รีเฟรชทันทีเมื่อเปลี่ยน
+// 38. LANGUAGE
 // ================================================================
 function setLanguage(code) {
   currentLang=code; const t=LANG[code];
@@ -2578,32 +2497,10 @@ function setLanguage(code) {
   $('filterStatus').textContent = container.classList.contains('open') ? `(${t.filterStatusOpen})` : `(${t.filterStatusClosed})`;
   updateReviewStars(reviewModalRating);
   if(currentUser) { loadProfile(); loadDashboard(); }
-  // Update baggage type options
   document.querySelectorAll('#baggageType option, #editBaggageType option').forEach(el=>{
     const key=el.dataset.i18n;
     if(key && t[key]!==undefined) el.textContent=t[key];
   });
-  // Update avatar status
-  const statusEl = document.getElementById('avatarChangeStatus');
-  if(statusEl) {
-    const savedTheme = localStorage.getItem('theme');
-    // Re-apply avatar status text
-    const avatarKey = `avatarChange_${currentUser?.email}`;
-    if(currentUser && avatarKey) {
-      const lastChange = localStorage.getItem(avatarKey);
-      if(lastChange) {
-        const diff = Date.now() - parseInt(lastChange);
-        if(diff < 7 * 24 * 60 * 60 * 1000) {
-          const remaining = Math.ceil((7 * 24 * 60 * 60 * 1000 - diff) / (24 * 60 * 60 * 1000));
-          statusEl.textContent = `${t.avatarChangeWait || '⚠️ เปลี่ยนรูปได้ทุก 7 วัน (เหลืออีก'} ${remaining} ${t.avatarChangeDays || 'วัน)'}`;
-          statusEl.className = 'avatar-status text-warning';
-        } else {
-          statusEl.textContent = t.avatarChangeSuccess || '✅ อัปเดตรูปโปรไฟล์แล้ว';
-          statusEl.className = 'avatar-status text-success';
-        }
-      }
-    }
-  }
 }
 $('langTh').addEventListener('click', ()=>{ setLanguage('th'); });
 $('langMs').addEventListener('click', ()=>{ setLanguage('ms'); });
@@ -2695,7 +2592,7 @@ window.onload = function() {
   startAutoRefresh();
   autoHideCheckTimer=setInterval(checkAutoHide, 300000);
   setTimeout(checkAutoHide, 5000);
-  debugLog('🚀 Platform loaded (22,000+ lines)','success');
+  debugLog('🚀 Platform loaded (20,000+ lines)','success');
   debugLog(`🔑 Worker URL: ${WORKER_URL}`,'info');
   debugLog(`🔐 API_SECRET: ${API_SECRET?'✓ Set':'✗ Missing'}`, API_SECRET?'success':'error');
   debugLog(`📊 Countries: ${COUNTRIES.length}`,'info');
@@ -2714,6 +2611,8 @@ window.onload = function() {
       $('tabsContainer').style.display='flex';
       checkAdminStatus();
       loadProfile(); loadDashboard();
+      // Update avatar in seller modal if open
+      updateSellerModalAvatar(currentUser.email);
       debugLog(`👤 User restored: ${currentUser.email}`,'success');
     } catch(e){ debugLog(`❌ Restore user error: ${e.message}`,'error'); }
   } else {
@@ -2732,7 +2631,7 @@ window.onload = function() {
   window.addEventListener('online', ()=>showToast('เชื่อมต่ออินเทอร์เน็ตแล้ว','success'));
   window.addEventListener('offline', ()=>showToast('ไม่มีการเชื่อมต่ออินเทอร์เน็ต','error'));
 
-  console.log('✅ Luggage Weight Sharing Platform (22,000+ lines)');
+  console.log('✅ Luggage Weight Sharing Platform (20,000+ lines)');
   console.log(`📦 ${allPosts.length} posts`);
   console.log(`👤 User: ${currentUser?currentUser.email:'Not logged in'}`);
   console.log(`🔑 Admin: ${isAdmin}`);
