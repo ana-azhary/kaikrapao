@@ -1208,7 +1208,6 @@ function showToast(msg, type='info') {
 function addNotification(msg, type='info') {
   notificationCount++;
   updateNotificationBadge();
-  showToast(msg, type);
   const notifs = JSON.parse(localStorage.getItem('notifications')||'[]');
   notifs.push({message:msg, type, time:new Date().toISOString()});
   if(notifs.length>50) notifs.shift();
@@ -1229,9 +1228,11 @@ $('notificationBell').addEventListener('click', ()=>{
 });
 
 // ================================================================
-// 9. AUTO HIDE — 1 เดือน
+// 9. AUTO HIDE — 1 เดือน (SILENT MODE)
 // ================================================================
-async function checkAutoHide() {
+let autoHideNotified = false;
+
+async function checkAutoHide(silent = false) {
   if(!allPosts.length) return;
   const today = new Date();
   const oneMonthAgo = new Date(today); oneMonthAgo.setMonth(oneMonthAgo.getMonth()-1);
@@ -1242,11 +1243,16 @@ async function checkAutoHide() {
   });
   if(toHide.length) {
     debugLog(`🔄 Auto-hiding ${toHide.length} posts (flight > 1 month ago)`, 'info');
+    let hiddenCount = 0;
     for(const p of toHide) {
       try {
         await apiCall(`/posts/${p.post_id}`, { method:'PUT', body:JSON.stringify({status:'auto_hidden'}) });
-        addNotification(`📦 โพสต์ ${p.seller_name} (${p.departure_airport}→${p.arrival_airport}) ถูกซ่อนอัตโนมัติ (บินแล้ว 1 เดือน)`, 'warning');
+        hiddenCount++;
+        debugLog(`📦 Auto-hid: ${p.seller_name} (${p.departure_airport}→${p.arrival_airport})`, 'info');
       } catch(e) { debugLog(`❌ Auto-hide failed ${p.post_id}: ${e.message}`, 'error'); }
+    }
+    if(hiddenCount > 0 && !silent) {
+      showToast(`🔕 ซ่อนโพสต์อัตโนมัติ ${hiddenCount} รายการ (ดูใน Debug Log)`, 'info');
     }
     loadPosts();
   }
@@ -1278,7 +1284,6 @@ function uploadAvatar(event) {
     document.getElementById('userAvatar').src = dataUrl;
     updateSellerModalAvatar(email);
     showToast('✅ อัปเดตรูปโปรไฟล์แล้ว', 'success');
-    // อัปเดตสถานะ
     updateAvatarStatus();
   };
   reader.readAsDataURL(file);
@@ -1392,7 +1397,7 @@ function renderPosts(posts) {
       'sold': `<span class="status-badge sold">${t.statusSold}</span>`,
       'expired': `<span class="status-badge expired">${t.statusExpired}</span>`,
       'hidden': `<span class="status-badge hidden">${t.statusHidden}</span>`,
-      'auto_hidden': `<span class="status-badge auto_hidden">${t.statusAutoHidden}`,
+      'auto_hidden': `<span class="status-badge auto_hidden">${t.statusAutoHidden}</span>`,
       'weight_full': `<span class="status-badge weight-full">${t.statusWeightFull}</span>`,
       'weight_available': `<span class="status-badge weight-available">${t.statusWeightAvailable}</span>`
     };
@@ -2589,13 +2594,15 @@ window.onload = function() {
   setLanguage('th');
   loadPosts();
   startAutoRefresh();
-  autoHideCheckTimer=setInterval(checkAutoHide, 300000);
-  setTimeout(checkAutoHide, 5000);
+  // ✅ AUTO-HIDE: ตรวจสอบแบบ SILENT (ไม่แสดง Toast)
+  autoHideCheckTimer = setInterval(() => checkAutoHide(true), 3600000); // ทุก 1 ชั่วโมง
+  setTimeout(() => checkAutoHide(true), 5000);
   debugLog('🚀 Platform loaded (20,000+ lines)','success');
   debugLog(`🔑 Worker URL: ${WORKER_URL}`,'info');
   debugLog(`🔐 API_SECRET: ${API_SECRET?'✓ Set':'✗ Missing'}`, API_SECRET?'success':'error');
   debugLog(`📊 Countries: ${COUNTRIES.length}`,'info');
   debugLog(`🌓 Theme: ${isDark?'dark':'light'}`,'info');
+  debugLog(`🔕 Auto-hide notifications are SILENT (no toast)`, 'info');
 
   const savedUser=localStorage.getItem('luggage_user');
   if(savedUser) {
@@ -2610,7 +2617,6 @@ window.onload = function() {
       $('tabsContainer').style.display='flex';
       checkAdminStatus();
       loadProfile(); loadDashboard();
-      // Update avatar in seller modal if open
       updateSellerModalAvatar(currentUser.email);
       debugLog(`👤 User restored: ${currentUser.email}`,'success');
     } catch(e){ debugLog(`❌ Restore user error: ${e.message}`,'error'); }
@@ -2636,7 +2642,7 @@ window.onload = function() {
   console.log(`🔑 Admin: ${isAdmin}`);
   console.log(`📡 WORKER_URL: ${WORKER_URL}`);
   console.log(`🌓 Theme: ${isDark?'dark':'light'}`);
-  console.log(`📝 Auto-hide: 1 month after flight`);
+  console.log(`📝 Auto-hide: 1 month after flight (SILENT MODE)`);
   console.log(`📊 PER_PAGE: ${PER_PAGE}`);
 };
 </script>
